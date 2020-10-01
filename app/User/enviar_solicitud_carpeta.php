@@ -19,6 +19,17 @@ if (empty($_SESSION["id"])) {
 
     include("../../global/conexion.php");
 
+    //Traemos datos del usuario solicitante para usarlos en el envio de email.
+
+    $datos_usuario = mysqli_query($con, "SELECT * FROM usuarios WHERE usu_id = '$usu_id'");
+
+    $row_user = mysqli_fetch_array($datos_usuario);
+
+    $nombre_usuario = $row_user['usu_nombre_cmplt'];
+
+   
+
+
     //Condicional validando la existencia del nombre del botón. 
     //Dentro de este condicional se ejecuta toda la operación de validación de los datos. 
     if (isset($_POST['btn-send'])) {
@@ -32,6 +43,8 @@ if (empty($_SESSION["id"])) {
         $row_isset_crpt = mysqli_num_rows($verifi_isset_crpt);
 
         $nombre_carpeta = $row_isset_crpt['ca_nombre_carpeta'];
+
+        //var_dump($row_isset_crpt);
 
         //Verificamos la existencia de la carpeta con el código de la carpeta, si es así entonces ejecuta las demás validaciones. 
         if ($row_isset_crpt > 0) {
@@ -65,96 +78,87 @@ if (empty($_SESSION["id"])) {
                     //Si no está vacío el query insertado, entonces notifica que se ha enviado su solicitud. 
                     if (!empty($query_prst_carpeta)) {
 
+
+                        require 'src/Exception.php';
+                        require 'src/PHPMailer.php';
+                        require 'src/SMTP.php';
+
+                        $correo = "lalejandrocd1@gmail.com";
+
+                        //$asunto = $_POST['asunto'];
+                        //$mensaje = "El usuario $nombre_usuario ha solicitado un prestamo a la carpeta $nombre_carpeta.";
+
+                        $mensaje = '<html lang="en">
+                            <head>
+                                <meta charset="UTF-8">
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                <title>Document</title>
+                            </head>
+                            <body>
+
+                                    <p> El usuario ' . $nombre_usuario . ' ha solicitado un prestamo a la carpeta número: ' . $codigo_carpeta . ' hasta el día ' . $fecha_final . '.</p>
+    
+                            </body>
+                            </html>';
+
+                        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+
+                        try {
+                            //Server settings
+                            $mail->SMTPDebug = 2;                                       // Enable verbose debug output
+                            $mail->isSMTP();                                            // Set mailer to use SMTP
+                            $mail->Host       = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+                            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                            $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+                            $mail->Port       = 587;                                    // TCP port to connect to
+
+
+                            //https://support.google.com/mail/answer/185833?hl=es-419 POR ACA INGRESAN PARA CREAR LA CLAVE DE LA APP
+                            $mail->Username   =  'lalejandrocd1@gmail.com';                     // SMTP username
+                            $mail->Password   = 'dwyyvxykhmsvykap';                               // SMTP password
+
+                            //Recipients
+                            $mail->setFrom('lalejandrocd1@gmail.com', 'Luis Alejandro Ceron Delgado');
+
+                            //La siguiente linea, se repite N cantidad de veces como destinarios tenga
+                            $mail->addAddress($correo, $correo);     // Add a recipient
+
+
+                            // Content
+                            $mail->isHTML(true);                                  // Set email format to HTML
+                            $mail->Subject = "Solicitud prestamo de carpeta";
+                            $mail->Body    = $mensaje;
+                            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+                            $mail->send();
+
+                            echo 'Message has been sent';
+                        } catch (Exception $e) {
+                            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                        }
+
                         echo "<script> alert('Se ha enviado la solicitud al administrador.');
- 		        window.location.href='solicitar_carpeta.php';</script>";
+ 		                window.location.href='solicitar_carpeta.php';</script>";
                     } else {
 
-                        //En caso de que el query este vacio entonces notifica que hay un error y redirecciona. 
                         echo "<script> alert('Error al solicitar el prestamo.');
- 		        window.location.href='solicitar_carpeta.php';</script>";
+ 		                window.location.href='solicitar_carpeta.php';</script>";
                     }
                 }
             }
 
-            mysqli_close($con);
-
         }else{
-
-            echo "<script> alert('Está carpeta no existe. ');
+            
+                echo "<script> alert('Está carpeta no existe. ');
  		        window.location.href='solicitar_carpeta.php';</script>";
 
         }
-     
-
-        
+  
     }
 
-    //Creamos este condicional para validar si los datos solicitados se encuentran en la tabla de carpetas prestadas.
-    //Si el número de columnas es igual a 0, es decir, no hay registros con el código de la carpeta y el id del usuario en la tabla carpetas_prestadas. Entonces realiza un alert y re direcciona. 
-    if ($row_verif_carpt_prst < 0) {
-
-        echo "<script> alert('Error.');
- 		        window.location.href='solicitar_carpeta.php';</script>";
-       
-    //Sentencia else para que así se envie el correo electrónico para así notificar al usuario. 
-    }else{
-
-    $datos_usuario= mysqli_query($con, "SELECT * FROM usuarios WHERE usu_id = '$usu_id'");
-
-    $row_user= mysqli_fetch_assoc($datos_usuario);
-
-    $nombre_usuario = $row_user['usu_nombre_cmplt'];
-
-    mysqli_close($con);
-
-    require 'src/Exception.php';
-    require 'src/PHPMailer.php';
-    require 'src/SMTP.php';
-
-    $correo = "lalejandrocd1@gmail.com";
-   
-    $asunto = $_POST['asunto'];
-    $mensaje = "El usuario $nombre_usuario ha solicitado un prestamo a la carpeta $nombre_carpeta.";
-
-    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
-
-    try {
-        //Server settings
-        $mail->SMTPDebug = 2;                                       // Enable verbose debug output
-        $mail->isSMTP();                                            // Set mailer to use SMTP
-        $mail->Host       = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
-        $mail->Port       = 587;                                    // TCP port to connect to
-
-
-        //https://support.google.com/mail/answer/185833?hl=es-419 POR ACA INGRESAN PARA CREAR LA CLAVE DE LA APP
-        $mail->Username   =  'lalejandrocd1@gmail.com';                     // SMTP username
-        $mail->Password   = 'dwyyvxykhmsvykap';                               // SMTP password
-
-        //Recipients
-        $mail->setFrom('lalejandrocd1@gmail.com', 'Luis Alejandro Ceron Delgado');
-
-        //La siguiente linea, se repite N cantidad de veces como destinarios tenga
-        $mail->addAddress($correo, $correo);     // Add a recipient
-       
-
-        // Content
-        $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "Solicitud prestamo de carpeta";
-        $mail->Body    = $mensaje;
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-        $mail->send();
-
-        echo 'Message has been sent';
-    } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-    }
-    
-    
-    }
 
 ?>
+
+
 
 
 <?php } ?>
