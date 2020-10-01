@@ -21,15 +21,14 @@ if (empty($_SESSION["id"])) {
 
 
 
-
     <?php
 
     $query_count = mysqli_query($con, "SELECT codigo_carpeta FROM carpetas_prestadas WHERE id_usuario = '$usu_id'");
 
     $rw = mysqli_num_rows($query_count);
 
-    echo $rw;
-    
+    //echo $rw;
+
     if ($rw <= 2) { ?>
 
         <div class="container">
@@ -43,12 +42,24 @@ if (empty($_SESSION["id"])) {
                             <input type="number" class="form-control" id="inputEmail3" name="pc_codigo_carpt" REQUIRED>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputEmail3" name="usu_email" REQUIRED>
+                            <input type="email" class="form-control" id="inputEmail3" name="usu_email" REQUIRED value="" placeholder="Escribe el correo electrónico del destinatario">
+                        </div>
+                    </div> -->
+                    <!-- <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Asunto</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputEmail3" name="asunto" REQUIRED>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Contenido</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" aria-label="With textarea" name="contenido" placeholder="..." required></textarea>
+                        </div>
+                    </div> -->
                     <div class="form-group row">
                         <label for="inputdatetime-local" class="col-sm-2 col-form-label">Fecha final</label>
                         <div class="col-sm-10">

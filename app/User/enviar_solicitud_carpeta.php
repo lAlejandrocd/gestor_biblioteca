@@ -19,55 +19,102 @@ if (empty($_SESSION["id"])) {
 
     include("../../global/conexion.php");
 
-    if (empty($_POST['btn-send'])) {
+    //Condicional validando la existencia del nombre del botón. 
+    //Dentro de este condicional se ejecuta toda la operación de validación de los datos. 
+    if (isset($_POST['btn-send'])) {
 
         $codigo_carpeta = $_POST['pc_codigo_carpt'];
 
         $fecha_final = $_POST['pc_fecha_final'];
 
-        // $correo1 = $_POST['usu_email'];
+        $verifi_isset_crpt = mysqli_query($con, "SELECT * FROM carpetas WHERE ca_codigo_carpeta = '$codigo_carpeta'");
 
+        $row_isset_crpt = mysqli_num_rows($verifi_isset_crpt);
 
-        $query_verif = mysqli_query($con, "SELECT * FROM solicitud_prestamo WHERE pc_id_usuario = '$usu_id' AND pc_codigo_carpt = '$codigo_carpeta'");
+        $nombre_carpeta = $row_isset_crpt['ca_nombre_carpeta'];
 
-        if ($row_verif = mysqli_num_rows($query_verif) > 0) {
+        //Verificamos la existencia de la carpeta con el código de la carpeta, si es así entonces ejecuta las demás validaciones. 
+        if ($row_isset_crpt > 0) {
 
-            echo "<script> alert('Ya hay una solicitud disponible, el administrador te informará el rechazo o autorización del prestamo. .');
- 		window.location.href='solicitar_carpeta.php';</script>";
+            //Query para verificar si el usuario tiene en poseción la carpeta que está solicitando. 
+            $query_verif_carpt_prst = mysqli_query($con, "SELECT * FROM carpetas_prestadas WHERE id_usuario = '$usu_id' AND codigo_carpeta = '$codigo_carpeta'");
 
-        }else {
+            //validamos si el número de columnas es mayor a 0 dependiendo de la consulta anterior. 
+            //Si es mayor a 0 entonces lanza un alert y re ubica al usuario en una página en específico. 
+            if ($row_verif_carpt_prst = mysqli_num_rows($query_verif_carpt_prst) > 0) {
 
-            $query_prst_carpeta = mysqli_query($con, "INSERT INTO solicitud_prestamo (ID, pc_id_usuario,pc_codigo_carpt, pc_fecha_inicio, pc_fecha_final) VALUES (NULL, '$usu_id', '$codigo_carpeta', NOW(), '$fecha_final')");
-
-            if (!empty($query_prst_carpeta)) {
-
-                echo "<script> alert('Se ha enviado la solicitud al administrador.');
- 		        window.location.href='solicitar_carpeta.php';</script>";
+                echo "<script> alert('tienes esta carpeta en tu pocesión.');
+ 		    window.location.href='solicitar_carpeta.php';</script>";
             } else {
-                echo "<script> alert('Error..';</script>";
+
+                //En caso de que no tenga en pocesión la carpeta, entonces valida la existencia de una solicitud de prestamo. 
+                $query_verif = mysqli_query($con, "SELECT * FROM solicitud_prestamo WHERE pc_id_usuario = '$usu_id' AND pc_codigo_carpt = '$codigo_carpeta'");
+
+                //Si hay una solicitud de prestamo, entonces nofifica a la persona y re direcciona. 
+                if ($row_verif = mysqli_num_rows($query_verif) > 0) {
+
+                    echo "Ya hay una solicitud disponible.";
+                    echo "<script> alert('Ya hay una solicitud disponible, el administrador te informará el rechazo o autorización del prestamo. .');
+                  window.location.href='solicitar_carpeta.php';</script>";
+
+                    //Ejecutamos sentencia else en caso de que no haya una solicitud, agrega la solicitud a una tabla en concreto. 
+                } else {
+
+                    $query_prst_carpeta = mysqli_query($con, "INSERT INTO solicitud_prestamo (ID, pc_id_usuario,pc_codigo_carpt, pc_fecha_inicio, pc_fecha_final) VALUES (NULL, '$usu_id', '$codigo_carpeta', NOW(), '$fecha_final')");
+
+                    //Si no está vacío el query insertado, entonces notifica que se ha enviado su solicitud. 
+                    if (!empty($query_prst_carpeta)) {
+
+                        echo "<script> alert('Se ha enviado la solicitud al administrador.');
+ 		        window.location.href='solicitar_carpeta.php';</script>";
+                    } else {
+
+                        //En caso de que el query este vacio entonces notifica que hay un error y redirecciona. 
+                        echo "<script> alert('Error al solicitar el prestamo.');
+ 		        window.location.href='solicitar_carpeta.php';</script>";
+                    }
+                }
             }
 
+            mysqli_close($con);
+
+        }else{
+
+            echo "<script> alert('Está carpeta no existe. ');
+ 		        window.location.href='solicitar_carpeta.php';</script>";
+
         }
+     
 
-
-
-        mysqli_close($con);
+        
     }
 
+    //Creamos este condicional para validar si los datos solicitados se encuentran en la tabla de carpetas prestadas.
+    //Si el número de columnas es igual a 0, es decir, no hay registros con el código de la carpeta y el id del usuario en la tabla carpetas_prestadas. Entonces realiza un alert y re direcciona. 
+    if ($row_verif_carpt_prst < 0) {
 
+        echo "<script> alert('Error.');
+ 		        window.location.href='solicitar_carpeta.php';</script>";
+       
+    //Sentencia else para que así se envie el correo electrónico para así notificar al usuario. 
+    }else{
 
-?>
+    $datos_usuario= mysqli_query($con, "SELECT * FROM usuarios WHERE usu_id = '$usu_id'");
 
-<?php
+    $row_user= mysqli_fetch_assoc($datos_usuario);
 
-    
+    $nombre_usuario = $row_user['usu_nombre_cmplt'];
+
+    mysqli_close($con);
 
     require 'src/Exception.php';
     require 'src/PHPMailer.php';
     require 'src/SMTP.php';
 
-    $correo = $_POST['usu_email'];
-    $mensaje = "Se ha enviado tu solicitud correctamente.";
+    $correo = "lalejandrocd1@gmail.com";
+   
+    $asunto = $_POST['asunto'];
+    $mensaje = "El usuario $nombre_usuario ha solicitado un prestamo a la carpeta $nombre_carpeta.";
 
     $mail = new PHPMailer\PHPMailer\PHPMailer(true);
 
@@ -82,7 +129,7 @@ if (empty($_SESSION["id"])) {
 
 
         //https://support.google.com/mail/answer/185833?hl=es-419 POR ACA INGRESAN PARA CREAR LA CLAVE DE LA APP
-        $mail->Username   = 'lalejandrocd1@gmail.com';                     // SMTP username
+        $mail->Username   =  'lalejandrocd1@gmail.com';                     // SMTP username
         $mail->Password   = 'dwyyvxykhmsvykap';                               // SMTP password
 
         //Recipients
@@ -90,11 +137,11 @@ if (empty($_SESSION["id"])) {
 
         //La siguiente linea, se repite N cantidad de veces como destinarios tenga
         $mail->addAddress($correo, $correo);     // Add a recipient
-
+       
 
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'Mensaje automatico';
+        $mail->Subject = "Solicitud prestamo de carpeta";
         $mail->Body    = $mensaje;
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
         $mail->send();
@@ -102,6 +149,9 @@ if (empty($_SESSION["id"])) {
         echo 'Message has been sent';
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+    
+    
     }
 
 ?>
