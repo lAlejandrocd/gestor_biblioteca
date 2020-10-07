@@ -33,7 +33,7 @@ if (empty($_SESSION['ID_Ad'])) {
 
     <div class="container">
         <div class="jumbotron text-center">
-            <h1 class="display-8">Asunto de rechazo de modificación.</h1>
+            <h1 class="display-8">Envio autorización de Carpeta.</h1>
             <form action="envio_autorizar_carpeta.php" method="post">
                 <div class="form-group row">
                     <label for="inputCodigocarpeta" class="col-sm-2 col-form-label">Destino</label>

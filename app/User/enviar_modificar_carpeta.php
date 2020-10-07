@@ -24,16 +24,21 @@ if (empty($_SESSION["id"])) {
        
     }
     
+
     $query_insert = mysqli_query($con, "INSERT INTO carpetas_modificadas(ID, cm_codigo_carpeta, cm_folios_agregados, cm_fecha, cm_id_usuario) VALUES(NULL, '$cm_codigo_carpeta', '$cm_folios_agregados', NOW() , '$usu_id')");
 
     if (!$query_insert) {
 
-        die("Query failed");
+        echo "<script> alert('Fallo en agregar modificación.');
+ 	    window.location.href='gestor.php';</script>";
     }
 
     echo "<script> alert('La modificación será autorizada por el administrador');
  	window.location.href='gestor.php';</script>";
-  
+    
+ 
+
+    
 
     ?>
 

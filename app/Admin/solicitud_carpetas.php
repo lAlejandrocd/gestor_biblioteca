@@ -55,7 +55,12 @@ if (empty($_SESSION['ID_Ad'])) {
                                         </td>
                                         <td>
                                             <form action="rechazar_carpeta.php" method="post">
-                                                <button class="btn btn-danger" type="button">Rechazar Prestamo</button>
+                                                <input type="hidden" name="ID" value="<?php echo $row['ID']; ?>">
+                                                <input type="hidden" name="pc_id_usuario" value="<?php echo $row['pc_id_usuario']; ?>">
+                                                <input type="hidden" name="pc_codigo_carpt" value="<?php echo $row['pc_codigo_carpt']; ?>">
+                                                <input type="hidden" name="pc_fecha_final" value="<?php echo $row['pc_fecha_final']; ?>">
+
+                                                <button class="btn btn-danger" type="submit" name="btn-rechazar">Rechazar Prestamo</button>
 
                                             </form>
                                         </td>

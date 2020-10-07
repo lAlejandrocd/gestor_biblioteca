@@ -1,11 +1,3 @@
-<?php
-
-include("templates/header.php");
-
-?>
-
-
-
 <div class="container">
     <h1>Inicio de sesión</h1>
     <form method="post" action="app/Admin/validar_usuario.php">

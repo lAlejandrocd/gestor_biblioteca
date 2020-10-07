@@ -12,17 +12,38 @@ if (empty($_SESSION["id"])) {
 } else {
 ?>
 
-    <?php include("../../templates/header.php"); ?>
+    <?php include("../../templates/header.php");
+
+    $sql = mysqli_query($con, "SELECT codigo_carpeta FROM carpetas_prestadas WHERE id_usuario = '$usu_id'");
+
+
+
+    ?>
+
 
     <div class="container">
         <div class="jumbotron text-center">
             <h1 class="display-8">Agregar modificaciones.</h1>
             <br>
             <form method="POST" action="enviar_modificar_carpeta.php">
-                <div class="form-group row">
+                <!-- <div class="form-group row">
                     <label for="inputCodigocarpeta" class="col-sm-2 col-form-label">Codigo carpeta</label>
                     <div class="col-sm-10">
                         <input type="number" REQUIRED class="form-control" id="inputEmail3" name="cm_codigo_carpeta" value="">
+                    </div>
+                </div> -->
+                <div class="form-group row">
+                    <label for="my-select" class="col-sm-2 col-form-label">Código carpeta</label>
+                    <div class="col -sm-10">
+                        <select id="my-select" class="custom-select" name="cm_codigo_carpeta">
+                            <?php
+
+                            while ($carpeta = mysqli_fetch_assoc($sql)) { ?>
+
+                                <option value="<?php echo $carpeta['codigo_carpeta']; ?>"><?php echo $carpeta['codigo_carpeta']; ?></option>
+
+                            <?php  } ?>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
