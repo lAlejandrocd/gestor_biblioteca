@@ -48,6 +48,10 @@ if (empty($_SESSION['ID_Ad'])) {
                                         <td>
                                             <form action="modificar.php" method="post">
 
+                                                <input type="hidden" name="cm_codigo_carpeta" value="<?php echo $row['cm_codigo_carpeta'] ?> ">
+
+                                                <input type="hidden" name="id_usuario" value="<?php echo $row['cm_id_usuario'] ?> ">
+
                                                 <input type="hidden" name="ID" value=" <?php echo $row['ID'] ?>">
                                                 <button class="btn btn-success" type="submit" name="btn-autorizar">(Y)</button>
 

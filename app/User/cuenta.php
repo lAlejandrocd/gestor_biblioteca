@@ -71,7 +71,7 @@ if (empty($_SESSION["id"])) {
 
         <div class="container">
             <div class="jumbotron text-center">
-                <h1 class="display-8">Carpetas Solicitadas </h1>
+                <h1 class="display-8">Carpetas Modificadas</h1>
                 <div class="card">
                     <div class="card card-body">
                         <table class="table table-dark">
