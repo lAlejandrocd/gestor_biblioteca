@@ -46,19 +46,6 @@ if (empty($_SESSION['ID_Ad'])) {
        mysqli_close($con);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     //$ID = $_POST['ID'];
     $correo = $_POST['usu_email'];
     $mensaje = $_POST['mensaje'];
@@ -109,12 +96,6 @@ if (empty($_SESSION['ID_Ad'])) {
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
-
-    
-
-
-   
-
 
 ?> 
 
