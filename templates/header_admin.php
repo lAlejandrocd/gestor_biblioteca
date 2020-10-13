@@ -21,7 +21,7 @@
  
     <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -36,7 +36,7 @@
                     </div>
                 </li>
             </ul>
-        </div> 
+        </div>  -->
 
         <!-- <a class="navbar-brand" href="cuenta.php">Mi Cuenta</a> -->
         <a class="navbar-brand" href="gestor.php">Gestor de busqueda.</a>

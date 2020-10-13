@@ -16,7 +16,7 @@ if (empty($_SESSION['ID_Ad'])) {
 
 
     <div class="container">
-        <div class="jumbotron">
+        <div class="jumbotron text-center">
             <div class="card">
                 <div class="card card-body">
                     <div class="table responsive">
@@ -35,7 +35,7 @@ if (empty($_SESSION['ID_Ad'])) {
 
                                 $query = mysqli_query($con, "SELECT * FROM usuarios");
 
-                                while ($row = mysqli_fetch_assoc($query)) { ?>
+                                while ($row = mysqli_fetch_array($query)) { ?>
 
                                     <tr>
                                         <td><?php echo $row['usu_id']; ?></td>
@@ -47,9 +47,8 @@ if (empty($_SESSION['ID_Ad'])) {
                                         </form>
 
                                     </tr>
-                            </tbody>      
-                            </table>
-                                <?php } ?>
+                            </tbody>
+                    <?php } ?>
 
 
                     </div>

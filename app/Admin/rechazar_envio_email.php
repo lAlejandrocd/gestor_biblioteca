@@ -48,11 +48,12 @@ if (empty($_SESSION['ID_Ad'])) {
 
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'Mensaje automatico';
+        $mail->Subject = 'Rechazo modificacion carpeta';
         $mail->Body    = $mensaje;
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
         $mail->send();
 
+        $insert_history = mysqli_query($con, "INSERT INTO historial_modificaciones(hm_ID, hm_id_usuario, hm_codigo_carpeta, hm_tipo_modificacion, hm_fecha) VALUES (NULL, '$ID', '$cm_codigo_carpeta', 'rechazado', NOW() )");
 
         $delete_crpt = mysqli_query($con, "DELETE FROM carpetas_modificadas WHERE cm_id_usuario = '$ID' AND cm_codigo_carpeta = '$cm_codigo_carpeta'");
 

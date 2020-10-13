@@ -15,6 +15,7 @@ if (empty($_SESSION['ID_Ad'])) {
     if (isset($_POST['btn-submit'])) {
 
         $ID = $_POST['ID'];
+        $id_usuario = $_POST['id_usuario'];
 
         $query = mysqli_query(
             $con,
@@ -36,6 +37,7 @@ if (empty($_SESSION['ID_Ad'])) {
 
         $update_crpt = mysqli_query($con, "UPDATE carpetas SET ca_numero_folios='$total' WHERE ca_codigo_carpeta = '$cm_codigo_carpeta'");
 
+        $insert_history = mysqli_query($con, "INSERT INTO historial_modificaciones(hm_ID, hm_id_usuario, hm_codigo_carpeta, hm_tipo_modificacion, hm_fecha) VALUES (NULL, '$id_usuario', '$cm_codigo_carpeta', 'modificado', NOW() )");
 
         $delete_crpt = mysqli_query($con, "DELETE FROM carpetas_modificadas WHERE ID = '$ID'");
 
@@ -46,10 +48,11 @@ if (empty($_SESSION['ID_Ad'])) {
        mysqli_close($con);
     }
 
-    //$ID = $_POST['ID'];
+    $ID = $_POST['ID'];
     $correo = $_POST['usu_email'];
     $mensaje = $_POST['mensaje'];
-    //$cm_codigo_carpeta = $_POST['cm_codigo_carpeta'];
+    $cm_codigo_carpeta = $_POST['cm_codigo_carpeta'];
+    
 
 
     require 'src/Exception.php';
@@ -87,8 +90,6 @@ if (empty($_SESSION['ID_Ad'])) {
         $mail->Body    = $mensaje;
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
         $mail->send();
-
-        
 
         //echo 'Message has been sent';
         echo "<script> alert('Enviado correctamente.');

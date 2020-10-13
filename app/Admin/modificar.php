@@ -6,7 +6,7 @@ include("../../global/conexion.php");
 if (empty($_SESSION['ID_Ad'])) {
     echo "<script> alert('Usuario no existe');
  		window.location.href='../../login_admin.php';</script>";
-} else { ?> 
+} else { ?>
 
 
 
@@ -24,8 +24,6 @@ if (empty($_SESSION['ID_Ad'])) {
         $row = mysqli_fetch_assoc($query);
 
         $email = $row['usu_email'];
-
-       
     }
 
 
@@ -57,6 +55,9 @@ if (empty($_SESSION['ID_Ad'])) {
                 </div>
                 <div class="col-sm-10">
                     <input type="hidden" REQUIRED class="form-control" id="" name="cm_codigo_carpeta" value="<?php echo $cm_codigo_carpeta; ?>">
+                </div>
+                <div class="col-sm-10">
+                    <input type="hidden" REQUIRED class="form-control" id="" name="id_usuario" value="<?php echo $id_usuario; ?>">
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10">
