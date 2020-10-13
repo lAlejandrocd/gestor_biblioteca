@@ -83,7 +83,7 @@ if (empty($_SESSION["id"])) {
         <div class="container">
             <div class="jumbotron text-center">
                 <div class="alert alert-success" role="alert">
-                    Tienes un cupo máximo de 10 carpetas.
+                    Tienes un cupo máximo de 2 carpetas en prestamo.
                 </div>
             </div>
         </div>

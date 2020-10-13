@@ -45,7 +45,7 @@ if (empty($_SESSION["id"])) {
                                     <th scope="col">usuario</th>
                                     <th scope="col">nombre completo</th>
                                     <th scope="col">email</th>
-                                    <th scope="col">clave</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,7 +54,7 @@ if (empty($_SESSION["id"])) {
                                     <td scope="row"><?php echo $datos['usu_id']; ?></td>
                                     <td><?php echo $datos['usu_nombre_cmplt']; ?></td>
                                     <td><?php echo $datos['usu_email']; ?></td>
-                                    <td><?php echo $datos['usu_clave']; ?></td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -114,7 +114,7 @@ if (empty($_SESSION["id"])) {
 
         <div class="container">
             <div class="jumbotron text-center">
-                <h1 class="display-4">Carpetas en pocesión.</h1>
+                <h1 class="display-8">Carpetas en pocesión.</h1>
                 <div class="card">
                     <div class="card card-body">
                         <table class="table table-dark">
@@ -123,6 +123,7 @@ if (empty($_SESSION["id"])) {
                                     <th scope="col">Codigo carpeta</th>
                                     <th scope="col">Nombre carpeta</th>
                                     <th scope="col">Tipo carpeta</th>
+                                    <th scope="col">Fecha final prestamo</th>
                                 </tr>
                             </thead>
 
@@ -130,7 +131,7 @@ if (empty($_SESSION["id"])) {
 
                                 <?php
 
-                                $crpt_pcs = mysqli_query($con, "SELECT ca.ca_codigo_carpeta, ca.ca_nombre_carpeta, ca.ca_tipo_carpeta FROM carpetas ca INNER JOIN carpetas_prestadas cp ON ca.`ca_codigo_carpeta` = cp.`codigo_carpeta` INNER JOIN usuarios us ON cp.`id_usuario` = '$user_id'");
+                                $crpt_pcs = mysqli_query($con, "SELECT ca.ca_codigo_carpeta, ca.ca_nombre_carpeta, ca.ca_tipo_carpeta, cp.fecha_final FROM carpetas ca INNER JOIN carpetas_prestadas cp ON ca.`ca_codigo_carpeta` = cp.`codigo_carpeta` INNER JOIN usuarios us ON cp.`id_usuario` = '$user_id'");
 
                                 while ($query_cp = mysqli_fetch_assoc($crpt_pcs)) {
 
@@ -141,6 +142,7 @@ if (empty($_SESSION["id"])) {
                                         <td><?php echo $query_cp['ca_codigo_carpeta']; ?></td>
                                         <td><?php echo $query_cp['ca_nombre_carpeta']; ?></td>
                                         <td><?php echo $query_cp['ca_tipo_carpeta']; ?></td>
+                                        <td><?php echo $query_cp['fecha_final']; ?></td>
                                     </tr>
 
 
