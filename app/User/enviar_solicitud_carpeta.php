@@ -27,9 +27,6 @@ if (empty($_SESSION["id"])) {
 
     $nombre_usuario = $row_user['usu_nombre_cmplt'];
 
-   
-
-
     //Condicional validando la existencia del nombre del botón. 
     //Dentro de este condicional se ejecuta toda la operación de validación de los datos. 
     if (isset($_POST['btn-send'])) {
@@ -42,10 +39,21 @@ if (empty($_SESSION["id"])) {
 
         $row_isset_crpt = mysqli_num_rows($verifi_isset_crpt);
 
+        $array = mysqli_fetch_array($verifi_isset_crpt);
+
         $nombre_carpeta = $row_isset_crpt['ca_nombre_carpeta'];
 
-        //var_dump($row_isset_crpt);
+        $estado_carpeta = $array['ca_estado_carpeta'];
 
+        //var_dump($estado_carpeta);
+
+        if ($estado_carpeta == 'ocupado') {
+
+            echo "<script> alert('Carpeta en estado ocupado');
+ 		        window.location.href='solicitar_carpeta.php';</script>";
+
+        }else {
+        
         //Verificamos la existencia de la carpeta con el código de la carpeta, si es así entonces ejecuta las demás validaciones. 
         if ($row_isset_crpt > 0) {
 
@@ -66,7 +74,7 @@ if (empty($_SESSION["id"])) {
                 //Si hay una solicitud de prestamo, entonces nofifica a la persona y re direcciona. 
                 if ($row_verif = mysqli_num_rows($query_verif) > 0) {
 
-                    echo "Ya hay una solicitud disponible.";
+                    
                     echo "<script> alert('Ya hay una solicitud disponible, el administrador te informará el rechazo o autorización del prestamo. .');
                   window.location.href='solicitar_carpeta.php';</script>";
 
@@ -151,7 +159,8 @@ if (empty($_SESSION["id"])) {
                 echo "<script> alert('Está carpeta no existe. ');
  		        window.location.href='solicitar_carpeta.php';</script>";
 
-        }
+            }
+        }       
   
     }
 

@@ -27,6 +27,7 @@ if (empty($_SESSION["ID_Ad"])) {
             <br><br>
             <a href="modificacion_carpetas.php" class="btn btn-dark" name="btn-send">Modificación carpetas</a>
             <a href="registrar_usuario.php" class="btn btn-primary" name="btn-send">Registrar usuario</a>
+            <a href="devolucion_carpetas.php" class="btn btn-dark" name="btn-send">Devoluciones</a>
         </div>
     </div>
 
