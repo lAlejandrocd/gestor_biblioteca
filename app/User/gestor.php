@@ -34,9 +34,6 @@ if (empty($_SESSION["id"])) {
 
         $query_b = mysqli_query($con, "SELECT * FROM carpetas WHERE ca_codigo_carpeta LIKE '$codigo'");
 
-        $history_b = mysqli_query($con, "INSERT INTO historial_busqueda (ID,hb_codigo_carpeta,hb_date) VALUES (NULL, '$codigo' , NOW())");
-
-
         while ($row = mysqli_fetch_array($query_b)) { ?>
 
 

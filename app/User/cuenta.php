@@ -79,7 +79,7 @@ if (empty($_SESSION["id"])) {
                                 <tr>
                                     <th scope="col">Codigo carpeta</th>
                                     <th scope="col">Folios agregados</th>
-                                    <th scope="col">Fecha de solicitud</th>
+                                    <th scope="col">Fecha de moficación</th>
 
 
                                 </tr>
@@ -124,6 +124,8 @@ if (empty($_SESSION["id"])) {
                                     <th scope="col">Nombre carpeta</th>
                                     <th scope="col">Tipo carpeta</th>
                                     <th scope="col">Fecha final prestamo</th>
+                                    <th scope="col">Devolver</th>
+                                    <th scope="col">Modificar</th>
                                 </tr>
                             </thead>
 
@@ -131,7 +133,7 @@ if (empty($_SESSION["id"])) {
 
                                 <?php
 
-                                $crpt_pcs = mysqli_query($con, "SELECT ca.ca_codigo_carpeta, ca.ca_nombre_carpeta, ca.ca_tipo_carpeta, cp.fecha_final FROM carpetas ca INNER JOIN carpetas_prestadas cp ON ca.`ca_codigo_carpeta` = cp.`codigo_carpeta` INNER JOIN usuarios us ON cp.`id_usuario` = '$user_id'");
+                                $crpt_pcs = mysqli_query($con, "SELECT ca.*, cp.fecha_final FROM carpetas ca INNER JOIN carpetas_prestadas cp ON ca.`ca_codigo_carpeta` = cp.`codigo_carpeta` WHERE cp.`id_usuario` =  '$user_id'");
 
                                 while ($query_cp = mysqli_fetch_assoc($crpt_pcs)) {
 
@@ -143,6 +145,23 @@ if (empty($_SESSION["id"])) {
                                         <td><?php echo $query_cp['ca_nombre_carpeta']; ?></td>
                                         <td><?php echo $query_cp['ca_tipo_carpeta']; ?></td>
                                         <td><?php echo $query_cp['fecha_final']; ?></td>
+                                        <td>
+                                            <form action="devolver_carpeta.php" method="post">
+
+                                                <input type="hidden" name="ca_codigo_carpeta" value="<?php echo $query_cp['ca_codigo_carpeta']; ?>">
+
+                                                <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+
+                                                <button class="btn btn-success" type="submit" name="btn-devolver">Devolver</button>
+                                            </form>
+
+                                        </td>
+
+                                        <td>
+                                            <form action="modificar_carpeta.php" method="post">
+                                                <button class="btn btn-success" type="submit" name="btn-modificar">Modificar</button>
+                                            </form>
+                                        </td>
                                     </tr>
 
 
