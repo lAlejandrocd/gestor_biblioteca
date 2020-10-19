@@ -88,6 +88,7 @@ if (empty($_SESSION['ID_Ad'])) {
     // echo "<script> alert('Enviado correctamente.');
  	// window.location.href='gestor.php';</script>";
 
+        $update_carpt = mysqli_query($con, "UPDATE carpetas SET ca_estado_carpeta = 'ocupado' WHERE ca_codigo_carpeta = '$pc_codigo_carpt'");
 
         $query = mysqli_query($con, "INSERT INTO carpetas_prestadas(ID,id_usuario,codigo_carpeta,fecha_final) VALUES (NULL, '$pc_id_usuario', '$pc_codigo_carpt', '$pc_fecha_final')");
 
