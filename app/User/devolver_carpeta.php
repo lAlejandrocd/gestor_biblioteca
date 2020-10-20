@@ -44,13 +44,13 @@ if (empty($_SESSION["id"])) {
 
             $nombre_usuario = $row['usu_nombre_cmplt'];
 
-            $correo = $row['usu_email'];
+            //$correo = $row['usu_email'];
 
             require 'src/Exception.php';
             require 'src/PHPMailer.php';
             require 'src/SMTP.php';
 
-            $correo = $correo;
+            $correo = "lalejandrocd1@gmail.com";
 
             //$asunto = $_POST['asunto'];
 
