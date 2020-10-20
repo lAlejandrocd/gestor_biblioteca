@@ -54,10 +54,10 @@ if (empty($_SESSION["ID_Ad"])) {
                     </div>
                 </div>
                 <div class="col-sm-10">
-                    <input type="text" REQUIRED class="form-control" id="" name="usu_id" value="<?php echo $usu_id; ?>">
+                    <input type="hidden" REQUIRED class="form-control" id="" name="usu_id" value="<?php echo $usu_id; ?>">
                 </div>
                 <div class="col-sm-10">
-                    <input type="text" REQUIRED class="form-control" id="" name="dc_codigo_carpeta" value="<?php echo $dc_codigo_carpeta; ?>">
+                    <input type="hidden" REQUIRED class="form-control" id="" name="dc_codigo_carpeta" value="<?php echo $dc_codigo_carpeta; ?>">
                 </div>
 
                 <div class="form-group row">

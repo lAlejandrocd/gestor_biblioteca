@@ -15,7 +15,8 @@ if (empty($_SESSION["ID_Ad"])) {
 
             $dc_codigo_carpeta = $_POST['dc_codigo_carpeta'];
             $usu_id = $_POST['usu_id'];
-            $usu_email = $_POST['usu_email'];
+            $usu_email = "lalejandrocd1@gmail.com";
+            //$usu_email = $_POST['usu_email'];
             $asunto = $_POST['asunto'];
 
         require 'src/Exception.php';
@@ -23,7 +24,7 @@ if (empty($_SESSION["ID_Ad"])) {
         require 'src/SMTP.php';
 
         $mensaje = $_POST['mensaje'];
-        $correo = $_POST['usu_email'];
+        $correo = "lalejandrocd1@gmail.com";
 
         $mail = new PHPMailer\PHPMailer\PHPMailer(true);
 
