@@ -12,7 +12,7 @@ if (empty($_SESSION["id"])) {
 } else {
 ?>
 
-    <?php include("../../templates/header.php");
+    <?php include("../../templates/user/header_user.php");
 
     $sql = mysqli_query($con, "SELECT codigo_carpeta FROM carpetas_prestadas WHERE id_usuario = '$usu_id'");
 
@@ -64,9 +64,8 @@ if (empty($_SESSION["id"])) {
         </div>
     </div>
 
-    </body>
+    <?php include("../../templates/user/footer_user.php") ?>
 
-    </html>
 
 
 <?php } ?>
