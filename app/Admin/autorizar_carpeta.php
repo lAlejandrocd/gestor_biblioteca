@@ -29,7 +29,7 @@ if (empty($_SESSION['ID_Ad'])) {
 
     ?>
 
-    <?php include("../../templates/header_admin.php"); ?>
+    <?php include("../../templates/admin/header_admin.php"); ?>
 
     <div class="container">
         <div class="jumbotron text-center">
@@ -38,7 +38,7 @@ if (empty($_SESSION['ID_Ad'])) {
                 <div class="form-group row">
                     <label for="inputCodigocarpeta" class="col-sm-2 col-form-label">Destino</label>
                     <div class="col-sm-10">
-                        <input type="email" REQUIRED class="form-control" id="" name="usu_email" value="<?php echo $usu_email; ?>" >
+                        <input type="email" REQUIRED class="form-control" id="" name="usu_email" value="<?php echo $usu_email; ?>">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -74,15 +74,10 @@ if (empty($_SESSION['ID_Ad'])) {
                     </div>
                 </div>
 
-
-
             </form>
         </div>
     </div>
 
-
-
-
-
+    <?php include("../../templates/admin/footer_admin.php"); ?>
 
 <?php } ?>

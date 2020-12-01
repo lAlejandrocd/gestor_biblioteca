@@ -13,7 +13,7 @@ if (empty($_SESSION["ID_Ad"])) {
 ?>
 
 
-    <?php include("../../templates/header_admin.php"); ?>
+    <?php include("../../templates/admin/header_admin.php"); ?>
 
     <br>
     <br>
@@ -34,8 +34,6 @@ if (empty($_SESSION["ID_Ad"])) {
 
 
 
-    </body>
-
-    </html>
+   <?php include("../../templates/admin/footer_admin.php"); ?>
 
 <?php } ?>

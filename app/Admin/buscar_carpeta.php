@@ -15,7 +15,7 @@ if (empty($_SESSION['ID_Ad'])) {
 ?>
 
 
-    <?php include("../../templates/header_admin.php"); ?>
+    <?php include("../../templates/admin/header_admin.php"); ?>
 
 
     <div class="container">
@@ -45,7 +45,7 @@ if (empty($_SESSION['ID_Ad'])) {
 
                                 <tr>
                                     <th scope="col"><?php echo $row['ca_codigo_carpeta']; ?></th>
-                                    <td><?php echo $row['ca_codigo_carpeta']; ?></td>                                   
+                                    <td><?php echo $row['ca_codigo_carpeta']; ?></td>
                                     <td><?php echo $row['ca_numero_folios']; ?></td>
                                     <td><?php echo $row['ca_estado_carpeta']; ?></td>
                                     <td><?php echo $row['ca_tipo_carpeta']; ?></td>
@@ -63,7 +63,7 @@ if (empty($_SESSION['ID_Ad'])) {
         </div>
     </div>
 
-
+    <?php include("../../templates/admin/footer_admin.php"); ?>
 
 
 <?php } ?>

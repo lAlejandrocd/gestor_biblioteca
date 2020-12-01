@@ -15,7 +15,9 @@ if (empty($_SESSION["id"])) {
 
 ?>
 
-    <?php include("../../templates/header.php");
+    <?php
+
+    include("../../templates/user/header_user.php");
 
     ?>
 
@@ -90,6 +92,7 @@ if (empty($_SESSION["id"])) {
 
     <?php  } ?>
 
+    <?php include("../../templates/user/footer_user.php") ?>
 
 
 <?php } ?>
