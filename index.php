@@ -69,18 +69,18 @@
                         <div class="card">
                             <div class="card-body">
                                 <h1>Inicio de sesión</h1>
-                                <form id="form_admin">
+                                <form id="form_admin" class="form" action="#" method="POST">
                                     <div class="row">
                                         <div class="form-group col">
                                             <label for="my-input">Documento identidad</label>
-                                            <input class="form-control" type="text" name="id_admin" >
+                                            <input class="form-control" type="text" name="id_admin" id="id_admin">
                                         </div>
                                         <div class="form-group col">
                                             <label for="my-input">Contraseña</label>
-                                            <input class="form-control" type="password" name="admin_password" >
+                                            <input class="form-control" type="password" name="admin_password" id="admin_password">
                                         </div>
                                     </div>
-                                    
+
                                     <button class="btn btn-success" type="submit" name="btn-login">Ingresar</button>
 
                                 </form>

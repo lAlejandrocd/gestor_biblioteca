@@ -8,7 +8,6 @@ $("#User").click(function (){
 
 
   $("#modal_user").modal("show");
-
 });
 
 $("#form_admin").submit(function(e){
@@ -36,24 +35,16 @@ $("#form_admin").submit(function(e){
         id_admin: id_admin,
         admin_password: admin_password,
       },
-      success: function (data) {
+      success: function(data){
         if (data == "null") {
-          Swal.fire({
-            type: "warning",
-            title: "No existe el usuario...",
-          });
-        } else {
-          Swal.fire({
-            type: "success",
-            title: "¡Conexión exitosa!",
-            showConfirmButton: false, //Oculto el boton de OK
-            timer: 1500,
-            //Seteo un tiempo en pantalla antes de cerrar el alert
-          }).then(function () {
-            window.location.href = "app/Admin/gestor.php";
-            //Redirecciono al Index
-          });
+          console.log(data);
+          alert("error");
+        }else{
+          console.log(data);
+          alert("hola");
         }
+
+
       },
     });
   }
