@@ -35,16 +35,28 @@ $("#form_admin").submit(function(e){
         id_admin: id_admin,
         admin_password: admin_password,
       },
-      success: function(data){
+      success: function (data) {
+        // ¿Que pasaría si en la consulta no existe los datos?
+        // Si no hay nada, a "data" le asignamos null.
         if (data == "null") {
           console.log(data);
-          alert("error");
-        }else{
+          Swal.fire({
+            type: "warning",
+            title: "No existe el usuario...",
+          });
+        } else {
           console.log(data);
-          alert("hola");
+          Swal.fire({
+            type: "success",
+            title: "¡Conexión exitosa!",
+            showConfirmButton: false, //Oculto el boton de OK
+            timer: 1500,
+            //Seteo un tiempo en pantalla antes de cerrar el alert
+          }).then(function () {
+            window.location.href = "app/Admin/gestor.php";
+            //Redirecciono al Index
+          });
         }
-
-
       },
     });
   }
