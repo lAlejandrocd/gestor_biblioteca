@@ -72,11 +72,11 @@
                                 <form id="form_admin" class="form" action="#" method="POST">
                                     <div class="row">
                                         <div class="form-group col">
-                                            <label for="my-input">Documento identidad</label>
+                                            <label for="id_admin">Documento identidad</label>
                                             <input class="form-control" type="text" name="id_admin" id="id_admin">
                                         </div>
                                         <div class="form-group col">
-                                            <label for="my-input">Contraseña</label>
+                                            <label for="admin_password">Contraseña</label>
                                             <input class="form-control" type="password" name="admin_password" id="admin_password">
                                         </div>
                                     </div>

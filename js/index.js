@@ -36,9 +36,10 @@ $("#form_admin").submit(function(e){
         admin_password: admin_password,
       },
       success: function (data) {
+        var info = JSON.parse(data);
         // ¿Que pasaría si en la consulta no existe los datos?
         // Si no hay nada, a "data" le asignamos null.
-        if (data == "null") {
+        if (info == null) {
           console.log(data);
           Swal.fire({
             type: "warning",
@@ -57,7 +58,7 @@ $("#form_admin").submit(function(e){
             //Redirecciono al Index
           });
         }
-      },
+      }
     });
   }
   
