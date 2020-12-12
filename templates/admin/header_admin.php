@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../../plugins/Bootstrap/css/bootstrap.min.css">
 
     <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="../../plugins/Sweetalert/sweetalert2.all.min.js">
+    <link rel="stylesheet" href="../../plugins/Sweetalert2/sweetalert2.min.css">
 
 
     <!-- <script type="text/javascript" src="js/show_table.js"></script> -->
