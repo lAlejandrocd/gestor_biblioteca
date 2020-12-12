@@ -103,15 +103,15 @@
                             <div class="card-body">
 
                                 <h1>Inicio de sesión</h1>
-                                <form method="post" action="app/User/validar_usuario.php">
+                                <form id="form_user" class="form" action="#" method="POST">
                                     <div class="row">
                                         <div class="form-group col">
-                                            <label for="my-input">Documento identidad</label>
-                                            <input class="form-control" type="number" name="usu_id" REQUIRED>
+                                            <label for="usu_id">Documento identidad</label>
+                                            <input class="form-control" type="text" name="usu_id" id="usu_id">
                                         </div>
                                         <div class="form-group col">
-                                            <label for="my-input">Contraseña</label>
-                                            <input class="form-control" type="password" name="usu_clave" REQUIRED>
+                                            <label for="usu_clave">Contraseña</label>
+                                            <input class="form-control" type="password" name="usu_clave" id="usu_clave">
                                         </div>
                                     </div>
                                     <button class="btn btn-success" type="submit" name="btn-login">Ingresar</button>

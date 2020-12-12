@@ -35,27 +35,18 @@ $row = mysqli_num_rows($q);
 
 if($row >= 1){
 
-  $data = mysqli_fetch_assoc($q);
+  $fila = mysqli_fetch_assoc($q);
+  $_SESSION["ID_Ad"]= $fila["id_admin"];
 
-  $_SESSION["ID_Ad"]=$data["id_admin"];
-
-  //$q_history_user= mysqli_query($con, "INSERT INTO historial_sesion (ID,hs_usuario_id, hs_fecha) VALUES (NULL, '$user', NOW())");
-
-  //header("location: gestor.php");
 }else{
  
-  //echo "<script> alert('Usuario no existe');
- 	//window.location.href='../../login_admin.php';</script>";
-  //header("location: index.php");
   $_SESSION["ID_Ad"] = null;
-  $data = null;
+  $fila= null;
 
-  
 }
 
-$json = json_encode($data);
+$json = json_encode($fila);
 
 print $json;
-//print json_encode($data, JSON_UNESCAPED_UNICODE);
 
 mysqli_close($con);
