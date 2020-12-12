@@ -1,6 +1,7 @@
 $("#Admin").click(function (){
     
   $("#modal_admin").modal("show");
+  $("#form_admin").trigger("reset");
 
 });
 
