@@ -3,7 +3,7 @@
 
 session_start();
 
-include('../../global/conexion.php');
+include('../../../global/conexion.php');
 
 $usu_id = $_SESSION["id"];
 
@@ -17,7 +17,6 @@ if (empty($_SESSION["id"])) {
 
 <?php
 
-    include("../../global/conexion.php");
 
     //Traemos datos del usuario solicitante para usarlos en el envio de email.
 
@@ -87,9 +86,9 @@ if (empty($_SESSION["id"])) {
                     if (!empty($query_prst_carpeta)) {
 
 
-                        require 'src/Exception.php';
-                        require 'src/PHPMailer.php';
-                        require 'src/SMTP.php';
+                        require '../src/Exception.php';
+                        require '../src/PHPMailer.php';
+                        require '../src/SMTP.php';
 
                         $correo = "lalejandrocd1@gmail.com";
 
@@ -145,11 +144,11 @@ if (empty($_SESSION["id"])) {
                         }
 
                         echo "<script> alert('Se ha enviado la solicitud al administrador.');
- 		                window.location.href='solicitar_carpeta.php';</script>";
+ 		                window.location.href='../solicitar_carpeta.php';</script>";
                     } else {
 
                         echo "<script> alert('Error al solicitar el prestamo.');
- 		                window.location.href='solicitar_carpeta.php';</script>";
+ 		                window.location.href='../solicitar_carpeta.php';</script>";
                     }
                 }
             }
@@ -157,7 +156,7 @@ if (empty($_SESSION["id"])) {
         }else{
             
                 echo "<script> alert('Está carpeta no existe. ');
- 		        window.location.href='solicitar_carpeta.php';</script>";
+ 		        window.location.href='../solicitar_carpeta.php';</script>";
 
             }
         }       

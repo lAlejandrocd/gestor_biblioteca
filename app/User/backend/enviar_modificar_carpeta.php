@@ -2,7 +2,7 @@
 
 session_start();
 
-include('../../global/conexion.php');
+include('../../../global/conexion.php');
 
 $usu_id = $_SESSION["id"];
 
@@ -10,7 +10,7 @@ $usu_id = $_SESSION["id"];
 if (empty($_SESSION["id"])) {
 
     echo "<script> alert('No es posible acceder a esta página');
- 	window.location.href='../index.php';</script>";
+ 	window.location.href='../../../index.php';</script>";
 } else {
 
 ?>
@@ -30,11 +30,11 @@ if (empty($_SESSION["id"])) {
     if (!$query_insert) {
 
         echo "<script> alert('Fallo en agregar modificación.');
- 	    window.location.href='gestor.php';</script>";
+ 	    window.location.href='../index.php';</script>";
     }
 
     echo "<script> alert('La modificación será autorizada por el administrador');
- 	window.location.href='gestor.php';</script>";
+ 	window.location.href='../index.php';</script>";
     
  
 

@@ -1,3 +1,12 @@
+</section>
+<!-- cierra div class= "w-100" -->
+</div>
+<!-- cierra div class="d-flex" header_user.php -->
+</div>
+<!-- cierra div class = "content" -->
+</div>
+
+
 <!-- JS SweetAlert2 -->
 <script src="../../plugins/Sweetalert2/sweetalert2.all.min.js"></script>
 

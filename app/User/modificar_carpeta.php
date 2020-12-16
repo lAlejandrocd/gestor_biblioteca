@@ -12,7 +12,7 @@ if (empty($_SESSION["id"])) {
 } else {
 ?>
 
-    <?php include("../../templates/user/header_user.php");
+    <?php include("templates/header_user.php");
 
     $sql = mysqli_query($con, "SELECT codigo_carpeta FROM carpetas_prestadas WHERE id_usuario = '$usu_id'");
 
@@ -25,13 +25,7 @@ if (empty($_SESSION["id"])) {
         <div class="jumbotron text-center">
             <h1 class="display-8">Agregar modificaciones.</h1>
             <br>
-            <form method="POST" action="enviar_modificar_carpeta.php">
-                <!-- <div class="form-group row">
-                    <label for="inputCodigocarpeta" class="col-sm-2 col-form-label">Codigo carpeta</label>
-                    <div class="col-sm-10">
-                        <input type="number" REQUIRED class="form-control" id="inputEmail3" name="cm_codigo_carpeta" value="">
-                    </div>
-                </div> -->
+            <form method="POST" action="backend/enviar_modificar_carpeta.php">
                 <div class="form-group row">
                     <label for="my-select" class="col-sm-2 col-form-label">Código carpeta</label>
                     <div class="col -sm-10">
@@ -64,7 +58,7 @@ if (empty($_SESSION["id"])) {
         </div>
     </div>
 
-    <?php include("../../templates/user/footer_user.php") ?>
+    <?php include("templates/footer_user.php") ?>
 
 
 
