@@ -16,7 +16,6 @@
 body{
 
     overflow: hidden;
-    font-family: 'Courier New', Courier, monospace;
     font-weight: 400;
     color: var(--black);
 
@@ -46,6 +45,12 @@ body{
 .btn-primary{
 
     background-color: var(--primary) !important;
+}
+
+.btn-danger{
+
+    background-color: var(--black) !important;
+
 }
 
 #sidebar-container{
