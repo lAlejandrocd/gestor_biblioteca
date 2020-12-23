@@ -26,9 +26,6 @@ if (empty($_SESSION["id"])) {
 
     $nombre_usuario = $row_user['usu_nombre_cmplt'];
 
-    //Condicional validando la existencia del nombre del botón. 
-    //Dentro de este condicional se ejecuta toda la operación de validación de los datos. 
-    if (isset($_POST['btn-send'])) {
 
         $codigo_carpeta = $_POST['pc_codigo_carpt'];
 
@@ -48,8 +45,15 @@ if (empty($_SESSION["id"])) {
 
         if ($estado_carpeta == 'ocupado') {
 
-            echo "<script> alert('Carpeta en estado ocupado');
- 		        window.location.href='solicitar_carpeta.php';</script>";
+             echo "<script> alert('Carpeta en estado ocupado');
+            window.location.href='../solicitar_carpeta.php';</script>";
+            // $data = null;
+
+            // $json = json_encode($data);
+
+            // print $json;
+
+            // mysqli_close($con);
 
         }else {
         
@@ -64,7 +68,7 @@ if (empty($_SESSION["id"])) {
             if ($row_verif_carpt_prst = mysqli_num_rows($query_verif_carpt_prst) > 0) {
 
                 echo "<script> alert('tienes esta carpeta en tu pocesión.');
- 		    window.location.href='solicitar_carpeta.php';</script>";
+ 		    window.location.href='.../solicitar_carpeta.php';</script>";
             } else {
 
                 //En caso de que no tenga en pocesión la carpeta, entonces valida la existencia de una solicitud de prestamo. 
@@ -75,7 +79,7 @@ if (empty($_SESSION["id"])) {
 
                     
                     echo "<script> alert('Ya hay una solicitud disponible, el administrador te informará el rechazo o autorización del prestamo. .');
-                  window.location.href='solicitar_carpeta.php';</script>";
+                  window.location.href='../solicitar_carpeta.php';</script>";
 
                     //Ejecutamos sentencia else en caso de que no haya una solicitud, agrega la solicitud a una tabla en concreto. 
                 } else {
@@ -161,7 +165,7 @@ if (empty($_SESSION["id"])) {
             }
         }       
   
-    }
+    
 
 
 ?>

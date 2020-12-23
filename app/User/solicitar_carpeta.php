@@ -47,7 +47,7 @@ if (empty($_SESSION["id"])) {
                     <div class="form-group row">
                         <label for="inputdatetime-local" class="col-sm-2 col-form-label">Fecha final</label>
                         <div class="col-sm-10">
-                            <input type="datetime-local" name="pc_fecha_final" class="form-control" REQUIRED>
+                            <input type="date" name="pc_fecha_final" class="form-control" REQUIRED>
                         </div>
                     </div>
                     <div class="form-group row">

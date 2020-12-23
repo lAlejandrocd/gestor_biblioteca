@@ -12,37 +12,80 @@ carpetas = $("#carpetas").DataTable({
   ],
 });
 
-var fila;
+// var fila;
 
-$(document).on("click", "#btnSolicitar", function () {
+// $(document).on("click", "#btnSolicitar", function () {
 
-  $("#form-addFolder").trigger("reset");
+//   $("#form_solicitar").trigger("reset");
 
-  $("#addFolder").modal("show");
+//   $("#addFolder").modal("show");
 
-  fila = $(this).closest("tr");
+//   fila = $(this).closest("tr");
 
-  ca_codigo_carpeta = parseInt(fila.find("th:eq(0)").text());
-  ca_nombre_carpeta = fila.find("td:eq(1)").text();
-
-  console.log(ca_codigo_carpeta);
-  $("#ca_codigo_carpeta").val(ca_codigo_carpeta);
-  $("#ca_nombre_carpeta").val(ca_nombre_carpeta);
-});
+//   pc_codigo_carpt = parseInt(fila.find("th:eq(0)").text());
+//   console.log(pc_codigo_carpt);
+//   $("#pc_codigo_carpt").val(pc_codigo_carpt);
+//   $("#pc_fecha_final").val(pc_fecha_final);
+// });
 
 
-$("#form_addFolder").submit(function (e){
+// $("#form_solicitar").submit(function (e) {
+//   e.preventDefault();
 
-  e.preventDefault();
+//   pc_codigo_carpt = $.trim($("#pc_codigo_carpt").val());
+//   pc_fecha_final = $.trim($("#pc_fecha_final").val());
+
+//   console.log(pc_fecha_final);
+
+//   if (pc_codigo_carpt.length == "" || pc_fecha_final.length == "") {
   
-  ca_codigo_carpeta = $.trim($("#ca_codigo_carpeta").val());
+//     Swal.fire({
+      
+//       type: "error",
+//       title : "Debes ingresar la fecha o el código de la carpeta"
 
 
-});
+//     });
+  
+//     return false
+  
+//   }else{
+
+//     $.ajax({
+//       url: "backend/enviar_solicitud_carpeta.php",
+//       type: "POST",
+//       datatype: "json",
+//       data: { pc_codigo_carpt: pc_codigo_carpt , pc_fecha_final : pc_fecha_final},
+//       success: function (data) {
+
+//         var data = JSON.parse(data);
+//         if (data == 'ocupado') {
+//           Swal.fire({
+//             type: "warning",
+//             title: "el estado de la carpeta es ocupado"
+
+
+//           });
+          
+//         }else{
+
+//           Swal.fire({
+//             type: "sucess",
+//             title: "Se ha enviado la solicitud al X",
+//             showConfirmButton: true,
+//           });
 
 
 
 
+//         }
+
+
+//       },
+//     });
+
+//   }
+// });
 
 // $("#insertar").click(function (){
 

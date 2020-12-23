@@ -19,7 +19,7 @@ if (empty($_SESSION["id"])) {
 
     ?>
     <!-- Botón añadir carpeta -->
-    <section class="py-3">
+    <!-- <section class="py-3">
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 d-flex">
@@ -29,8 +29,7 @@ if (empty($_SESSION["id"])) {
                 </div>
             </div>
         </div>
-
-    </section>
+    </section> -->
 
     <!-- Tabla de carpetas -->
     <section class="">
@@ -85,27 +84,19 @@ if (empty($_SESSION["id"])) {
                         <h5 class="modal-title" id="Modaltitle">Añadir carpeta</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
                     </div>
-                    <form id="form_addFolder">
+                    <form id="form_solicitar">
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="ca_codigo_carpeta" class="col-form-label">Código carpeta</label>
-                                <input type="text" name="ca_codigo_carpeta" class="form-control" id="ca_codigo_carpeta">
+                                <label for="inputCodigocarpeta" class="col-sm-2 col-form-label">Codigo carpeta</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="pc_codigo_carpt" name="pc_codigo_carpt" REQUIRED>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="ca_nombre_carpeta" class="col-form-label">Nombre carpeta</label>
-                                <input type="text" name="ca_nombre_carpeta" class="form-control" id="ca_nombre_carpeta">
-                            </div>
-                            <div class="form-group">
-                                <label for="ca_numero_folios" class="col-form-label">Número de folios</label>
-                                <input type="text" name="ca_numero_folios" class="form-control" id="ca_numero_folios">
-                            </div>
-                            <div class="form-group">
-                                <label for="ca_estado_carpeta" class="col-form-label">Estado de carpeta</label>
-                                <input type="text" name="ca_estado_carpeta" class="form-control" id="ca_estado_carpeta">
-                            </div>
-                            <div class="form-group">
-                                <label for="ca_tipo_carpeta" class="col-form-label">Tipo de carpeta</label>
-                                <input type="text" name="ca_tipo_carpeta" class="form-control" id="ca_tipo_carpeta">
+                                <label for="inputdatetime-local" class="col-sm-2 col-form-label">Fecha final</label>
+                                <div class="col-sm-10">
+                                    <input type="date" name="pc_fecha_final" class="form-control" REQUIRED>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Guardar folder</button>

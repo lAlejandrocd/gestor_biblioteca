@@ -91,6 +91,11 @@ a:hover{
 .modal-content .modal-header {
 
     background-color: var(--primary);
+}
 
+.alert-success{
+
+    background-color: var(--primary) !important;
 
 }
+
