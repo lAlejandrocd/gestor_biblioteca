@@ -63,9 +63,16 @@ if (empty($_SESSION["id"])) {
     <?php } else { ?>
 
         <div class="container">
-            <div class="alert alert-success" role="alert">
-                <h4 class="alert-heading">No tienes carpetas en tu pocesión</h4>
+            
+            <div class="card">
+                <div class="card-body">
+                    <div class="alert alert-success" role="alert">
+                        No tienes carpetas en tu pocesión
+                    </div>
+                    
+                </div>
             </div>
+
         </div>
 
     <?php } ?>

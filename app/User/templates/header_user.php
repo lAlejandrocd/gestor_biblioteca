@@ -52,11 +52,6 @@
         <div class="w-100">
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <div class="container">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">BUSCAR</button>
-
-                    </form>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown">

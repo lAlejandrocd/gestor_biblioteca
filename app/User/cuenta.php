@@ -62,41 +62,60 @@ if (empty($_SESSION["id"])) {
             <br>
             <br>
 
-
             <div class="container">
                 <div class="jumbotron text-center">
                     <h1 class="display-8">Carpetas Modificadas</h1>
                     <div class="card">
                         <div class="card card-body">
-                            <table class="table table-dark">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Codigo carpeta</th>
-                                        <th scope="col">Folios agregados</th>
-                                        <th scope="col">Fecha de moficación</th>
+                            <?php
+
+                            $query_ps_carpt = mysqli_query($con, "SELECT * FROM carpetas_modificadas WHERE cm_id_usuario = '$user_id'");
+
+                            $row = mysqli_num_rows($query_ps_carpt);
 
 
-                                    </tr>
-                                </thead>
-                                <tbody>
 
-                                    <?php
+                            if ($row >= 1) {
 
-                                    $query_ps_carpt = mysqli_query($con, "SELECT * FROM carpetas_modificadas WHERE cm_id_usuario = '$user_id'");
 
-                                    while ($prestamo = mysqli_fetch_assoc($query_ps_carpt)) {  ?>
+                            ?>
+
+                                <table class="table table-dark">
+                                    <thead>
                                         <tr>
-                                            <td><?php echo $prestamo['cm_codigo_carpeta']; ?></td>
-                                            <td><?php echo $prestamo['cm_folios_agregados']; ?></td>
-                                            <td><?php echo $prestamo['cm_fecha']; ?></td>
-
-                                            <td></td>
+                                            <th scope="col">Codigo carpeta</th>
+                                            <th scope="col">Folios agregados</th>
+                                            <th scope="col">Fecha de moficación</th>
                                         </tr>
+                                    </thead>
+                                    <tbody>
 
-                                    <?php  } ?>
+                                        <?php
 
-                                </tbody>
-                            </table>
+
+                                        while ($prestamo = mysqli_fetch_assoc($query_ps_carpt)) {  ?>
+                                            <tr>
+                                                <td><?php echo $prestamo['cm_codigo_carpeta']; ?></td>
+                                                <td><?php echo $prestamo['cm_folios_agregados']; ?></td>
+                                                <td><?php echo $prestamo['cm_fecha']; ?></td>
+
+                                                <td></td>
+                                            </tr>
+
+                                        <?php  } ?>
+
+                                    </tbody>
+                                </table>
+
+                            <?php } else { ?>
+
+                                <div class="container">
+                                    <div class="alert alert-success" role="alert">
+                                        No tienes carpetas en tu pocesión
+                                    </div>
+                                </div>
+
+                            <?php }  ?>
 
                         </div>
                     </div>
@@ -111,58 +130,82 @@ if (empty($_SESSION["id"])) {
                     <h1 class="display-8">Carpetas en pocesión.</h1>
                     <div class="card">
                         <div class="card card-body">
-                            <table class="table table-dark">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Codigo carpeta</th>
-                                        <th scope="col">Nombre carpeta</th>
-                                        <th scope="col">Tipo carpeta</th>
-                                        <th scope="col">Fecha final prestamo</th>
-                                        <th scope="col">Devolver</th>
-                                        <th scope="col">Modificar</th>
-                                    </tr>
-                                </thead>
+                            <?php
+                            $crpt_pcs = mysqli_query($con, "SELECT ca.*, cp.fecha_final FROM carpetas ca INNER JOIN carpetas_prestadas cp ON ca.`ca_codigo_carpeta` = cp.`codigo_carpeta` WHERE cp.`id_usuario` =  '$user_id'");
 
-                                <tbody>
+                            $row2 = mysqli_num_rows($crpt_pcs);
+                           
+                            if ($row2 >= 1) {  ?>
 
-                                    <?php
-
-                                    $crpt_pcs = mysqli_query($con, "SELECT ca.*, cp.fecha_final FROM carpetas ca INNER JOIN carpetas_prestadas cp ON ca.`ca_codigo_carpeta` = cp.`codigo_carpeta` WHERE cp.`id_usuario` =  '$user_id'");
-
-                                    while ($query_cp = mysqli_fetch_assoc($crpt_pcs)) {
-
-
-
-                                    ?>
+                                <table class="table table-dark">
+                                    <thead>
                                         <tr>
-                                            <td><?php echo $query_cp['ca_codigo_carpeta']; ?></td>
-                                            <td><?php echo $query_cp['ca_nombre_carpeta']; ?></td>
-                                            <td><?php echo $query_cp['ca_tipo_carpeta']; ?></td>
-                                            <td><?php echo $query_cp['fecha_final']; ?></td>
-                                            <td>
-                                                <form action="backend/devolver_carpeta.php" method="post">
-
-                                                    <input type="hidden" name="ca_codigo_carpeta" value="<?php echo $query_cp['ca_codigo_carpeta']; ?>">
-
-                                                    <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-
-                                                    <button class="btn btn-success" type="submit" name="btn-devolver">Devolver</button>
-                                                </form>
-
-                                            </td>
-
-                                            <td>
-                                                <form action="modificar_carpeta.php" method="post">
-                                                    <button class="btn btn-success" type="submit" name="btn-modificar">Modificar</button>
-                                                </form>
-                                            </td>
+                                            <th scope="col">Codigo carpeta</th>
+                                            <th scope="col">Nombre carpeta</th>
+                                            <th scope="col">Tipo carpeta</th>
+                                            <th scope="col">Fecha final prestamo</th>
+                                            <th scope="col">Devolver</th>
+                                            <th scope="col">Modificar</th>
                                         </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <?php
+
+                                        while ($query_cp = mysqli_fetch_assoc($crpt_pcs)) {
 
 
-                                    <?php } ?>
 
-                                </tbody>
-                            </table>
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $query_cp['ca_codigo_carpeta']; ?></td>
+                                                <td><?php echo $query_cp['ca_nombre_carpeta']; ?></td>
+                                                <td><?php echo $query_cp['ca_tipo_carpeta']; ?></td>
+                                                <td><?php echo $query_cp['fecha_final']; ?></td>
+                                                <td>
+                                                    <form action="backend/devolver_carpeta.php" method="post">
+
+                                                        <input type="hidden" name="ca_codigo_carpeta" value="<?php echo $query_cp['ca_codigo_carpeta']; ?>">
+
+                                                        <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+
+                                                        <button class="btn btn-success" type="submit" name="btn-devolver">Devolver</button>
+                                                    </form>
+
+                                                </td>
+
+                                                <td>
+                                                    <form action="modificar_carpeta.php" method="post">
+                                                        <button class="btn btn-success" type="submit" name="btn-modificar">Modificar</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+
+
+                                        <?php } ?>
+
+                                    </tbody>
+                                </table>
+
+
+                            <?php } else { ?>
+
+                                <div class="container">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="alert alert-success" role="alert">
+                                                No tienes carpetas en tu pocesión
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            <?php  }  ?>
+
+
 
                         </div>
                     </div>
