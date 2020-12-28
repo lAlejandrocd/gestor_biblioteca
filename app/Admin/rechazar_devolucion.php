@@ -30,7 +30,7 @@ if (empty($_SESSION["ID_Ad"])) {
     <div class="container">
         <div class="jumbotron text-center">
             <h1 class="display-8">Rechazar devolución</h1>
-            <form action="envio_rechazar_devolucion.php" method="post">
+            <form action="backend/envio_rechazar_devolucion.php" method="post">
                 <div class="form-group row">
                     <label for="inputCodigocarpeta" class="col-sm-2 col-form-label">Destino</label>
                     <div class="col-sm-10">
