@@ -8,7 +8,7 @@ if (empty($_SESSION["ID_Ad"])) {
  	window.location.href='../../index.php';</script>";
 } else { ?>
 
-    <?php include("../../templates/header_admin.php"); ?>
+    <?php include("templates/header_admin.php"); ?>
 
     <?php
 
@@ -58,7 +58,7 @@ if (empty($_SESSION["ID_Ad"])) {
                 <div class="col-sm-10">
                     <input type="text" REQUIRED class="form-control" id="" name="dc_codigo_carpeta" value="<?php echo $dc_codigo_carpeta; ?>">
                 </div>
-                
+
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <button type="submit" class="btn btn-primary" name="btn-submit">Enviar.</button>
@@ -72,5 +72,8 @@ if (empty($_SESSION["ID_Ad"])) {
 
         </div>
     </div>
+
+    <?php include("templates/footer_admin.php"); ?>
+
 
 <?php } ?>

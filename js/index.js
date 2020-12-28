@@ -48,7 +48,7 @@ $("#form_admin").submit(function (e) {
             timer: 1500,
             //Seteo un tiempo en pantalla antes de cerrar el alert
           }).then(function () {
-            window.location.href = "app/Admin/gestor.php";
+            window.location.href = "app/Admin/index.php";
             //Redirecciono al Index
           });
         }

@@ -12,7 +12,7 @@ if (empty($_SESSION["ID_Ad"])) {
  	window.location.href='../../index.php';</script>";
 } else { ?>
 
-    <?php include("../../templates/header_admin.php"); ?>
+    <?php include("templates/header_admin.php"); ?>
 
     <div class="container">
         <div class="jumbotron text-center">
@@ -49,10 +49,10 @@ if (empty($_SESSION["ID_Ad"])) {
         </div>
     </div>
 
-    <?php 
-    
+    <?php
+
     if (isset($_POST['btn-register'])) {
-        
+
         $cedula = $_POST['usu_id'];
         $nombre_completo = $_POST['usu_nombre_cmplt'];
         $email = $_POST['usu_email'];
@@ -61,29 +61,20 @@ if (empty($_SESSION["ID_Ad"])) {
         $sql = mysqli_query($con, "INSERT INTO usuarios (usu_id, usu_nombre_cmplt, usu_email, usu_clave)VALUES('$cedula', '$nombre_completo' , '$email', '$password')");
 
         if (!empty($sql)) {
-            
+
             echo "<script> alert('Registro Completo');
  		                window.location.href='gestor.php';</script>";
-
-        }else {
+        } else {
 
             echo "<script> alert('Error de registro');
  		                window.location.href='registrar_usuario.php';</script>";
-            
         }
-
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     ?>
+
+    <?php include("templates/footer_admin.php"); ?>
+
 
 
 

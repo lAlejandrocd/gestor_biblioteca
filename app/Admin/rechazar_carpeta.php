@@ -29,7 +29,7 @@ if (empty($_SESSION['ID_Ad'])) {
 
     ?>
 
-    <?php include("../../templates/admin/header_admin.php"); ?>
+    <?php include("templates/header_admin.php"); ?>
 
     <div class="container">
         <div class="jumbotron text-center">
@@ -80,10 +80,6 @@ if (empty($_SESSION['ID_Ad'])) {
         </div>
     </div>
 
-    <?php include("../../templates/admin/footer_admin.php"); ?>
-
-
-
-
+    <?php include("templates/footer_admin.php"); ?>
 
 <?php } ?>

@@ -9,7 +9,7 @@ if (empty($_SESSION["ID_Ad"])) {
  	window.location.href='../../index.php';</script>";
 } else { ?>
 
-    <?php include("../../templates/header_admin.php"); ?>
+    <?php include("templates/header_admin.php"); ?>
 
     <?php
 
@@ -75,6 +75,7 @@ if (empty($_SESSION["ID_Ad"])) {
     </div>
 
 
+    <?php include("templates/footer_admin.php"); ?>
 
 
 
