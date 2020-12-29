@@ -12,6 +12,9 @@
 <!-- JS Bootstrap Folder -->
 <script src="../../plugins/Bootstrap/js/bootstrap.js"></script>
 
+<!-- Datatable -->
+<script src="../../plugins/DataTables/datatables.min.js"></script>
+
 <!-- Popper -->
 <script src="../../plugins/Popper/popper.min.js"></script>
 <!-- Archivo JS -->

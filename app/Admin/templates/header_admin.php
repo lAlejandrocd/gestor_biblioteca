@@ -12,8 +12,8 @@
     <!-- css admin -->
     <link rel="stylesheet" href="style/admin.css">
 
+    <link rel="stylesheet" href="../../plugins/DataTables/datatables.min.css">
 
-    <!-- <script type="text/javascript" src="js/show_table.js"></script> -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -32,7 +32,6 @@
                 <a href="index.php" class="d-block text-dark p-3">Inicio</a>
                 <a href="vista_usuarios.php" class="d-block text-dark p-3">Usuarios</a>
                 <a href="registrar_usuario.php" class="d-block text-dark p-3">Agregar usuario</a>
-                <a href="buscar_carpeta.php" class="d-block text-dark p-3">Buscar carpeta</a>
                 <a href="historial_sesion.php" class="d-block text-dark p-3">Historial de sesión</a>
                 <a href="devolucion_carpetas.php" class="d-block text-dark p-3">Devoluciones</a>
                 <a href="solicitud_carpetas.php" class="d-block text-dark p-3">Solicitudes de carpetas</a>
@@ -66,14 +65,5 @@
                     </div>
                 </div>
             </nav>
-            <div class="" id="content">
-                <section class="py-3">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-9">
-                                <h1 class="font-weight-bold mb-0">Gestor de carpetas.</h1>
-                            </div>
-                        </div>
-                    </div>
-
-                </section>
+            <!-- En este div iba el texto "gestor de carpeta" pero se cambio a zona index para así poder unir el botón y el texto. -->
+            
