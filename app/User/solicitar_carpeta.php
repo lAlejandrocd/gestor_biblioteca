@@ -17,7 +17,7 @@ if (empty($_SESSION["id"])) {
 
     <?php
 
-    include("../../templates/user/header_user.php");
+    include("templates/header_user.php");
 
     ?>
 
@@ -37,35 +37,17 @@ if (empty($_SESSION["id"])) {
             <div class="jumbotron text-center">
                 <h1 class="display-8">Solicitud de carpeta</h1>
                 <br>
-                <form method="POST" action="enviar_solicitud_carpeta.php">
+                <form method="POST" action="backend/enviar_solicitud_carpeta.php">
                     <div class="form-group row">
                         <label for="inputCodigocarpeta" class="col-sm-2 col-form-label">Codigo carpeta</label>
                         <div class="col-sm-10">
                             <input type="number" class="form-control" id="inputEmail3" name="pc_codigo_carpt" REQUIRED>
                         </div>
                     </div>
-                    <!-- <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputEmail3" name="usu_email" REQUIRED value="" placeholder="Escribe el correo electrónico del destinatario">
-                        </div>
-                    </div> -->
-                    <!-- <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Asunto</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputEmail3" name="asunto" REQUIRED>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Contenido</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" aria-label="With textarea" name="contenido" placeholder="..." required></textarea>
-                        </div>
-                    </div> -->
                     <div class="form-group row">
                         <label for="inputdatetime-local" class="col-sm-2 col-form-label">Fecha final</label>
                         <div class="col-sm-10">
-                            <input type="datetime-local" name="pc_fecha_final" class="form-control" REQUIRED>
+                            <input type="date" name="pc_fecha_final" class="form-control" REQUIRED>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -92,7 +74,7 @@ if (empty($_SESSION["id"])) {
 
     <?php  } ?>
 
-    <?php include("../../templates/user/footer_user.php") ?>
+    <?php include("templates/footer_user.php") ?>
 
 
 <?php } ?>

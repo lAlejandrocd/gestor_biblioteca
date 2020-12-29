@@ -1,13 +1,13 @@
 <?php 
 
 session_start();
-include("../../global/conexion.php");
+include("../../../global/conexion.php");
 $user_id = $_SESSION["id"];
 
 if (empty($_SESSION["id"])) {
 
     echo "<script> alert('No es posible acceder a esta página');
- 		window.location.href='../index.php';</script>";
+ 		window.location.href='../../../index.php';</script>";
 
 }else{ ?> 
 
@@ -30,7 +30,7 @@ if (empty($_SESSION["id"])) {
         if($user_id == $dc_id_usuario && $codigo_carpeta == $codigo_devolucion) {
 
             echo "<script> alert('Ya se ha enviado la solicitud de devolución.');
- 		                window.location.href='gestor.php';</script>";
+ 		                window.location.href='../index.php';</script>";
 
 
         }else{
@@ -46,9 +46,9 @@ if (empty($_SESSION["id"])) {
 
             //$correo = $row['usu_email'];
 
-            require 'src/Exception.php';
-            require 'src/PHPMailer.php';
-            require 'src/SMTP.php';
+            require '../src/Exception.php';
+            require '../src/PHPMailer.php';
+            require '../src/SMTP.php';
 
             $correo = "lalejandrocd1@gmail.com";
 
@@ -106,7 +106,7 @@ if (empty($_SESSION["id"])) {
             }
 
             echo "<script> alert('Se ha enviado la solicitud al administrador.');
- 		                window.location.href='gestor.php';</script>";
+ 		                window.location.href='../index.php';</script>";
         }
 
 

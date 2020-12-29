@@ -108,7 +108,7 @@ $("#form_user").submit(function(f){
 
           }).then (function (){
 
-            window.location.href = "app/User/gestor.php";
+            window.location.href = "app/User/index.php";
 
           });
 
