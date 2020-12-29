@@ -12,12 +12,12 @@ if (empty($_SESSION["ID_Ad"])) {
  	window.location.href='../../index.php';</script>";
 } else { ?>
 
-    <?php include("../../templates/header_admin.php"); ?>
+    <?php include("templates/header_admin.php"); ?>
 
     <div class="container">
         <div class="jumbotron text-center">
             <h1 class="display-8">Registrar usuario</h1>
-            <form action="#" method="POST">
+            <form action="backend/registrar_usuario.php" method="POST">
                 <div class="form-group row">
                     <label for="inputNumero_Cedula" class="col-sm-2 col-form-label">Cédula</label>
                     <div class="col-sm-10">
@@ -49,44 +49,8 @@ if (empty($_SESSION["ID_Ad"])) {
         </div>
     </div>
 
-    <?php 
     
-    if (isset($_POST['btn-register'])) {
-        
-        $cedula = $_POST['usu_id'];
-        $nombre_completo = $_POST['usu_nombre_cmplt'];
-        $email = $_POST['usu_email'];
-        $password = $_POST['usu_clave'];
 
-        $sql = mysqli_query($con, "INSERT INTO usuarios (usu_id, usu_nombre_cmplt, usu_email, usu_clave)VALUES('$cedula', '$nombre_completo' , '$email', '$password')");
-
-        if (!empty($sql)) {
-            
-            echo "<script> alert('Registro Completo');
- 		                window.location.href='gestor.php';</script>";
-
-        }else {
-
-            echo "<script> alert('Error de registro');
- 		                window.location.href='registrar_usuario.php';</script>";
-            
-        }
-
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    ?>
-
-
-
-
+    <?php include("templates/footer_admin.php"); ?>
 
 <?php } ?>

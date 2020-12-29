@@ -1,11 +1,11 @@
 <?php 
 
 session_start();
-include("../../global/conexion.php");
+include("../../../global/conexion.php");
 $ID_Ad = $_SESSION["ID_Ad"];
 if (empty($_SESSION["ID_Ad"])) {
     echo "<script> alert('No es posible acceder a esta página');
- 	window.location.href='../../index.php';</script>";
+ 	window.location.href='../../../index.php';</script>";
 
 }else { ?>
 
@@ -67,7 +67,7 @@ if (empty($_SESSION["ID_Ad"])) {
 
             //echo 'Message has been sent';
             echo "<script> alert('Se ha Enviado al usuario y autorizado su devolución.');
- 	    window.location.href='gestor.php';</script>";
+ 	    window.location.href='../index.php';</script>";
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
@@ -75,7 +75,7 @@ if (empty($_SESSION["ID_Ad"])) {
     } else {
 
         echo "<script> alert('Error...');
- 	    window.location.href='../../gestor.php';</script>";
+ 	    window.location.href='../../index.php';</script>";
     }
 
         

@@ -9,21 +9,21 @@ if (empty($_SESSION['ID_Ad'])) {
  		window.location.href='../../login_admin.php';</script>";
 } else { ?>
 
-    <?php include("../../templates/header_admin.php");
+    <?php include("templates/header_admin.php"); ?>
 
     if (isset($_POST['btn-rechazar'])) {
 
-        $ID = $_POST['ID'];
-        $cm_codigo_carpeta = $_POST['cm_codigo_carpeta'];
+    $ID = $_POST['ID'];
+    $cm_codigo_carpeta = $_POST['cm_codigo_carpeta'];
 
 
-        $query = mysqli_query($con, "SELECT * FROM usuarios WHERE usu_id = '$ID'");
+    $query = mysqli_query($con, "SELECT * FROM usuarios WHERE usu_id = '$ID'");
 
-        $row = mysqli_fetch_assoc($query);
+    $row = mysqli_fetch_assoc($query);
 
-        $email = $row['usu_email'];
+    $email = $row['usu_email'];
 
-        //echo $cm_codigo_carpeta;
+    //echo $cm_codigo_carpeta;
     }
 
 
@@ -35,7 +35,7 @@ if (empty($_SESSION['ID_Ad'])) {
     <div class="container">
         <div class="jumbotron text-center">
             <h1 class="display-8">Asunto de rechazo de modificación.</h1>
-            <form action="rechazar_envio_email.php" method="post">
+            <form action="backend/envio_rechazar.php" method="post">
                 <div class="form-group row">
                     <label for="inputCodigocarpeta" class="col-sm-2 col-form-label">Destino</label>
                     <div class="col-sm-10">
@@ -68,8 +68,6 @@ if (empty($_SESSION['ID_Ad'])) {
         </div>
     </div>
 
-
-
-
+    <?php include("templates/footer_admin.php"); ?>
 
 <?php } ?>

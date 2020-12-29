@@ -9,7 +9,7 @@ if (empty($_SESSION["ID_Ad"])) {
  	window.location.href='../../index.php';</script>";
 } else { ?>
 
-    <?php include("../../templates/header_admin.php"); ?>
+    <?php include("templates/header_admin.php"); ?>
 
     <?php
 
@@ -31,7 +31,7 @@ if (empty($_SESSION["ID_Ad"])) {
     <div class="container">
         <div class="jumbotron text-center">
             <h1 class="display-8">Autorizar devolución</h1>
-            <form action="envio_autorizar_devolucion.php" method="post">
+            <form action="backend/envio_autorizar_devolucion.php" method="post">
                 <div class="form-group row">
                     <label for="inputCodigocarpeta" class="col-sm-2 col-form-label">Destino</label>
                     <div class="col-sm-10">
@@ -75,6 +75,7 @@ if (empty($_SESSION["ID_Ad"])) {
     </div>
 
 
+    <?php include("templates/footer_admin.php"); ?>
 
 
 

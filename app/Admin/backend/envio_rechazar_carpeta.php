@@ -1,41 +1,18 @@
 <?php
 
-session_start();
-include("../../global/conexion.php");
+    session_start();
+    include("../../../global/conexion.php");
 
-$IDAd = $_SESSION['ID_Ad'];
-if (empty($_SESSION['ID_Ad'])) {
+    $IDAd = $_SESSION['ID_Ad'];
+
+    if (empty($_SESSION['ID_Ad'])) {
 
     echo "<script> alert('No es posible acceder a esta página');
- 	window.location.href='../../index.php';</script>";
-} else { ?>
+ 	window.location.href='../../../index.php';</script>";
 
+    }else{ ?> 
 
-    <?php
-
-    if (isset($_POST['btn-submit'])) {
-
-        $ID = $_POST['ID'];
-        $pc_id_usuario = $_POST['pc_id_usuario'];
-        $pc_codigo_carpt = $_POST['pc_codigo_carpt'];
-        $pc_fecha_final = $_POST['pc_fecha_final'];
-
-        $correo = $_POST['usu_email'];
-        $mensaje = $_POST['mensaje'];
-        $asunto = $_POST['asunto'];
-
-        
-    }
-
-    $sql = mysqli_query($con, "SELECT * FROM carpetas_prestadas WHERE id_usuario = '$pc_id_usuario' AND codigo_carpeta = '$pc_codigo_carpt'");
-
-
-    if ($row = mysqli_num_rows($sql) > 0) {
-
-        echo "<script> alert('Ya se ha aceptado el prestamo. ');
- 	window.location.href='gestor.php';</script>";
-    } else {
-
+        <?php 
 
         $correo = $_POST['usu_email'];
         $mensaje = $_POST['mensaje'];
@@ -88,10 +65,6 @@ if (empty($_SESSION['ID_Ad'])) {
     // echo "<script> alert('Enviado correctamente.');
  	// window.location.href='gestor.php';</script>";
 
-        $update_carpt = mysqli_query($con, "UPDATE carpetas SET ca_estado_carpeta = 'ocupado' WHERE ca_codigo_carpeta = '$pc_codigo_carpt'");
-
-        $query = mysqli_query($con, "INSERT INTO carpetas_prestadas(ID,id_usuario,codigo_carpeta,fecha_final) VALUES (NULL, '$pc_id_usuario', '$pc_codigo_carpt', '$pc_fecha_final')");
-
 
         $query_delete = mysqli_query($con, "DELETE FROM solicitud_prestamo WHERE ID = '$ID'");
 
@@ -100,9 +73,13 @@ if (empty($_SESSION['ID_Ad'])) {
         //     echo "<script> alert('Autorización de prestamo completa.');
  	    // window.location.href='gestor.php';</script>";
         }
-    }
+    
 
     ?>
     
+        
 
-<?php } ?>
+
+<?php } ?> 
+
+    

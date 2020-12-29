@@ -9,7 +9,7 @@ if (empty($_SESSION["ID_Ad"])) {
  	window.location.href='../../index.php';</script>";
 } else { ?>
 
-    <?php include("../../templates/header_admin.php"); ?>
+    <?php include("templates/header_admin.php"); ?>
 
 
     <div class="jumbotron text-center">
@@ -49,7 +49,7 @@ if (empty($_SESSION["ID_Ad"])) {
                                     <td><?php echo $row['dc_fecha_devolucion']; ?></td>
                                     <td>
                                         <form action="autorizar_devolucion.php" method="post">
-                                            
+
                                             <input type="hidden" name="usu_id" value="<?php echo $row['usu_id']; ?>">
 
                                             <input type="hidden" name="dc_codigo_carpeta" value="<?php echo $row['dc_codigo_carpeta']; ?>">
@@ -80,5 +80,8 @@ if (empty($_SESSION["ID_Ad"])) {
             </div>
         </div>
     </div>
+
+    <?php include("templates/footer_admin.php"); ?>
+
 
 <?php } ?>

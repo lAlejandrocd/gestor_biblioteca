@@ -1,0 +1,83 @@
+:root{
+
+    --primary: #f88a19;
+    --light : #ffffff;
+    --dark : #000000;
+
+}
+
+body{
+
+    overflow: hidden;
+    font-weight: 400;
+    color: var(--dark);
+}
+
+.bg-primary{
+    background-color: var(--primary) !important;
+
+}
+
+.bg-light{
+
+    background-color: var(--primary) !important;
+}
+
+.btn{
+
+    border: 0;
+}
+
+.stat{
+
+    border-right: 1px solid var(--dark);
+}
+
+.btn-primary{
+
+   background-color: var(--primary) !important;
+}
+
+.btn-danger{
+
+    background-color: var(--dark) !important;
+}
+
+#sidebar-container .logo {
+
+    /* pocisión del logo izquierdo. */
+    padding: .875em 4.25em;
+
+}
+
+a{
+
+    text-decoration: none;
+    text-align: center;
+}
+
+a:hover{
+
+    text-decoration: none;
+
+}
+
+#sidebar-container .menu{
+
+    width: 11em;
+
+}
+
+.avatar{
+
+    max-width: 45px;
+    
+}
+
+#content{
+
+    overflow-y: auto;
+    height: 100vh;
+    padding-bottom: 5em;
+}
+
