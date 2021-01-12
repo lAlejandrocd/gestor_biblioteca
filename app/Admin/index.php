@@ -28,6 +28,8 @@ if (empty($_SESSION["ID_Ad"])) {
 
     <div class="" id="content">
 
+
+
         <section class="py-3">
             <div class="container">
                 <div class="row">
@@ -55,26 +57,31 @@ if (empty($_SESSION["ID_Ad"])) {
                                         <th>Estado carpeta</th>
                                         <th>Tipo de carpeta</th>
                                         <th>Options</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
+
+
 
                                     <?php
 
                                     $sql = mysqli_query($con, "SELECT * FROM carpetas");
 
-                                    $row = mysqli_fetch_assoc($sql);
+                                    while ($row = mysqli_fetch_assoc($sql)) { ?>
+
+                                        <tr>
+                                            <td><?php echo $row['ca_codigo_carpeta']; ?></td>
+                                            <td><?php echo $row['ca_nombre_carpeta']; ?></td>
+                                            <td><?php echo $row['ca_numero_folios']; ?></td>
+                                            <td><?php echo $row['ca_estado_carpeta']; ?></td>
+                                            <td><?php echo $row['ca_tipo_carpeta']; ?></td>
+                                            <td></td>
+                                        </tr>
+
+                                    <?php } ?>
 
 
-                                    ?>
-                                    <tr>
-                                        <th><?php echo $row['ca_codigo_carpeta']; ?></th>
-                                        <th><?php echo $row['ca_nombre_carpeta']; ?></th>
-                                        <th><?php echo $row['ca_numero_folios']; ?></th>
-                                        <th><?php echo $row['ca_estado_carpeta']; ?></th>
-                                        <th><?php echo $row['ca_tipo_carpeta']; ?></th>
-                                        <th></th>
-                                    </tr>
                                 </tbody>
 
                             </table>
@@ -84,8 +91,48 @@ if (empty($_SESSION["ID_Ad"])) {
 
 
             </div>
+
+            <!-- Modal editar carpeta -->
+            <div id="ModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="Modaltitle"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        </div>
+                        <form id="FormCarpetaEdit">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input class="form-control" type="hidden" name="edit_ca_codigo_carpeta" id="edit_ca_codigo_carpeta">
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_ca_nombre_carpeta">Nombre de carpeta</label>
+                                    <input class="form-control" type="text" name="edit_ca_nombre_carpeta" id="edit_ca_nombre_carpeta" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_ca_numero_folios">Número de folios</label>
+                                    <input class="form-control" type="number" name="edit_ca_numero_folios" id="edit_ca_numero_folios" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_ca_estado_carpeta">Estado de carpeta</label>
+                                    <input class="form-control" type="text" name="edit_ca_estado_carpeta" id="edit_ca_estado_carpeta" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_ca_tipo_carpeta">Tipo de carpeta</label>
+                                    <input class="form-control" type="text" name="edit_ca_tipo_carpeta" id="edit_ca_tipo_carpeta" required>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit" name="btnEditar">Editar</button>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
 
+
+
+        <!-- Modal agregar carpeta -->
         <div id="agregar_carpeta" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -116,12 +163,19 @@ if (empty($_SESSION["ID_Ad"])) {
                                 <input class="form-control" type="text" name="ca_tipo_carpeta" id="ca_tipo_carpeta" required>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-primary" type="button" name="" id="">Guardar carpeta</button>
+                                <button class="btn btn-primary" type="submit" name="" id="">Guardar carpeta</button>
                             </div>
                     </form>
                 </div>
             </div>
         </div>
+
+
+
+
+
+
+
     </div>
 
     <?php include("templates/footer_admin.php"); ?>
