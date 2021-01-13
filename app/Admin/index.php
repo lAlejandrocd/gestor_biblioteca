@@ -48,7 +48,7 @@ if (empty($_SESSION["ID_Ad"])) {
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="table responsive">
-                            <table class="display" id="carpetas"h style="widt: 100%;">
+                            <table class="display" id="carpetas" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th>Código carpeta</th>
