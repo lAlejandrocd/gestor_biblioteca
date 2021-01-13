@@ -1,3 +1,4 @@
+// DataTable Index.php
 $(document).ready(function (){
   carpetas = $("#carpetas").DataTable({
     columnDefs: [
@@ -159,3 +160,36 @@ $(document).ready(function (){
   });
 
 });
+
+// Datatable Vista_Usuarios.php
+// $(document).ready(function () {
+//   var usuarios = $("#users").DataTable({
+//     columnDefs: [
+//       {
+//         targets: -1,
+//         data: null,
+//         //COntenido del botón
+//         defaultContent:
+//           "<div class='text-center'><div class='btn-group' role='group' aria-label='Button group'><button id='btnEditar' class='btn btn-primary UsubtnEditar' type='button' >Editar</button><button id='UsubtnEliminar' class='btn btn-info UsubtnEliminar' type='button' >Eliminar</button></div></div>",
+//       },
+//     ],
+//   });
+
+ 
+// });
+
+ $(document).on("click", ".UsubtnEliminar", function () {
+   console.log("hello_Word");
+ });
+
+ 
+
+ $(document).on("click", "#UsuAgregar", function () {
+
+   $("#Modaltitle").text("Agregar usuario");
+   $(".modal-header").css("background-color", "orange");
+   $("#agregar_usuario").modal("show");
+
+   $("#FormUsuarios").trigger("reset");
+
+ });
