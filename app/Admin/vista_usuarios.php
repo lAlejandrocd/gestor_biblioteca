@@ -42,38 +42,48 @@ if (empty($_SESSION['ID_Ad'])) {
                                         <td>Acciones</td>
                                     </tr>
                                 </thead>
+
                                 <tbody>
 
                                     <?php
 
                                     $sql = mysqli_query($con, "SELECT * FROM usuarios");
 
-                                    while ($row = mysqli_fetch_assoc($sql)) { ?>
+                                    while ($row = mysqli_fetch_array($sql)) {
 
+                                        $datos = $row[0] . "||" . $row[1] . "||" . $row[2] . "||" . $row[3];
+
+                                    ?>
                                         <tr>
-                                            <td><?php echo $row['usu_id']; ?></td>
-                                            <td><?php echo $row['usu_nombre_cmplt']; ?></td>
-                                            <td><?php echo $row['usu_email']; ?></td>
-                                            <td><?php echo $row['usu_clave']; ?></td>
+                                            <td><?php echo $row[0]; ?></td>
+                                            <td><?php echo $row[1]; ?></td>
+                                            <td><?php echo $row[2]; ?></td>
+                                            <td><?php echo $row[3]; ?></td>
                                             <td>
                                                 <div class='text-center'>
-                                                    <div class='btn-group' role='group' aria-label='Button group'><button id='btnEditar' class='btn btn-primary UsubtnEditar' type='button'>Editar</button><button id='UsubtnEliminar' class='btn btn-info UsubtnEliminar' type='button'>Eliminar</button></div>
+                                                    <div class='btn-group' role='group' aria-label='Button group'>
+                                                        <button class="btn btn-primary UsubtnEditar" type="button" name="UsubtnEditar" edit="UsubtnEditar"  onclick="llenar_modal('<?php echo $datos; ?>');">primary</button>
+                                                    </div>
                                                 </div>
+
                                             </td>
                                         </tr>
                                 </tbody>
-
-                            <?php } ?>
-                            </table>
-
                         </div>
+
+
+
+                    <?php } ?>
+                    </table>
+
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <div id="agregar_usuario" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+
+        <!-- Modal agregar usuario -->
+        <div id=" agregar_usuario" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -99,22 +109,55 @@ if (empty($_SESSION['ID_Ad'])) {
                                 <input class="form-control" type="password" name="usu_clave" id="usu_clave">
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-primary" type="button" name="btnGuardar" id="btnGuardar">Guardar usuario</button>
-
+                                <button class="btn btn-primary" type="submit" name="btnGuardar" id="btnGuardar">Guardar usuario</button>
                             </div>
-
-
                         </div>
                     </form>
                 </div>
             </div>
         </div>
 
+        <!-- Modal editar usuario -->
+        <div id="editar_usuario" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="Modaltitle"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                    </div>
+                    <form id="FormEditUsuarios">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="edusu_id">C.C:</label>
+                                <input class="form-control" type="number" name="edusu_id" id="edusu_id" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edusu_nombre_cmplt">Nombre completo</label>
+                                <input class="form-control" type="text" name="edusu_nombre_cmplt" id="edusu_nombre_cmplt">
+                            </div>
+                            <div class="form-group">
+                                <label for="edusu_email">Email</label>
+                                <input class="form-control" type="email" name="edusu_email" id="edusu_email">
+                            </div>
+                            <div class="form-group">
+                                <label for="edusu_clave">Contraseña</label>
+                                <input class="form-control" type="text" name="edusu_clave" id="edusu_clave">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit" name="UsuBtnEnviar" id="UsuBtnEnviar"></button>
+                            </div>
+                        </div>
+                    </form>
 
+                </div>
+            </div>
+        </div>
 
     </div>
 
-    <?php include("templates/footer_admin.php"); ?>
 
+
+
+    <?php include("templates/footer_admin.php"); ?>
 
 <?php } ?>

@@ -161,29 +161,7 @@ $(document).ready(function (){
 
 });
 
-// Datatable Vista_Usuarios.php
-// $(document).ready(function () {
-//   var usuarios = $("#users").DataTable({
-//     columnDefs: [
-//       {
-//         targets: -1,
-//         data: null,
-//         //COntenido del botón
-//         defaultContent:
-//           "<div class='text-center'><div class='btn-group' role='group' aria-label='Button group'><button id='btnEditar' class='btn btn-primary UsubtnEditar' type='button' >Editar</button><button id='UsubtnEliminar' class='btn btn-info UsubtnEliminar' type='button' >Eliminar</button></div></div>",
-//       },
-//     ],
-//   });
-
- 
-// });
-
- $(document).on("click", ".UsubtnEliminar", function () {
-   console.log("hello_Word");
- });
-
- 
-
+// Modal agregar usuario, archivo vista_usuarios.php
  $(document).on("click", "#UsuAgregar", function () {
 
    $("#Modaltitle").text("Agregar usuario");
@@ -193,3 +171,98 @@ $(document).ready(function (){
    $("#FormUsuarios").trigger("reset");
 
  });
+
+//  Formulario agregar  usuario, archivo vista_usuarios.php
+ $("#FormUsuarios").submit(function (d){
+
+  d.preventDefault();
+
+  var datos = $("#FormUsuarios").serialize();
+
+  $.ajax({
+
+    url: "backend/agregar_usuario.php",
+    method : "POST",
+    datatype : "json",
+    data : datos, 
+    success : function (e){
+
+      if (e != "") {
+        alert("Registro exitoso");
+        
+      }else{
+
+        alert("error");
+
+      }
+
+
+
+
+    }
+
+
+  });
+
+
+  $("#agregar_usuario").modal("hide");
+
+
+ });
+
+//  Llenar modal a datos a editar
+function llenar_modal(datos){
+
+  
+  d = datos.split("||");
+
+  console.log(d);
+ 
+   $("#edusu_id").val(d[0]);
+   $("#edusu_nombre_cmplt").val(d[1]);
+   $("#edusu_email").val(d[2]);
+   $("#edusu_clave").val(d[3]);
+}
+  
+//  Botón editar
+$(document).on("click", ".UsubtnEditar", function (datos) {
+  
+ 
+
+   $(".modal-title").text("Editar datos de usuario");
+   $(".modal-header").css("background-color", "orange");
+   $("#editar_usuario").modal("show");
+  
+});
+
+
+
+  $("#FormEditUsuarios").submit(function (g){
+
+    g.preventDefault();
+    
+    var datos = $("#FormEditUsuarios").serialize();
+
+    $.ajax({
+
+      url : "backend/actualizar_usuarios.php",
+      method : "POST",
+      data : datos,
+      succes : function (e){
+
+        if (e != "") {
+          
+          alert ("actualización completa");
+        }else{
+
+          alert("Error.");
+
+        }
+
+      }
+
+    });
+
+  });
+
+

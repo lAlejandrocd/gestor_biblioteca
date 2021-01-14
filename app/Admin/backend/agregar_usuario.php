@@ -14,8 +14,6 @@ if (empty($_SESSION["ID_Ad"])) {
 
 <?php
 
-    if (isset($_POST['btn-register'])) {
-
         $cedula = $_POST['usu_id'];
         $nombre_completo = $_POST['usu_nombre_cmplt'];
         $email = $_POST['usu_email'];
@@ -32,7 +30,9 @@ if (empty($_SESSION["ID_Ad"])) {
             echo "<script> alert('Error de registro');
  		                window.location.href='../registrar_usuario.php';</script>";
         }
-    }
+    
+    mysqli_close($con);
+    
 
 ?>
 
