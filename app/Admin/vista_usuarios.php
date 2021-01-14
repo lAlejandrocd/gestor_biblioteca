@@ -53,6 +53,8 @@ if (empty($_SESSION['ID_Ad'])) {
 
                                         $datos = $row[0] . "||" . $row[1] . "||" . $row[2] . "||" . $row[3];
 
+                                        $ID = $row[0];
+
                                     ?>
                                         <tr>
                                             <td><?php echo $row[0]; ?></td>
@@ -62,7 +64,8 @@ if (empty($_SESSION['ID_Ad'])) {
                                             <td>
                                                 <div class='text-center'>
                                                     <div class='btn-group' role='group' aria-label='Button group'>
-                                                        <button class="btn btn-primary UsubtnEditar" type="button" name="UsubtnEditar" edit="UsubtnEditar"  onclick="llenar_modal('<?php echo $datos; ?>');">primary</button>
+                                                        <button class="btn btn-primary UsubtnEditar" type="button" name="UsubtnEditar" edit="UsubtnEditar" onclick="llenar_modal('<?php echo $datos; ?>');">Editar</button>
+                                                        <button class="btn btn-warning" type="button" name="UsubtnEliminar" id="UsubtnEliminar" onclick="eliminar_datos('<?php echo $ID; ?>');">eliminar</button>
                                                     </div>
                                                 </div>
 
@@ -83,7 +86,7 @@ if (empty($_SESSION['ID_Ad'])) {
 
 
         <!-- Modal agregar usuario -->
-        <div id=" agregar_usuario" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div id="agregar_usuario" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -144,7 +147,7 @@ if (empty($_SESSION['ID_Ad'])) {
                                 <input class="form-control" type="text" name="edusu_clave" id="edusu_clave">
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-primary" type="submit" name="UsuBtnEnviar" id="UsuBtnEnviar"></button>
+                                <button class="btn btn-primary" type="submit" name="UsuBtnEnviar" id="UsuBtnEnviar">Actualizar</button>
                             </div>
                         </div>
                     </form>
@@ -154,6 +157,8 @@ if (empty($_SESSION['ID_Ad'])) {
         </div>
 
     </div>
+
+
 
 
 

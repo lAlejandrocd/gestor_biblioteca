@@ -210,6 +210,17 @@ $(document).ready(function (){
 
  });
 
+
+//Botón editar
+$(document).on("click", ".UsubtnEditar", function () {
+  
+
+   $(".modal-title").text("Editar datos de usuario");
+   $(".modal-header").css("background-color", "orange");
+   $("#editar_usuario").modal("show");
+  
+});
+
 //  Llenar modal a datos a editar
 function llenar_modal(datos){
 
@@ -223,46 +234,75 @@ function llenar_modal(datos){
    $("#edusu_email").val(d[2]);
    $("#edusu_clave").val(d[3]);
 }
-  
-//  Botón editar
-$(document).on("click", ".UsubtnEditar", function (datos) {
-  
- 
-
-   $(".modal-title").text("Editar datos de usuario");
-   $(".modal-header").css("background-color", "orange");
-   $("#editar_usuario").modal("show");
-  
-});
 
 
-
-  $("#FormEditUsuarios").submit(function (g){
+// Formulario editar usuarios
+  $("#FormEditUsuarios").submit(function (g) {
 
     g.preventDefault();
-    
-    var datos = $("#FormEditUsuarios").serialize();
 
+    var data_e = $("#FormEditUsuarios").serialize();
+
+
+  
     $.ajax({
+      url: "backend/actualizar_usuarios.php",
+      method: "POST",
+      datatype: "json",
+      data: data_e,
+      success: function (data_e) {
+        if (data_e != "") {
+          alert("Registro actualizado");
+        } else {
+          alert("Error...");
+        }
+      },
+    });
 
-      url : "backend/actualizar_usuarios.php",
-      method : "POST",
-      data : datos,
-      succes : function (e){
+    $("#editar_usuario").modal("hide");
+  });
 
-        if (e != "") {
-          
-          alert ("actualización completa");
-        }else{
+  // Botón eliminar
 
-          alert("Error.");
+  function eliminar_datos(id){
+
+    ID = id;
+
+    console.log(ID);
+
+    respuesta =  confirm("¿Estas seguro de eliminar este usuario?" + ID);
+
+    if (respuesta) {
+
+      $.ajax({
+
+        url: "backend/eliminar_usuario.php",
+        method : "POST",
+        datatype: "json",
+        data : {ID : ID},
+        success: function (e){
+
+          if (e != "") {
+            
+            alert("Se ha eliminado el registro");
+          }else{
+
+            alert("error al eliminar registro");
+
+          }
 
         }
 
-      }
 
-    });
+      });
+      
+    }else{
 
-  });
+      respuesta = confirm("No se han borrado los datos correspondientes al ID: " + ID);
+
+    }
+
+
+  }
 
 
