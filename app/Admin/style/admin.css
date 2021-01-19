@@ -43,6 +43,12 @@ body{
     background-color: var(--dark) !important;
 }
 
+.alert-primary{
+
+       background-color: var(--primary) !important;
+
+}
+
 #sidebar-container .logo {
 
     /* pocisión del logo izquierdo. */

@@ -30,55 +30,76 @@ if (empty($_SESSION['ID_Ad'])) {
         <section class="py-3">
             <div class="container">
                 <div class="row">
+                    <!-- col-lg-6 para cambiar el tamaño de tabla. -->
                     <div class="col-lg-12">
-                        <div class="table responsive">
-                            <table class="display" id="users" style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <td>Cédula</td>
-                                        <td>Nombre</td>
-                                        <td>Correo</td>
-                                        <td>Contraseña</td>
-                                        <td>Acciones</td>
-                                    </tr>
-                                </thead>
+                        <div class="jumbotron">
+                            <div class="card">
+                                <div class="card card-body">
+                                    <div class="table responsive">
 
-                                <tbody>
+                                        <?php
+                                        $sql = mysqli_query($con, "SELECT * FROM usuarios");
 
-                                    <?php
+                                        $row_f = mysqli_num_rows($sql);
 
-                                    $sql = mysqli_query($con, "SELECT * FROM usuarios");
+                                        if ($row_f >= 1) {
 
-                                    while ($row = mysqli_fetch_array($sql)) {
+                                            while ($row = mysqli_fetch_array($sql)) {
 
-                                        $datos = $row[0] . "||" . $row[1] . "||" . $row[2] . "||" . $row[3];
+                                                $datos = $row[0] . "||" . $row[1] . "||" . $row[2] . "||" . $row[3];
 
-                                        $ID = $row[0];
+                                                $ID = $row[0];
 
-                                    ?>
-                                        <tr>
-                                            <td><?php echo $row[0]; ?></td>
-                                            <td><?php echo $row[1]; ?></td>
-                                            <td><?php echo $row[2]; ?></td>
-                                            <td><?php echo $row[3]; ?></td>
-                                            <td>
-                                                <div class='text-center'>
-                                                    <div class='btn-group' role='group' aria-label='Button group'>
-                                                        <button class="btn btn-primary UsubtnEditar" type="button" name="UsubtnEditar" edit="UsubtnEditar" onclick="llenar_modal('<?php echo $datos; ?>');">Editar</button>
-                                                        <button class="btn btn-warning" type="button" name="UsubtnEliminar" id="UsubtnEliminar" onclick="eliminar_datos('<?php echo $ID; ?>');">eliminar</button>
-                                                    </div>
-                                                </div>
+                                        ?>
+                                                <table class="table table-dark display" id="users" style="width: 100%;">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>Cédula</td>
+                                                            <td>Nombre</td>
+                                                            <td>Correo</td>
+                                                            <td>Contraseña</td>
+                                                            <td>Acciones</td>
+                                                        </tr>
+                                                    </thead>
 
-                                            </td>
-                                        </tr>
-                                </tbody>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><?php echo $row[0]; ?></td>
+                                                            <td><?php echo $row[1]; ?></td>
+                                                            <td><?php echo $row[2]; ?></td>
+                                                            <td><?php echo $row[3]; ?></td>
+                                                            <td>
+                                                                <div class='text-center'>
+                                                                    <div class='btn-group' role='group' aria-label='Button group'>
+                                                                        <button class="btn btn-primary UsubtnEditar" type="button" name="UsubtnEditar" edit="UsubtnEditar" onclick="llenar_modal('<?php echo $datos; ?>');">Editar</button>
+                                                                        <button class="btn btn-warning" type="button" name="UsubtnEliminar" id="UsubtnEliminar" onclick="eliminar_datos('<?php echo $ID; ?>');">eliminar</button>
+                                                                    </div>
+                                                                </div>
+
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            <?php  } ?>
+
+                                        <?php } else { ?>
+                                            <div class="alert alert-primary" role="alert">
+                                                <h3 class="alert-link">No hay usuarios registrados.</h3>
+                                            </div>
+                                        <?php } ?>
+
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-
-
-                    <?php } ?>
-                    </table>
-
                     </div>
                 </div>
             </div>
@@ -157,11 +178,6 @@ if (empty($_SESSION['ID_Ad'])) {
         </div>
 
     </div>
-
-
-
-
-
 
     <?php include("templates/footer_admin.php"); ?>
 

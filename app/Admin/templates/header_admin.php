@@ -31,8 +31,6 @@
             <div class="menu">
                 <a href="index.php" class="d-block text-dark p-3">Inicio</a>
                 <a href="vista_usuarios.php" class="d-block text-dark p-3">Usuarios</a>
-                <a href="registrar_usuario.php" class="d-block text-dark p-3">Agregar usuario</a>
-                <a href="historial_sesion.php" class="d-block text-dark p-3">Historial de sesión</a>
                 <a href="devolucion_carpetas.php" class="d-block text-dark p-3">Devoluciones</a>
                 <a href="solicitud_carpetas.php" class="d-block text-dark p-3">Solicitudes de carpetas</a>
                 <a href="autorizar_devolucion.php" class="d-block text-dark p-3">Autorizar devolución</a>

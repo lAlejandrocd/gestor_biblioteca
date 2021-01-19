@@ -262,8 +262,7 @@ function llenar_modal(datos){
     $("#editar_usuario").modal("hide");
   });
 
-  // Botón eliminar
-
+  // Botón eliminar datos archivo vista_usuarios.php
   function eliminar_datos(id){
 
     ID = id;

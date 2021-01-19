@@ -47,44 +47,43 @@ if (empty($_SESSION["ID_Ad"])) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="table responsive">
-                            <table class="display" id="carpetas" style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>Código carpeta</th>
-                                        <th>Nombre de carpeta</th>
-                                        <th>Número de folios </th>
-                                        <th>Estado carpeta</th>
-                                        <th>Tipo de carpeta</th>
-                                        <th>Options</th>
+                                        <table class="display" id="carpetas" style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Código carpeta</th>
+                                                    <th>Nombre de carpeta</th>
+                                                    <th>Número de folios </th>
+                                                    <th>Estado carpeta</th>
+                                                    <th>Tipo de carpeta</th>
+                                                    <th>Options</th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
 
-                                    <?php
 
-                                    $sql = mysqli_query($con, "SELECT * FROM carpetas");
+                                                <?php
 
-                                    while ($row = mysqli_fetch_assoc($sql)) { ?>
+                                                $sql = mysqli_query($con, "SELECT * FROM carpetas");
 
-                                        <tr>
-                                            <td><?php echo $row['ca_codigo_carpeta']; ?></td>
-                                            <td><?php echo $row['ca_nombre_carpeta']; ?></td>
-                                            <td><?php echo $row['ca_numero_folios']; ?></td>
-                                            <td><?php echo $row['ca_estado_carpeta']; ?></td>
-                                            <td><?php echo $row['ca_tipo_carpeta']; ?></td>
-                                            <td></td>
-                                        </tr>
+                                                while ($row = mysqli_fetch_assoc($sql)) { ?>
 
-                                    <?php } ?>
+                                                    <tr>
+                                                        <td><?php echo $row['ca_codigo_carpeta']; ?></td>
+                                                        <td><?php echo $row['ca_nombre_carpeta']; ?></td>
+                                                        <td><?php echo $row['ca_numero_folios']; ?></td>
+                                                        <td><?php echo $row['ca_estado_carpeta']; ?></td>
+                                                        <td><?php echo $row['ca_tipo_carpeta']; ?></td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                <?php } ?>
 
 
-                                </tbody>
+                                            </tbody>
 
-                            </table>
+                                        </table>
                         </div>
                     </div>
                 </div>
