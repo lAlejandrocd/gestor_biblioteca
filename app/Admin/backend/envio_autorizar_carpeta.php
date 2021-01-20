@@ -13,7 +13,6 @@ if (empty($_SESSION['ID_Ad'])) {
 
     <?php
 
-    if (isset($_POST['btn-submit'])) {
 
         $ID = $_POST['ID'];
         $pc_id_usuario = $_POST['pc_id_usuario'];
@@ -25,7 +24,7 @@ if (empty($_SESSION['ID_Ad'])) {
         $asunto = $_POST['asunto'];
 
         
-    }
+    
 
     $sql = mysqli_query($con, "SELECT * FROM carpetas_prestadas WHERE id_usuario = '$pc_id_usuario' AND codigo_carpeta = '$pc_codigo_carpt'");
 
@@ -41,9 +40,9 @@ if (empty($_SESSION['ID_Ad'])) {
         $mensaje = $_POST['mensaje'];
         $asunto = $_POST['asunto'];
 
-    require 'src/Exception.php';
-    require 'src/PHPMailer.php';
-    require 'src/SMTP.php';
+    require '../src/Exception.php';
+    require '../src/PHPMailer.php';
+    require '../src/SMTP.php';
 
 
 
@@ -79,7 +78,7 @@ if (empty($_SESSION['ID_Ad'])) {
 
         //echo 'Message has been sent';
          echo "<script> alert('Enviado correctamente.');
- 	     window.location.href='gestor.php';</script>";
+ 	     window.location.href='../index.php';</script>";
 
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

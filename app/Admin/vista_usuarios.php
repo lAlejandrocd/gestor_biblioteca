@@ -71,7 +71,7 @@ if (empty($_SESSION['ID_Ad'])) {
                                                             <td>
                                                                 <div class='text-center'>
                                                                     <div class='btn-group' role='group' aria-label='Button group'>
-                                                                        <button class="btn btn-primary UsubtnEditar" type="button" name="UsubtnEditar" edit="UsubtnEditar" onclick="llenar_modal('<?php echo $datos; ?>');">Editar</button>
+                                                                        <button class="btn btn-primary UsubtnEditar" type="button" name="UsubtnEditar" edit="UsubtnEditar" onclick="llenar_modal_sc('<?php echo $datos; ?>');">Editar</button>
                                                                         <button class="btn btn-warning" type="button" name="UsubtnEliminar" id="UsubtnEliminar" onclick="eliminar_datos('<?php echo $ID; ?>');">eliminar</button>
                                                                     </div>
                                                                 </div>

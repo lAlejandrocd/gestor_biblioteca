@@ -69,6 +69,9 @@ $(document).ready(function (){
     $(".modal-title").text("Editar carpeta");
     $(".modal-header").css("background-color", "orange");
     $("#ModalEdit").modal("show");
+
+    $("#ModalEdit").trigger("reset");
+
     
     fila = $(this).closest("tr");
 
@@ -214,10 +217,12 @@ $(document).ready(function (){
 //Botón editar
 $(document).on("click", ".UsubtnEditar", function () {
   
-
    $(".modal-title").text("Editar datos de usuario");
    $(".modal-header").css("background-color", "orange");
    $("#editar_usuario").modal("show");
+
+   $("#editar_usuario").trigger("reset");
+
   
 });
 
@@ -243,15 +248,15 @@ function llenar_modal(datos){
 
     var data_e = $("#FormEditUsuarios").serialize();
 
-
-  
     $.ajax({
-      url: "backend/actualizar_usuarios.php",
+      url: "backend/envio_autorizar_carpeta.php",
       method: "POST",
       datatype: "json",
-      data: data_e,
-      success: function (data_e) {
-        if (data_e != "") {
+      data: {
+        data_e
+      },
+      success: function (data) {
+        if (data != "") {
           alert("Registro actualizado");
         } else {
           alert("Error...");
@@ -303,5 +308,79 @@ function llenar_modal(datos){
 
 
   }
+
+
+  // Llenar modal, autorizar prestamo de carpeta solicitud_carpetas.php 
+  function llenar_modal_sc(datos_sc) {
+
+    e = datos_sc.split("||");
+
+    console.log(e);
+
+    $("#usu_email").val();
+    $("#asunto").val();
+    $("#mensaje").val();
+    $("#ID").val();
+    $("#pc_codigo_carpt").val();
+    $("#pc_id_usuario").val();
+    $("#pc_fecha_final").val();
+
+    
+    console.log($("#pc_fecha_final").val());
+
+  }
+
+  // Botón autorizar, archivo solicitud_carpetas.php
+  $(document).on("click", ".btn-autorizar", function () {
+    $(".modal-title_sc").text("Editar datos de usuario");
+    $(".modal-header_sc").css("background-color", "orange");
+    $("#autorizar_carpeta").modal("show");
+    $("#autorizar_carpeta").trigger("reset");
+
+  });
+
+  $("#autorizar_carpeta").submit(function (h) {
+    h.preventDefault();
+
+    // var data_sc = $("#autorizar_carpeta").serialize();
+
+    usu_email = $.trim($("#usu_email").val());
+    asunto = $.trim($("#asunto").val());
+    mensaje = $.trim($("#mensaje").val());
+    ID = $.trim($("#ID").val());
+    pc_codigo_carpt = $.trim($("#pc_codigo_carpt").val());
+    pc_id_usuario = $.trim($("#pc_id_usuario").val());
+    pc_fecha_final = $.trim($("#pc_fecha_final").val());
+    
+    console.log(asunto);
+    console.log(mensaje);
+    //  console.log(data_sc);
+
+    $.ajax({
+      url: "backend/envio_autorizar_carpeta.php",
+      method: "POST",
+      datatype: "json",
+      data: {
+        usu_email: usu_email,
+        asunto: asunto,
+        mensaje: mensaje,
+        ID: ID,
+        pc_codigo_carpt: pc_codigo_carpt,
+        pc_id_usuario: pc_id_usuario,
+        pc_fecha_final: pc_fecha_final,
+      },
+      success: function (h) {
+        console.log(h);
+
+        if (h != "") {
+          alert("Se ha enviado la solicitud");
+        } else {
+          alert("Error...");
+        }
+      },
+    });
+
+    $("#autorizar_carpeta").modal("hide");
+  });
 
 
