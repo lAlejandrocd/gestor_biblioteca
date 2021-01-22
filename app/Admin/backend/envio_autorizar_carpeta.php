@@ -17,7 +17,7 @@ if (empty($_SESSION['ID_Ad'])) {
         $ID = $_POST['ID'];
         $pc_id_usuario = $_POST['pc_id_usuario'];
         $pc_codigo_carpt = $_POST['pc_codigo_carpt'];
-        $pc_fecha_final = $_POST['pc_fecha_final'];
+        $pc_fecha_final_f = $_POST['pc_fecha_final_f'];
 
         $correo = $_POST['usu_email'];
         $mensaje = $_POST['mensaje'];
@@ -31,9 +31,11 @@ if (empty($_SESSION['ID_Ad'])) {
 
     if ($row = mysqli_num_rows($sql) > 0) {
 
-        echo "<script> alert('Ya se ha aceptado el prestamo. ');
- 	window.location.href='../index.php';</script>";
-    } else {
+        $h =  "Ya se ha aceptado el prestamo";
+        json_encode($h);
+        print $h;
+
+    } else {     
 
 
         $correo = $_POST['usu_email'];
@@ -77,27 +79,29 @@ if (empty($_SESSION['ID_Ad'])) {
         $mail->send();
 
         //echo 'Message has been sent';
-         echo "<script> alert('Enviado correctamente.');
- 	     window.location.href='../index.php';</script>";
-
+            $h =  "Enviado correctamente.";
+            json_encode($h);
+            print $h;
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 
-    // echo "<script> alert('Enviado correctamente.');
- 	// window.location.href='gestor.php';</script>";
+   
 
         $update_carpt = mysqli_query($con, "UPDATE carpetas SET ca_estado_carpeta = 'ocupado' WHERE ca_codigo_carpeta = '$pc_codigo_carpt'");
 
-        $query = mysqli_query($con, "INSERT INTO carpetas_prestadas(ID,id_usuario,codigo_carpeta,fecha_final) VALUES (NULL, '$pc_id_usuario', '$pc_codigo_carpt', '$pc_fecha_final')");
+        $query = mysqli_query($con, "INSERT INTO carpetas_prestadas(ID,id_usuario,codigo_carpeta,fecha_final) VALUES (NULL, '$pc_id_usuario', '$pc_codigo_carpt', '$pc_fecha_final_f')");
 
 
         $query_delete = mysqli_query($con, "DELETE FROM solicitud_prestamo WHERE ID = '$ID'");
 
         if ($query == true) {
 
-             echo "<script> alert('Autorización de prestamo completa.');
- 	     window.location.href='../index.php';</script>";
+
+            $h =  "Autorización de prestamo completada";
+            json_encode($h);
+            print $h;
+
         }
     }
 

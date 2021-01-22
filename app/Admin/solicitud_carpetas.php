@@ -29,7 +29,6 @@ if (empty($_SESSION['ID_Ad'])) {
 
         <!-- Section de tabla  -->
         <section class="py-3">
-
             <!-- INICIO DE TABLA  -->
             <div class="container">
                 <div class="row">
@@ -38,48 +37,55 @@ if (empty($_SESSION['ID_Ad'])) {
                             <div class="card">
                                 <div class="card card-body">
                                     <div class="table responsive">
+                                        <table class="table table-dark">
 
-                                        <?php
+                                            <?php
+                                            $query = mysqli_query($con, "SELECT * FROM solicitud_prestamo");
 
-                                        $query = mysqli_query($con, "SELECT * FROM solicitud_prestamo");
+                                            $row_f = mysqli_num_rows($query);
 
-                                        $row_f = mysqli_num_rows($query);
+                                            if ($row_f >= 1) {  ?>
 
-                                        if ($row_f >= 1) {
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Persona solicitante</th>
+                                                        <th scope="col">Codigo carpeta</th>
+                                                        <th scope="col">Fecha de inicio</th>
+                                                        <th scope="col">Fecha final</th>
+                                                        <th scope="col">Opciones</th>
+
+                                                    </tr>
+                                                </thead>
+
+                                                <?php
+
+                                                while ($row = mysqli_fetch_array($query)) {
+
+                                                    $query_email = mysqli_query($con, "SELECT usu_id,usu_email FROM usuarios usu INNER JOIN solicitud_prestamo cs ON usu.`usu_id` = cs.`pc_id_usuario`");
+
+                                                    $query_array_email = mysqli_fetch_array($query_email);
+
+                                                    $usu_email = $query_array_email['usu_email'];
+
+                                                    $datos_sc = $row[0] . "||" . $row[1] . "||" . $row[2] . "||" . $row[3] . "||" . $row[4] . "||" . $usu_email;
+
+                                                    $ID = $row[0];
+
+                                                    $pc_id_usuario = $row[1];
+
+                                                    $pc_codigo_carpt = $row[2];
+
+                                                    $pc_fecha_final = $row[4];
+
+                                                    $pc_fecha_final_f = date("Y-m-d", strtotime($pc_fecha_final));
+
+                                                    //echo $pc_fecha_final_f;
 
 
 
-                                            while ($row = mysqli_fetch_array($query)) {
 
-                                                $query_email = mysqli_query($con, "SELECT usu_id,usu_email FROM usuarios usu INNER JOIN solicitud_prestamo cs ON usu.`usu_id` = cs.`pc_id_usuario`");
 
-                                                $query_array_email = mysqli_fetch_array($query_email);
-
-                                                $usu_email = $query_array_email['usu_email'];
-
-                                                $datos_sc = $row[0] . "||" . $row[1] . "||" . $row[2] . "||" . $row[3] . "||" . $row[4] . "||" . $usu_email;
-
-                                                $ID = $row[0];
-
-                                                $pc_id_usuario = $row[1];
-
-                                                $pc_codigo_carpt = $row[2];
-
-                                                $pc_fecha_final = $row[4];
-
-                                        ?>
-
-                                                <table class="table table-dark">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">Persona solicitante</th>
-                                                            <th scope="col">Codigo carpeta</th>
-                                                            <th scope="col">Fecha de inicio</th>
-                                                            <th scope="col">Fecha final</th>
-                                                            <th scope="col">Opciones</th>
-
-                                                        </tr>
-                                                    </thead>
+                                                ?>
                                                     <tbody>
                                                         <tr>
                                                             <td><?php echo $row[1]; ?></td>
@@ -97,16 +103,15 @@ if (empty($_SESSION['ID_Ad'])) {
                                                         </tr>
                                                     </tbody>
 
-                                                </table>
+                                                <?php  } ?>
+                                        </table>
 
-                                            <?php  } ?>
+                                    <?php } else { ?>
 
-                                        <?php } else { ?>
-
-                                            <div class="alert alert-primary" role="alert">
-                                                <h3 class="alert-link">No hay solicitudes de carpetas.</h3>
-                                            </div>
-                                        <?php  }  ?>
+                                        <div class="alert alert-primary" role="alert">
+                                            <h3 class="alert-link">No hay solicitudes de carpetas.</h3>
+                                        </div>
+                                    <?php  }  ?>
                                     </div>
                                 </div>
                             </div>
@@ -119,11 +124,11 @@ if (empty($_SESSION['ID_Ad'])) {
         <div id="autorizar_carpeta" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header_sc">
-                        <h5 class="modal-title_sc" id="modal-title_sc"></h5>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title_sc"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
                     </div>
-                    <form id="autorizar_carpeta">
+                    <form id="envio_autorizar_carpeta">
                         <div class="modal-body">
                             <div class="form-group row">
                                 <label for="inputCodigocarpeta" class="col-sm-2 col-form-label">Destino</label>
@@ -155,7 +160,7 @@ if (empty($_SESSION['ID_Ad'])) {
                             <div class="form-group row">
                                 <label for="pc_fecha_final" class="col-sm-2 col-form-label">Fecha final</label>
                                 <div class="col-sm-10">
-                                    <input type="date" REQUIRED class="form-control" id="pc_fecha_final" name="pc_fecha_final" value="<?php echo $pc_fecha_final; ?>">
+                                    <input type="text" REQUIRED class="form-control" placeholder="Año-mes-día..." id="pc_fecha_final_f" name="pc_fecha_final_f" value="<?php echo $pc_fecha_final_f; ?>">
                                 </div>
                             </div>
                             <div class="form-group row">

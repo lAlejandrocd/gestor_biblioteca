@@ -323,26 +323,32 @@ function llenar_modal(datos){
     $("#ID").val();
     $("#pc_codigo_carpt").val();
     $("#pc_id_usuario").val();
-    $("#pc_fecha_final").val();
+    $("#pc_fecha_final_f").val();
 
     
-    console.log($("#pc_fecha_final").val());
+    console.log($("#pc_fecha_final_f").val());
 
   }
 
   // Botón autorizar, archivo solicitud_carpetas.php
   $(document).on("click", ".btn-autorizar", function () {
-    $(".modal-title_sc").text("Editar datos de usuario");
-    $(".modal-header_sc").css("background-color", "orange");
+    $(".modal-title_sc").text("Autorizar carpeta");
+    
+    $(".modal-title").text("Autorizar prestamo");
+
+    $(".modal-header").css("background-color", "orange");
+
+    
     $("#autorizar_carpeta").modal("show");
+
     $("#autorizar_carpeta").trigger("reset");
+
 
   });
 
-  $("#autorizar_carpeta").submit(function (h) {
+  // Autorizar prestamo carpeta.
+  $("#envio_autorizar_carpeta").submit(function (h) {
     h.preventDefault();
-
-    // var data_sc = $("#autorizar_carpeta").serialize();
 
     usu_email = $.trim($("#usu_email").val());
     asunto = $.trim($("#asunto").val());
@@ -350,11 +356,7 @@ function llenar_modal(datos){
     ID = $.trim($("#ID").val());
     pc_codigo_carpt = $.trim($("#pc_codigo_carpt").val());
     pc_id_usuario = $.trim($("#pc_id_usuario").val());
-    pc_fecha_final = $.trim($("#pc_fecha_final").val());
-    
-    console.log(asunto);
-    console.log(mensaje);
-    //  console.log(data_sc);
+    pc_fecha_final_f = $.trim($("#pc_fecha_final_f").val());
 
     $.ajax({
       url: "backend/envio_autorizar_carpeta.php",
@@ -367,13 +369,13 @@ function llenar_modal(datos){
         ID: ID,
         pc_codigo_carpt: pc_codigo_carpt,
         pc_id_usuario: pc_id_usuario,
-        pc_fecha_final: pc_fecha_final,
+        pc_fecha_final_f: pc_fecha_final_f,
       },
       success: function (h) {
         console.log(h);
 
         if (h != "") {
-          alert("Se ha enviado la solicitud");
+          alert(h);
         } else {
           alert("Error...");
         }
