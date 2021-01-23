@@ -315,7 +315,7 @@ function llenar_modal(datos){
 
     e = datos_sc.split("||");
 
-    console.log(e);
+    // console.log(e);
 
     $("#usu_email").val();
     $("#asunto").val();
@@ -326,13 +326,12 @@ function llenar_modal(datos){
     $("#pc_fecha_final_f").val();
 
     
-    console.log($("#pc_fecha_final_f").val());
+    // console.log($("#pc_fecha_final_f").val());
 
   }
 
   // Botón autorizar, archivo solicitud_carpetas.php
   $(document).on("click", ".btn-autorizar", function () {
-    $(".modal-title_sc").text("Autorizar carpeta");
     
     $(".modal-title").text("Autorizar prestamo");
 
@@ -386,3 +385,72 @@ function llenar_modal(datos){
   });
 
 
+  // Llenar modal, rechazar carpeta.
+  function llenar_modal_rsc(datos_rsc){
+
+    // btnRechazar;
+
+    f = datos_rsc.split("||");
+
+    console.log(f);
+
+    $("#usu_email").val();
+    $("#asunto").val();
+    $("#mensaje").val();
+    $("#ID").val();
+    $("#pc_codigo_carpt").val();
+    $("#pc_id_usuario").val();
+    $("#pc_fecha_final_f").val();
+
+  }
+
+  // Mostrar modal, Rechazar carpeta.
+  $(document).on("click", ".btnRechazar", function () {
+
+    $(".modal-header").css("background-color", "orange");
+    
+    $(".modal-title").text("Rechazar carpeta");
+   
+    $("#rechazar_carpeta").trigger("reset");
+
+    $("#rechazar_carpeta").modal("show");
+
+  });
+
+  // Enviar datos, rechazar carpeta.
+  $("#rechazar_prestamo_carpeta").submit(function (f){
+
+    f.preventDefault();
+
+    usu_email = $.trim($("#usu_email").val());
+    asunto = $.trim($("#asunto").val());
+    mensaje = $.trim($("#mensaje").val());
+    ID = $.trim($("#ID").val());
+
+    console.log(ID);
+
+    $.ajax({
+      url: "backend/envio_rechazar_carpeta.php",
+      method: "POST",
+      datatype: "json",
+      data: {
+        usu_email: usu_email,
+        asunto: asunto,
+        mensaje: mensaje,
+        ID: ID,
+      },
+      success: function (f) {
+        console.log(f);
+
+        if (f != "") {
+          alert(f);
+        } else {
+          alert("error");
+        }
+      },
+    });
+
+
+
+
+  });

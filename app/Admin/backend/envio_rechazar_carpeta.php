@@ -12,15 +12,16 @@
 
     }else{ ?> 
 
-        <?php 
+    <?php 
 
         $correo = $_POST['usu_email'];
-        $mensaje = $_POST['mensaje'];
         $asunto = $_POST['asunto'];
+        $mensaje = $_POST['mensaje'];
+        $ID = $_POST['ID'];
 
-    require 'src/Exception.php';
-    require 'src/PHPMailer.php';
-    require 'src/SMTP.php';
+    require '../src/Exception.php';
+    require '../src/PHPMailer.php';
+    require '../src/SMTP.php';
 
 
 
@@ -54,27 +55,25 @@
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
         $mail->send();
 
-        //echo 'Message has been sent';
-         echo "<script> alert('Enviado correctamente.');
- 	     window.location.href='gestor.php';</script>";
+            //echo 'Message has been sent';
+            $f =  "Se ha aceptado la autorización";
+            json_encode($f);
+            print $f;
 
     } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        $f = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        json_encode($f);
+        print $f;
+    
     }
-
-    // echo "<script> alert('Enviado correctamente.');
- 	// window.location.href='gestor.php';</script>";
-
 
         $query_delete = mysqli_query($con, "DELETE FROM solicitud_prestamo WHERE ID = '$ID'");
 
-        if ($query == true) {
+        $f =  "Se ha rechazado el prestamo de la carpeta...";
+        json_encode($f);
+        print $f;
 
-        //     echo "<script> alert('Autorización de prestamo completa.');
- 	    // window.location.href='gestor.php';</script>";
-        }
     
-
     ?>
     
         
