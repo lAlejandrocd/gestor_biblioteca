@@ -20,7 +20,7 @@ if (empty($_SESSION['ID_Ad'])) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-9">
-                        <h1 class="font-weight-bold mb-0">Gestor de carpetas.</h1>
+                        <h1 class="font-weight-bold mb-0">Gestor de carpetas - Solicitudes de carpetas</h1>
                     </div>
 
                 </div>
@@ -105,7 +105,6 @@ if (empty($_SESSION['ID_Ad'])) {
                                         </table>
 
                                     <?php } else { ?>
-
                                         <div class="alert alert-primary" role="alert">
                                             <h3 class="alert-link">No hay solicitudes de carpetas.</h3>
                                         </div>

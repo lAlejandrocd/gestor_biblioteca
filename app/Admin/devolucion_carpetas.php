@@ -17,7 +17,7 @@ if (empty($_SESSION["ID_Ad"])) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-9">
-                        <h1 class="font-weight-bold mb-0">Gestor de carpetas.</h1>
+                        <h1 class="font-weight-bold mb-0">Gestor de carpetas - Devoluciones</h1>
                     </div>
                 </div>
         </section>
@@ -30,7 +30,6 @@ if (empty($_SESSION["ID_Ad"])) {
                             <div class="card">
                                 <div class="card card-body">
                                     <div class="table responsive">
-
 
                                         <?php
 
@@ -64,43 +63,36 @@ if (empty($_SESSION["ID_Ad"])) {
                                                             <td><?php echo $row['dc_fecha_devolucion']; ?></td>
                                                             <td>
                                                                 <form action="autorizar_devolucion.php" method="post">
-
                                                                     <input type="hidden" name="usu_id" value="<?php echo $row['usu_id']; ?>">
 
                                                                     <input type="hidden" name="dc_codigo_carpeta" value="<?php echo $row['dc_codigo_carpeta']; ?>">
+                                                                    <div class='text-center'>
 
-                                                                    <button class="btn btn-success" type="submit" name="btn-aceptar">Aceptar </button>
-                                                                    <br>
+                                                                        <button class="btn btn-success" type="submit" name="btn-aceptar">Aceptar </button>
+                                                                        <br>
 
 
                                                                 </form>
                                                             </td>
                                                             <td>
                                                                 <form action="rechazar_devolucion.php" method="post">
-
                                                                     <input type="hidden" name="usu_id" value="<?php echo $row['usu_id']; ?>">
-
                                                                     <input type="hidden" name="dc_codigo_carpeta" value="<?php echo $row['dc_codigo_carpeta']; ?>">
 
                                                                     <button class="btn btn-danger" type="submit" name="btn-rechazar">Rechazar </button>
                                                                 </form>
                                                             </td>
-
                                                         </tr>
                                                     </tbody>
-
                                                 </table>
 
                                             <?php  } ?>
-
 
                                         <?php } else {  ?>
 
                                             <div class="alert alert-primary" role="alert">
                                                 <h3 class="alert-link">Sin devoluciones.</h3>
                                             </div>
-
-
 
                                         <?php } ?>
 
@@ -113,9 +105,6 @@ if (empty($_SESSION["ID_Ad"])) {
             </div>
 
         </section>
-
-
-
 
 
     </div>

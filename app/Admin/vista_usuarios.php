@@ -19,7 +19,7 @@ if (empty($_SESSION['ID_Ad'])) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-9">
-                        <h1 class="font-weight-bold mb-0">Gestor de carpetas.</h1>
+                        <h1 class="font-weight-bold mb-0">Gestor de carpetas - Usuarios</h1>
                     </div>
                     <div class="col-lg-3 d-flex">
                         <button class="btn btn-primary  align-self-center" type="button" name="UsuAgregar" id="UsuAgregar">Agregar usuario</button>

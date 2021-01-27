@@ -31,11 +31,11 @@
             <div class="menu">
                 <a href="index.php" class="d-block text-dark p-3">Inicio</a>
                 <a href="vista_usuarios.php" class="d-block text-dark p-3">Usuarios</a>
+                <a href="modificacion_carpetas.php" class="d-block text-dark p-3">Modificaciones</a>
                 <a href="devolucion_carpetas.php" class="d-block text-dark p-3">Devoluciones</a>
                 <a href="solicitud_carpetas.php" class="d-block text-dark p-3">Solicitudes de carpetas</a>
-                <a href="autorizar_devolucion.php" class="d-block text-dark p-3">Autorizar devolución</a>
-                <a href="autorizar_carpeta.php" class="d-block text-dark p-3">Autorizar carpeta</a>
-                <a href="modificacion_carpetas.php" class="d-block text-dark p-3">Modificaciones</a>
+                <a href="../../global/cerrar_sesion.php" class="d-block text-dark p-3">Cerrar sesión</a>
+
 
             </div>
 
@@ -64,4 +64,3 @@
                 </div>
             </nav>
             <!-- En este div iba el texto "gestor de carpeta" pero se cambio a zona index para así poder unir el botón y el texto. -->
-            
