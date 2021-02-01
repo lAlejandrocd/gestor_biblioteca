@@ -35,61 +35,72 @@ if (empty($_SESSION['ID_Ad'])) {
                             <div class="card">
                                 <div class="card card-body">
                                     <div class="table responsive">
-                                        <table class="table table-dark display">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Código de carpeta </th>
-                                                    <th scope="col">Folios Agregados</th>
-                                                    <th scope="col">Fecha de modificación</th>
-                                                    <th scope="col">Id de usuario</th>
-                                                    <th scope="col">Nombre usuario</th>
-                                                    <th scope="col">Autorizar</th>
-                                                    <th scope="col">Rechazar</th>
+                                        <?php
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
+                                        $query = mysqli_query($con, "SELECT usu.*, cm.* FROM usuarios usu INNER JOIN carpetas_modificadas cm ON cm.`cm_id_usuario` = usu.`usu_id`;");
 
-                                                $query = mysqli_query($con, "SELECT usu.*, cm.* FROM usuarios usu INNER JOIN carpetas_modificadas cm ON cm.`cm_id_usuario` = usu.`usu_id`;");
+                                        $row_count = mysqli_num_rows($query);
 
-                                                // $query = mysqli_query($con, "SELECT * FROM carpetas_modificadas");
+                                        if ($row_count >= 1) { ?>
 
-                                                while ($row = mysqli_fetch_assoc($query)) { ?>
+                                            <?php
 
+                                            while ($row = mysqli_fetch_assoc($query)) { ?>
 
-                                                    <tr>
-                                                        <td><?php echo $row['cm_codigo_carpeta']; ?></td>
-                                                        <td><?php echo $row['cm_folios_agregados']; ?></td>
-                                                        <td><?php echo $row['cm_fecha']; ?></td>
-                                                        <td><?php echo $row['cm_id_usuario']; ?></td>
-                                                        <td><?php echo $row['usu_nombre_cmplt']; ?></td>
-                                                        <td>
-                                                            <form action="modificar.php" method="post">
+                                                <table class="table table-dark display">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Código de carpeta </th>
+                                                            <th scope="col">Folios Agregados</th>
+                                                            <th scope="col">Fecha de modificación</th>
+                                                            <th scope="col">Id de usuario</th>
+                                                            <th scope="col">Nombre usuario</th>
+                                                            <th scope="col">Autorizar</th>
+                                                            <th scope="col">Rechazar</th>
 
-                                                                <input type="hidden" name="cm_codigo_carpeta" value="<?php echo $row['cm_codigo_carpeta'] ?> ">
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><?php echo $row['cm_codigo_carpeta']; ?></td>
+                                                            <td><?php echo $row['cm_folios_agregados']; ?></td>
+                                                            <td><?php echo $row['cm_fecha']; ?></td>
+                                                            <td><?php echo $row['cm_id_usuario']; ?></td>
+                                                            <td><?php echo $row['usu_nombre_cmplt']; ?></td>
+                                                            <td>
+                                                                <form action="modificar.php" method="post">
 
-                                                                <input type="hidden" name="id_usuario" value="<?php echo $row['cm_id_usuario'] ?> ">
+                                                                    <input type="hidden" name="cm_codigo_carpeta" value="<?php echo $row['cm_codigo_carpeta'] ?> ">
 
-                                                                <input type="hidden" name="ID" value=" <?php echo $row['ID'] ?>">
-                                                                <button class="btn btn-success" type="submit" name="btn-autorizar">(Y)</button>
+                                                                    <input type="hidden" name="id_usuario" value="<?php echo $row['cm_id_usuario'] ?> ">
 
-                                                            </form>
-                                                        </td>
+                                                                    <input type="hidden" name="ID" value=" <?php echo $row['ID'] ?>">
+                                                                    <button class="btn btn-success" type="submit" name="btn-autorizar">(Y)</button>
 
-                                                        <td>
-                                                            <form action="rechazar.php" method="post">
+                                                                </form>
+                                                            </td>
 
-                                                                <input type="hidden" name="ID" value="<?php echo $row['cm_id_usuario'] ?> ">
-                                                                <input type="hidden" name="cm_codigo_carpeta" value="<?php echo $row['cm_codigo_carpeta'] ?> ">
-                                                                <button class="btn btn-danger" type="submit" name="btn-rechazar">(Y)</button>
+                                                            <td>
+                                                                <form action="rechazar.php" method="post">
 
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
+                                                                    <input type="hidden" name="ID" value="<?php echo $row['cm_id_usuario'] ?> ">
+                                                                    <input type="hidden" name="cm_codigo_carpeta" value="<?php echo $row['cm_codigo_carpeta'] ?> ">
+                                                                    <button class="btn btn-danger" type="submit" name="btn-rechazar">(Y)</button>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            <?php } ?>
+
+                                        <?php } else { ?>
+
+                                            <div class="alert alert-primary" role="alert">
+                                                <h3 class="alert-link">Sin modificaciones.</h3>
+                                            </div>
+
+                                        <?php  }  ?>
+
                                     </div>
                                 </div>
                             </div>
