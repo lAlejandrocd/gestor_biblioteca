@@ -45,17 +45,31 @@ $(document).ready(function (){
         ca_tipo_carpeta: ca_tipo_carpeta,
       },
       success: function (data) {
-        carpetas.row
-          .add([
-            ca_codigo_carpeta,
-            ca_nombre_carpeta,
-            ca_numero_folios,
-            ca_estado_carpeta,
-            ca_tipo_carpeta,
-          ])
-          .draw();
 
-        console.log(data);
+        if (data == 1) {
+
+          Swal.fire({
+            type: "error",
+            title: "Hay una existencia a esta carpeta.",
+          });
+
+        }else{
+
+          carpetas.row
+            .add([
+              ca_codigo_carpeta,
+              ca_nombre_carpeta,
+              ca_numero_folios,
+              ca_estado_carpeta,
+              ca_tipo_carpeta,
+            ])
+            .draw();
+
+          console.log(data);
+
+        }
+
+        
       },
     });
 
@@ -112,17 +126,37 @@ $(document).ready(function (){
       },
       success : function (data){
 
-        carpetas
-          .row(fila)
-          .data([
-            edit_ca_codigo_carpeta,
-            edit_ca_nombre_carpeta,
-            edit_ca_numero_folios,
-            edit_ca_estado_carpeta,
-            edit_ca_tipo_carpeta,
-          ]);
+        if (data == 1) {
 
-          console.log(edit_ca_codigo_carpeta + edit_ca_nombre_carpeta + edit_ca_numero_folios + edit_ca_estado_carpeta + edit_ca_tipo_carpeta);
+          Swal.fire({
+            type: "error",
+            title: "Hay una existencia a esta carpeta.",
+          });
+
+        }else{
+
+          carpetas
+            .row(fila)
+            .data([
+              edit_ca_codigo_carpeta,
+              edit_ca_nombre_carpeta,
+              edit_ca_numero_folios,
+              edit_ca_estado_carpeta,
+              edit_ca_tipo_carpeta,
+            ]);
+
+          console.log(
+            edit_ca_codigo_carpeta +
+              edit_ca_nombre_carpeta +
+              edit_ca_numero_folios +
+              edit_ca_estado_carpeta +
+              edit_ca_tipo_carpeta
+          );
+        
+
+
+        }
+
         
 
 
