@@ -1,5 +1,5 @@
-// DataTable Index.php
-$(document).ready(function (){
+// DataTables Index.php
+$(document).ready(function () {
   carpetas = $("#carpetas").DataTable({
     columnDefs: [
       {
@@ -45,16 +45,12 @@ $(document).ready(function (){
         ca_tipo_carpeta: ca_tipo_carpeta,
       },
       success: function (data) {
-
         if (data == 1) {
-
           Swal.fire({
             type: "error",
             title: "Hay una existencia a esta carpeta.",
           });
-
-        }else{
-
+        } else {
           carpetas.row
             .add([
               ca_codigo_carpeta,
@@ -66,10 +62,7 @@ $(document).ready(function (){
             .draw();
 
           console.log(data);
-
         }
-
-        
       },
     });
 
@@ -86,7 +79,6 @@ $(document).ready(function (){
 
     $("#ModalEdit").trigger("reset");
 
-    
     fila = $(this).closest("tr");
 
     edit_ca_codigo_carpeta = parseInt(fila.find("td:eq(0)").text());
@@ -100,19 +92,17 @@ $(document).ready(function (){
     $("#edit_ca_numero_folios").val(edit_ca_numero_folios);
     $("#edit_ca_estado_carpeta").val(edit_ca_estado_carpeta);
     $("#edit_ca_tipo_carpeta").val(edit_ca_tipo_carpeta);
-
   });
 
   // Editar carpeta
-  $("#FormCarpetaEdit").submit(function (f){
-
+  $("#FormCarpetaEdit").submit(function (f) {
     f.preventDefault();
     edit_ca_codigo_carpeta = $.trim($("#edit_ca_codigo_carpeta").val());
     edit_ca_nombre_carpeta = $.trim($("#edit_ca_nombre_carpeta").val());
     edit_ca_numero_folios = $.trim($("#edit_ca_numero_folios").val());
     edit_ca_estado_carpeta = $.trim($("#edit_ca_estado_carpeta").val());
     edit_ca_tipo_carpeta = $.trim($("#edit_ca_tipo_carpeta").val());
-     
+
     $.ajax({
       url: "backend/actualizar_carpeta.php",
       type: "POST",
@@ -124,17 +114,13 @@ $(document).ready(function (){
         edit_ca_estado_carpeta: edit_ca_estado_carpeta,
         edit_ca_tipo_carpeta: edit_ca_tipo_carpeta,
       },
-      success : function (data){
-
+      success: function (data) {
         if (data == 1) {
-
           Swal.fire({
             type: "error",
             title: "Hay una existencia a esta carpeta.",
           });
-
-        }else{
-
+        } else {
           carpetas
             .row(fila)
             .data([
@@ -144,150 +130,244 @@ $(document).ready(function (){
               edit_ca_estado_carpeta,
               edit_ca_tipo_carpeta,
             ]);
-
-          console.log(
-            edit_ca_codigo_carpeta +
-              edit_ca_nombre_carpeta +
-              edit_ca_numero_folios +
-              edit_ca_estado_carpeta +
-              edit_ca_tipo_carpeta
-          );
-        
-
-
         }
-
-        
-
-
-      }
+      },
     });
 
     $("#ModalEdit").modal("hide");
-
-
   });
 
   // Borrar carpeta
-  $(document).on("click", ".btnEliminar", function (){
-
+  $(document).on("click", ".btnEliminar", function () {
     fila = $(this);
     ca_codigo_carpeta = parseInt($(this).closest("tr").find("td:eq(0)").text());
 
-    var respuesta = confirm("¿Estas seguro de borrar esta carpeta? " + ca_codigo_carpeta);
+    var respuesta = confirm(
+      "¿Estas seguro de borrar esta carpeta? " + ca_codigo_carpeta
+    );
 
     if (respuesta) {
       $.ajax({
-
         url: "backend/eliminar_carpeta.php",
         type: "POST",
-        datatype : "json",
-        data: { ca_codigo_carpeta: ca_codigo_carpeta},
-        success : function (data) {
-
+        datatype: "json",
+        data: { ca_codigo_carpeta: ca_codigo_carpeta },
+        success: function (data) {
           carpetas.row(fila.parents("tr")).remove().draw();
-
-        }
-
+        },
       });
-      
     }
+  });
+});
+
+//DataTables vista_ usuarios.php
+$(document).ready(function () {
+  usuarios = $("#users").DataTable({
+    columnDefs: [
+      {
+        targets: -1,
+        data: null,
+        defaultContent:
+          "<div class='text-center'><div class='btn-group' role='group' aria-label='Button group'><button id='btnEditarUsu' class='btn btn-primary btnEditarUsu' type='button'>Editar usuario</button><button id='btnEliminarUsu' class='btn btn-info btnEliminarUsu' type='button'>Eliminar Usuario</button></div></div>",
+      },
+    ],
+  });
+
+  // Modal agregar usuario, archivo vista_usuarios.php
+  $(document).on("click", "#UsuAgregar", function () {
+    $("#Modaltitle_E").text("Agregar usuario");
+    $(".modal-header").css("background-color", "orange");
+    $("#agregar_usuario").modal("show");
+
+    $("#FormUsuarios").trigger("reset");
+  });
+
+  //Formulario agregar  usuario, archivo vista_usuarios.php
+  $("#FormUsuarios").submit(function (d) {
+    d.preventDefault();
+
+    usu_id = $.trim($("#usu_id").val());
+    usu_nombre_cmplt = $.trim($("#usu_nombre_cmplt").val());
+    usu_email = $.trim($("#usu_email").val());
+    usu_clave = $.trim($("#usu_clave").val());
+
+    $.ajax({
+      url: "backend/agregar_usuario.php",
+      method: "POST",
+      datatype: "json",
+      data: {
+        usu_id: usu_id,
+        usu_nombre_cmplt: usu_nombre_cmplt,
+        usu_email: usu_email,
+        usu_clave: usu_clave,
+      },
+      success: function (data) {
+        console.log(data);
+        if (data == 1) {
+          alert("Ya hay un usuario registrado.");
+        } else {
+          Swal.fire({
+            type: "info",
+            title: "Registro Exitoso.",
+          });
+
+          usuarios.row
+            .add([usu_id, usu_nombre_cmplt, usu_email, usu_clave])
+            .draw();
+        }
+      },
+    });
+
+    $("#agregar_usuario").modal("hide");
+  });
+
+  var fila2;
+
+  // Editar usuario archivo vista_usuarios.php
+  $(document).on("click", ".btnEditarUsu", function () {
+    $(".modal-title").text("Editar datos de usuario");
+    $(".modal-header").css("background-color", "orange");
+    $("#editar_usuario").modal("show");
+
+    $("#editar_usuario").trigger("reset");
+
+    fila2 = $(this).closest("tr");
+
+    edusu_id = parseInt(fila2.find("td:eq(0)").text());
+    edusu_nombre_cmplt = fila2.find("td:eq(1)").text();
+    edusu_email = fila2.find("td:eq(2)").text();
+    edusu_clave = parseInt(fila2.find("td:eq(3)").text());
+
+    $("#edusu_id").val(edusu_id);
+    $("#edusu_nombre_cmplt").val(edusu_nombre_cmplt);
+    $("#edusu_email").val(edusu_email);
+    $("#edusu_clave").val(edusu_clave);
+  });
+
+  // Editar usuarios archivo vista_usuarios.php
+  $("#FormEditUsuarios").submit(function (f) {
+    f.preventDefault();
+    edusu_id = $.trim($("#edusu_id").val());
+    edusu_nombre_cmplt = $.trim($("#edusu_nombre_cmplt").val());
+    edusu_email = $.trim($("#edusu_email").val());
+    edusu_clave = $.trim($("#edusu_clave").val());
+
+    $.ajax({
+      url: "backend/actualizar_usuarios.php",
+      type: "POST",
+      datatype: "json",
+      data: {
+        edusu_id: edusu_id,
+        edusu_nombre_cmplt: edusu_nombre_cmplt,
+        edusu_email: edusu_email,
+        edusu_clave: edusu_clave,
+      },
+      success: function (data) {
+        if (data == 1) {
+          Swal.fire({
+            type: "info",
+            title: "Registro actualizado",
+          });
+
+          usuarios
+            .row(fila2)
+            .data([edusu_id, edusu_nombre_cmplt, edusu_email, edusu_clave]);
+        } else {
+          alert("error");
+        }
+      },
+    });
+
+    $("#editar_usuario").modal("hide");
+  });
+
+  // Botón eliminar datos archivo vista_usuarios.php
+  $(document).on("click", ".btnEliminarUsu", function () {
+    fila2 = $(this);
+    usu_id = parseInt($(this).closest("tr").find("td:eq(0)").text());
+
+    var respuesta = confirm("¿Estas seguro de borrar esta carpeta? " + usu_id);
+
+    if (respuesta) {
+      $.ajax({
+        url: "backend/eliminar_usuario.php",
+        type: "POST",
+        datatype: "json",
+        data: { usu_id: usu_id },
+        success: function (data) {
+          var data = JSON.parse(data);
+          if (data == true) {
+            Swal.fire({
+              type: "info",
+              title: "Se ha borrado el registro.",
+            });
+
+            console.log(data);
+
+            usuarios.row(fila2.parents("tr")).remove().draw();
+          } else {
+            alert("error");
+          }
+        },
+      });
+    }
+  });
+});
+
+//DataTables devoluciones.
+$(document).ready(function (){
+
+  devoluciones = $("#devoluciones").DataTable({
+    columnDefs: [
+      {
+        targets: -1,
+        data: null,
+        defaultContent:
+          "<div class='text-center'><div class='btn-group' role='group' aria-label='Button group'><button id='btnEditarDev' class='btn btn-primary btnEditarDev' type='button'>Editar usuario</button><button id='btnEliminarUsu' class='btn btn-info btnEliminarDev' type='button'>Eliminar Usuario</button></div></div>",
+      },
+    ],
+  });
+
+  // Botón agregar devolución archivo Devolucion_carpetas.php
+  $("#agregar_devolucion").click(function (){
+
+    $("#ModaltitleDev").text("Agregar devoluciones");
+
+    $("#modalheaderDev").css("background-color", "orange");
+
+    $("#agregar_dev").modal("show");
+
+    $("#agregarDev").trigger("reset");
+
+  });
+
+  $("#agregarDev").submit(function (j){
+
+    j.preventDefault();
+
+    
 
 
   });
 
+
+
 });
 
-// Modal agregar usuario, archivo vista_usuarios.php
- $(document).on("click", "#UsuAgregar", function () {
-
-   $("#Modaltitle").text("Agregar usuario");
-   $(".modal-header").css("background-color", "orange");
-   $("#agregar_usuario").modal("show");
-
-   $("#FormUsuarios").trigger("reset");
-
- });
-
-//  Formulario agregar  usuario, archivo vista_usuarios.php
- $("#FormUsuarios").submit(function (d){
-
-  d.preventDefault();
-
-  var datos = $("#FormUsuarios").serialize();
-
-  $.ajax({
-
-    url: "backend/agregar_usuario.php",
-    method : "POST",
-    datatype : "json",
-    data : datos, 
-    success : function (e){
-
-      if (e != "") {
-        alert("Registro exitoso");
-        
-      }else{
-
-        alert("error");
-
-      }
 
 
-
-
-    }
-
-
-  });
-
-
-  $("#agregar_usuario").modal("hide");
-
-
- });
-
-
-//Botón editar
-$(document).on("click", ".UsubtnEditar", function () {
-  
-   $(".modal-title").text("Editar datos de usuario");
-   $(".modal-header").css("background-color", "orange");
-   $("#editar_usuario").modal("show");
-
-   $("#editar_usuario").trigger("reset");
-
-  
-});
-
-//  Llenar modal a datos a editar
-function llenar_modal(datos){
-
-  
-  d = datos.split("||");
-
-  console.log(d);
- 
-   $("#edusu_id").val(d[0]);
-   $("#edusu_nombre_cmplt").val(d[1]);
-   $("#edusu_email").val(d[2]);
-   $("#edusu_clave").val(d[3]);
-}
-
-
-// Formulario editar usuarios
-  $("#FormEditUsuarios").submit(function (g) {
-
+// Formulario envio autorizar carpeta.
+  $("#envio_autorizar_carpeta").submit(function (g) {
     g.preventDefault();
 
-    var data_e = $("#FormEditUsuarios").serialize();
+    var data_e = $("#envio_autorizar_carpeta").serialize();
 
     $.ajax({
       url: "backend/envio_autorizar_carpeta.php",
       method: "POST",
       datatype: "json",
       data: {
-        data_e
+        data_e,
       },
       success: function (data) {
         if (data != "") {
@@ -301,47 +381,6 @@ function llenar_modal(datos){
     $("#editar_usuario").modal("hide");
   });
 
-  // Botón eliminar datos archivo vista_usuarios.php
-  function eliminar_datos(id){
-
-    ID = id;
-
-    console.log(ID);
-
-    respuesta =  confirm("¿Estas seguro de eliminar este usuario?" + ID);
-
-    if (respuesta) {
-
-      $.ajax({
-
-        url: "backend/eliminar_usuario.php",
-        method : "POST",
-        datatype: "json",
-        data : {ID : ID},
-        success: function (e){
-
-          if (e != "") {
-            
-            alert("Se ha eliminado el registro");
-          }else{
-
-            alert("error al eliminar registro");
-
-          }
-
-        }
-
-
-      });
-      
-    }else{
-
-      respuesta = confirm("No se han borrado los datos correspondientes al ID: " + ID);
-
-    }
-
-
-  }
 
 
   // Llenar modal, autorizar prestamo de carpeta solicitud_carpetas.php 
@@ -360,7 +399,6 @@ function llenar_modal(datos){
     $("#pc_fecha_final_f").val();
 
     
-    // console.log($("#pc_fecha_final_f").val());
 
   }
 
@@ -488,3 +526,5 @@ function llenar_modal(datos){
 
 
   });
+
+

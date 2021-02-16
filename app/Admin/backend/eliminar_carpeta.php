@@ -13,6 +13,8 @@ if (empty($_SESSION['ID_Ad'])) {
     $ca_codigo_carpeta = $_POST['ca_codigo_carpeta'];
 
     $sql = mysqli_query($con, "DELETE FROM carpetas WHERE ca_codigo_carpeta = '$ca_codigo_carpeta'");
+
+    mysqli_close($con);
     
 
 ?>

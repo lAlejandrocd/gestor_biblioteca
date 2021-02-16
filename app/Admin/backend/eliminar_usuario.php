@@ -12,11 +12,16 @@ if (empty($_SESSION['ID_Ad'])) {
 
 <?php 
 
-$usu_id = $_POST['ID'];
+$usu_id = $_POST['usu_id'];
 
 $sql = mysqli_query($con, "DELETE FROM usuarios WHERE usu_id = '$usu_id'");
 
-mysqli_close($sql);
+$consola = $sql;
+
+print json_encode($consola, JSON_UNESCAPED_UNICODE);
+
+
+mysqli_close($con);
 
 ?>
 

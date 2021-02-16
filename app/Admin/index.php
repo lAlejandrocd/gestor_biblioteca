@@ -46,12 +46,9 @@ if (empty($_SESSION["ID_Ad"])) {
                                     <th>Estado carpeta</th>
                                     <th>Tipo de carpeta</th>
                                     <th>Options</th>
-
                                 </tr>
                             </thead>
                             <tbody>
-
-
 
                                 <?php
 

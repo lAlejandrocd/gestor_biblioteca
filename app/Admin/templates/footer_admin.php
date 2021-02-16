@@ -15,10 +15,12 @@
 <!-- Datatable -->
 <script src="../../plugins/DataTables/datatables.min.js"></script>
 
+
 <!-- Popper -->
 <script src="../../plugins/Popper/popper.min.js"></script>
 <!-- Archivo JS -->
 <script src="js/admin.js"></script>
+
 </body>
 
 </html>

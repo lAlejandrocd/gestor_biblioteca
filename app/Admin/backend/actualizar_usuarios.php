@@ -20,14 +20,15 @@ if (empty($_SESSION['ID_Ad'])) {
 
     $sql = mysqli_query($con, "UPDATE usuarios SET usu_nombre_cmplt = '$edusu_nombre_cmplt', usu_email = '$edusu_email', usu_clave = '$edusu_clave' WHERE usu_id = '$edusu_id'");
 
-    $select = mysqli_query($con, "SELECT * FROM usuarios WHERE usu_id = '$edusu_id'");
+    // $select = mysqli_query($con, "SELECT * FROM usuarios WHERE usu_id = '$edusu_id'");
 
-    $data_e = mysqli_fetch_assoc($select);
+    // $data_e = mysqli_fetch_assoc($select);
+
+    $data_e = 1;
 
     print json_encode($data_e, JSON_UNESCAPED_UNICODE);
 
     mysqli_close($con);
-
 
 ?>
 
