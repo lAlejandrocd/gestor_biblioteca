@@ -314,7 +314,7 @@ $(document).ready(function () {
   });
 });
 
-//DataTables devoluciones.
+//DataTables devolucion_carpetas.php
 $(document).ready(function (){
 
   devoluciones = $("#devoluciones").DataTable({
@@ -323,7 +323,7 @@ $(document).ready(function (){
         targets: -1,
         data: null,
         defaultContent:
-          "<div class='text-center'><div class='btn-group' role='group' aria-label='Button group'><button id='btnEditarDev' class='btn btn-primary btnEditarDev' type='button'>Editar usuario</button><button id='btnEliminarUsu' class='btn btn-info btnEliminarDev' type='button'>Eliminar Usuario</button></div></div>",
+          "<div class='text-center'><div class='btn-group' role='group' aria-label='Button group'><button id='btnEditarDev' class='btn btn-primary btnEditarDev' type='button'>Editar</button><button id='btnEliminardev' class='btn btn-info btnEliminardev' type='button'>Eliminar</button></div></div>",
       },
     ],
   });
@@ -341,14 +341,154 @@ $(document).ready(function (){
 
   });
 
+  //Registrar devolución.
   $("#agregarDev").submit(function (j){
 
     j.preventDefault();
+
+
+    var ca_codigo_carpetadev = $.trim($("#ca_codigo_carpetadev").val());
+    var usu_iddev = $.trim($("#usu_iddev").val());
+    var fechadev = $.trim($("#fechadev").val());
+
+    $.ajax({
+      url: "backend/agregar_devolucion.php",
+      method: "POST",
+      datatype: "json",
+      data: {
+        ca_codigo_carpetadev: ca_codigo_carpetadev,
+        usu_iddev: usu_iddev,
+        fechadev: fechadev,
+      },
+      success: function (data) {
+        if (data = "") {
+
+          Swal.fire({
+            type: "info",
+            title: "Error al registrar la devolución.",
+          });
+          
+        }else{
+
+          Swal.fire({
+            type: "info",
+            title: "Se ha agregado la devolución.",
+          });
+
+          devoluciones.row
+            .add(["", ca_codigo_carpetadev, "", "", fechadev])
+            .draw();
+          
+        }
+
+        
+      },
+    });
+
+    $("#agregar_dev").modal("hide");
+
+
+  });
+
+  var fila3;
+  // Botón editar archivo devolucion_carpetas.php
+  $(document).on("click", "#btnEditarDev", function () {
+
+    $("#btnDevEdit").text("Guardar cambios.");
+    $("#ModalTitle_DevEdit").text("Editar datos de devolución");
+    $("#Modal_headerDevEdit").css("background-color", "orange");
+    $("#editar_dev").modal("show");
+
+    $("#EditarDev").trigger("reset");
+
+    fila3 = $(this).closest("tr");
+
+    IDEditDev = parseInt(fila3.find("td:eq(0)").text());
+    usu_idEditdev = fila3.find("td:eq(1)").text();
+    ca_codigo_carpetaEditdev = parseInt(fila3.find("td:eq(2)").text());
+    fechaEditdev = fila3.find("td:eq(5)").text();
+    
+    $("#IDEditDev").val(IDEditDev);
+    $("#ca_codigo_carpetaEditdev").val(ca_codigo_carpetaEditdev);
+    $("#usu_idEditdev").val(usu_idEditdev);
+    $("#fechaEditdev").val(fechaEditdev);
+
+    console.log(IDEditDev);
+
+  });
+
+  // Formulario editar devoluciones, archivo devolucion_carpetas.php
+  $("#EditarDev").submit(function (k){
+
+    k.preventDefault();
+
+    var IDEditDev = $.trim($("#IDEditDev").val());
+    var ca_codigo_carpetaEditdev = $.trim($("#ca_codigo_carpetaEditdev").val());
+    var usu_idEditdev = $.trim($("#usu_idEditdev").val());
+    var fechaEditdev = $.trim($("#fechaEditdev").val());
+
+    $.ajax({
+      url: "backend/actualizar_devolucion.php",
+      method: "POST",
+      datatype: "json",
+      data: {
+        IDEditDev: IDEditDev, ca_codigo_carpetaEditdev: ca_codigo_carpetaEditdev,
+        usu_idEditdev: usu_idEditdev,
+        fechaEditdev: fechaEditdev,
+      },
+      success: function (data) {
+        var data = JSON.parse(data);
+        console.log(data);
+        if (data == 1) {
+          Swal.fire({
+            type: "info",
+            title: "Registro actualizado",
+          });
+
+          devoluciones
+            .row(fila3)
+            .data([IDEditDev,"", ca_codigo_carpetadev,"", "", fechadev]);
+        } else {
+          alert("error");
+        }
+      },
+    });
+
+    $("#editar_dev").modal("hide");
+
+  });
+  
+  //Botón eliminar.
+  $(document).on("click", "#btnEliminardev", function (){
+
+    fila3 = $(this);
+    IDDev = parseInt($(this).closest("tr").find("td:eq(0)").text());
+    console.log(IDDev);
+
+    var respuesta = confirm("¿Estas seguro de borrar esta devolución? : " + IDDev);
+
+    if (respuesta) {
+
+      $.ajax({
+        url: "backend/eliminar_devolucion.php",
+        method: "POST",
+        datatype: "json",
+        data: { IDDev: IDDev },
+        success: function (data) {
+          devoluciones.row(fila3.parents("tr")).remove().draw();
+        },
+      });
+      
+    }
+
 
     
 
 
   });
+
+
+
 
 
 
