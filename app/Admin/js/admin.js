@@ -413,8 +413,6 @@ $(document).ready(function (){
     $("#usu_idEditdev").val(usu_idEditdev);
     $("#fechaEditdev").val(fechaEditdev);
 
-    console.log(IDEditDev);
-
   });
 
   // Formulario editar devoluciones, archivo devolucion_carpetas.php
@@ -487,6 +485,184 @@ $(document).ready(function (){
 
   });
 
+
+
+
+
+
+});
+
+//DataTables modificacion carpetas.php
+$(document).ready(function (){
+
+  modificacion = $("#modificacion").DataTable({
+    columnDefs: [
+      {
+        targets: -1,
+        data: null,
+        defaultContent:
+          "<div class='text-center'><div class='btn-group' role='group' aria-label='Button group'><button id='btnEditarMd' class='btn btn-primary btnEditarMd' type='button'>Editar Modificación</button><button id='btnEliminarMd' class='btn btn-info btnEliminarMd' type='button'>Eliminar Modificación</button></div></div>",
+      },
+    ],
+  });
+
+  // Botón desplegar modal, archivo modificacion_carpetas.php
+  $(document).on("click", "#ag_modificacion", function (){
+
+    $("#modal-titlemod").text("Agregar modificación");
+
+    $("#modal-headermd").css("background-color", "orange");
+
+    $("#agregar-md").modal("show");
+
+    $("#agregar_mod").trigger("reset");
+
+  });
+
+  // Formulario agregar modificaciones archivo modificacion_carpetas.php
+  $("#agregar_mod").submit(function (l){
+
+    l.preventDefault();
+
+    cm_codigo_carpeta = $.trim($("#cm_codigo_carpeta").val());
+    cm_id_usuario = $.trim($("#cm_id_usuario").val());
+    cm_folios_agregados = $.trim($("#cm_folios_agregados").val());
+    cm_fecha = $.trim($("#cm_fecha").val());
+
+    $.ajax({
+      url: "backend/agregar_modificacion.php",
+      method: "POST",
+      datatype: "json",
+      data: {
+        cm_codigo_carpeta: cm_codigo_carpeta,
+        cm_id_usuario: cm_id_usuario,
+        cm_folios_agregados: cm_folios_agregados,
+        cm_fecha: cm_fecha,
+      },
+      success: function (data) {
+        console.log(data);
+
+        if (data == "") {
+          alert("error");
+        }else{
+
+          modificacion.row
+            .add([
+              cm_codigo_carpeta,
+              cm_folios_agregados,
+              cm_fecha,
+              cm_id_usuario,
+              "",
+            ])
+            .draw();
+        }
+      },
+    });
+
+    $("#agregar-md").modal("hide");
+
+  
+  });
+
+  var fila4;
+
+  // Desplegar modal editar modificaciones.
+  $(document).on("click", "#btnEditarMd", function () {
+
+    $("#btnenviarmd").text("Guardar cambios.");
+    $("#modal-titleMd").text("Editar modificaciones.");
+    $("#Modal-headerMd").css("background-color", "orange");
+    $("#Modaledit-md").modal("show");
+
+    $("#formEditMd").trigger("reset");
+
+    fila4 = $(this).closest("tr");
+
+    var ID = parseInt(fila4.find("td:eq(0)").text());
+    var ca_codigo_carpetaEditMd = parseInt(fila4.find("td:eq(1)").text());
+    var usu_idEditMd = fila4.find("td:eq(4)").text();
+    var fechaEditMd = fila4.find("td:eq(3)").text();
+
+    $("#ID").val(ID);
+    $("#ca_codigo_carpetaEditMd").val(ca_codigo_carpetaEditMd);
+    $("#usu_idEditMd").val(usu_idEditMd);
+    $("#fechaEditMd").val(fechaEditMd);
+
+  });
+
+  $("#formEditMd").submit(function (n){
+    n.preventDefault();
+
+    var ID = $.trim($("#ID").val());
+    var ca_codigo_carpetaEditMd = $.trim($("#ca_codigo_carpetaEditMd").val());
+    var usu_idEditMd = $.trim($("#usu_idEditMd").val());
+    var fechaEditMd = $.trim($("#fechaEditMd").val());
+
+  
+    $.ajax({
+      url: "backend/actualizar_modificacion.php",
+      method: "POST",
+      datatype: "json",
+      data: {
+        ID: ID,
+        ca_codigo_carpetaEditMd: ca_codigo_carpetaEditMd,
+        usu_idEditMd: usu_idEditMd,
+        fechaEditMd: fechaEditMd,
+      },
+      success: function (data) {
+        var data = JSON.parse(data);
+        console.log(data);
+        if (data == 1) {
+          Swal.fire({
+            type: "info",
+            title: "Registro actualizado",
+          });
+
+          modificacion
+            .row(fila4)
+            .data([ID, ca_codigo_carpetaEditMd, "", fechaEditMd, usu_idEditMd, ""]);
+        } else {
+          alert("error");
+        }
+      }
+
+    });
+
+    $("#Modaledit-md").modal("hide");
+
+  });
+
+  // Eliminar modificación
+  $(document).on("click", "#btnEliminarMd", function () {
+
+    fila4 = $(this);
+    IDmdeliminar = parseInt($(this).closest("tr").find("td:eq(0)").text());
+    codigomdeliminar = parseInt($(this).closest("tr").find("td:eq(1)").text());
+    foliosmdeliminar = parseInt($(this).closest("tr").find("td:eq(2)").text());
+   
+
+    var respuesta = confirm("¿Estas seguro de borrar esta devolución? : " + IDmdeliminar);
+
+    if (respuesta) {
+      $.ajax({
+        url: "backend/eliminar_modificacion.php",
+        method: "POST",
+        datatype: "json",
+        data: {IDmdeliminar: IDmdeliminar, codigomdeliminar: codigomdeliminar, foliosmdeliminar: foliosmdeliminar},
+        success: function (data) {
+          console.log(data);
+          modificacion.row(fila4.parents("tr")).remove().draw();
+        },
+      });
+    }
+
+     
+        
+      
+    
+
+
+  });
 
 
 

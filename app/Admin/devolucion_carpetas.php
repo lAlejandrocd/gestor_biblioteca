@@ -90,7 +90,6 @@ if (empty($_SESSION["ID_Ad"])) {
 
 
                             ?>
-
                             <div class="form-group">
                                 <label for="ca_codigo_carpeta">Carpeta: </label>
                                 <select id="ca_codigo_carpetadev" class="custom-select custom-select-lg mb-3" name="">
