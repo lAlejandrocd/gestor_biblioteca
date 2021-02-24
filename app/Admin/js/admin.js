@@ -670,177 +670,173 @@ $(document).ready(function (){
 
 });
 
+//DataTables Solicitud_carpetas.php
+$(document).ready(function (){
+  solicitudes = $("#solicitudes").DataTable({
+    columnDefs: [
+      {
+        targets: -1,
+        data: null,
+        defaultContent:
+          "<div class='text-center'><div class='btn-group' role='group' aria-label='Button group'><button class='btn btn-primary btn-autorizar' type='button' id='btnEditsol'>Editar</button><button class='btnRechazar btn btn-warning' type='button' id='btnElmsol'>Eliminar</button></div></div>",
+      },
+    ],
+  });
 
+  // Botón agregar prestamo, archivo solicitud_carpetas.php
+  $("#btnaddPrestamo").on("click", function () {
+    $("#modal-header_prs").css("background-color", "orange");
+    $("#modal-title_prs").text("registrar prestamo");
+    $("#btnPrestamo").text("Registrar prestamo");
+    $("#addPrestamo").modal("show");
 
-// Formulario envio autorizar carpeta.
-  $("#envio_autorizar_carpeta").submit(function (g) {
-    g.preventDefault();
+    $("#FormAddPrestamo").trigger("reset");
+  });
 
-    var data_e = $("#envio_autorizar_carpeta").serialize();
+  $("#FormAddPrestamo").submit(function (n) {
+    n.preventDefault();
+
+    id_usuario = $.trim($("#id_usuario").val());
+    codigo_carpeta = $.trim($("#codigo_carpeta").val());
+    fecha_inicio = $.trim($("#fecha_inicio").val());
+    fecha_final = $.trim($("#fecha_final").val());
 
     $.ajax({
-      url: "backend/envio_autorizar_carpeta.php",
+      url: "backend/agregar_prestamo.php",
       method: "POST",
       datatype: "json",
       data: {
-        data_e,
+        id_usuario: id_usuario,
+        codigo_carpeta: codigo_carpeta,
+        fecha_inicio: fecha_inicio,
+        fecha_final: fecha_final,
       },
       success: function (data) {
-        if (data != "") {
-          alert("Registro actualizado");
+        if (data == "") {
+          alert("Error al agregar el prestamo");
         } else {
-          alert("Error...");
+          alert(data);
+
+          solicitudes.row
+            .add([, id_usuario, codigo_carpeta, fecha_inicio, fecha_final])
+            .draw();
         }
       },
     });
 
-    $("#editar_usuario").modal("hide");
+    $("#addPrestamo").modal("hide");
   });
 
+  var fila5;
+  // Editar prestamo.
+  $(document).on("click", "#btnEditsol", function () {
+    $("#modal-title_Prstm").text("Editar registros de prestamo");
+    $("#modalheader-EditPrstm").css("background-color", "orange");
+    $("#btnEditPrestamo").text("Actualizar registros");
 
+    $("#EditPrestamo").modal("show");
 
-  // Llenar modal, autorizar prestamo de carpeta solicitud_carpetas.php 
-  function llenar_modal_sc(datos_sc) {
+    $("#FormEditPrestamo").trigger("reset");
 
-    e = datos_sc.split("||");
+    fila5 = $(this).closest("tr");
 
-    // console.log(e);
+    var IDEdit = parseInt(fila5.find("td:eq(0)").text());
+    var id_usuarioEdit = parseInt(fila5.find("td:eq(1)").text());
+    var codigo_carpetaEdit = parseInt(fila5.find("td:eq(2)").text());
+    var fecha_inicioEdit = fila5.find("td:eq(3)").text();
+    var fecha_finalEdit = fila5.find("td:eq(4)").text();
 
-    $("#usu_email").val();
-    $("#asunto").val();
-    $("#mensaje").val();
-    $("#ID").val();
-    $("#pc_codigo_carpt").val();
-    $("#pc_id_usuario").val();
-    $("#pc_fecha_final_f").val();
-
-    
-
-  }
-
-  // Botón autorizar, archivo solicitud_carpetas.php
-  $(document).on("click", ".btn-autorizar", function () {
-    
-    $(".modal-title").text("Autorizar prestamo");
-
-    $(".modal-header").css("background-color", "orange");
-
-    
-    $("#autorizar_carpeta").modal("show");
-
-    $("#autorizar_carpeta").trigger("reset");
-
-
+    $("#IDEdit").val(IDEdit);
+    $("#id_usuarioEdit").val(id_usuarioEdit);
+    $("#codigo_carpetaEdit").val(codigo_carpetaEdit);
+    $("#fecha_finalEdit").val(fecha_finalEdit);
+    $("#fecha_inicioEdit").val(fecha_inicioEdit);
   });
 
-  // Autorizar prestamo carpeta.
-  $("#envio_autorizar_carpeta").submit(function (h) {
-    h.preventDefault();
+  // Formulario guardar cambios, archivo solicitud_carpetas.php
+  $("#FormEditPrestamo").submit(function (m){
 
-    usu_email = $.trim($("#usu_email").val());
-    asunto = $.trim($("#asunto").val());
-    mensaje = $.trim($("#mensaje").val());
-    ID = $.trim($("#ID").val());
-    pc_codigo_carpt = $.trim($("#pc_codigo_carpt").val());
-    pc_id_usuario = $.trim($("#pc_id_usuario").val());
-    pc_fecha_final_f = $.trim($("#pc_fecha_final_f").val());
+    m.preventDefault();
+
+    var IDEdit = $.trim($("#IDEdit").val());
+    var id_usuarioEdit = $.trim($("#id_usuarioEdit").val());
+    var codigo_carpetaEdit = $.trim($("#codigo_carpetaEdit").val());
+    var fecha_inicioEdit = $.trim($("#fecha_inicioEdit").val());
+    var fecha_finalEdit = $.trim($("#fecha_finalEdit").val());
 
     $.ajax({
-      url: "backend/envio_autorizar_carpeta.php",
+      url: "backend/actualizar_prestamo.php",
       method: "POST",
       datatype: "json",
       data: {
-        usu_email: usu_email,
-        asunto: asunto,
-        mensaje: mensaje,
-        ID: ID,
-        pc_codigo_carpt: pc_codigo_carpt,
-        pc_id_usuario: pc_id_usuario,
-        pc_fecha_final_f: pc_fecha_final_f,
+        IDEdit:IDEdit,
+        id_usuarioEdit: id_usuarioEdit,
+        codigo_carpetaEdit: codigo_carpetaEdit,
+        fecha_inicioEdit: fecha_inicioEdit,
+        fecha_finalEdit: fecha_finalEdit,
       },
-      success: function (h) {
-        console.log(h);
+      success: function (data) {
+        var data = JSON.parse(data);
+        console.log(data);
+        if (data == 1) {
+          Swal.fire({
+            type: "info",
+            title: "Registro actualizado",
+          });
 
-        if (h != "") {
-          alert(h);
-        } else {
-          alert("Error...");
-        }
-      },
-    });
-
-    $("#autorizar_carpeta").modal("hide");
-  });
-
-
-  // Llenar modal, rechazar carpeta.
-  function llenar_modal_rsc(datos_rsc){
-
-    // btnRechazar;
-
-    f = datos_rsc.split("||");
-
-    console.log(f);
-
-    $("#usu_email").val();
-    $("#asunto").val();
-    $("#mensaje").val();
-    $("#ID").val();
-    $("#pc_codigo_carpt").val();
-    $("#pc_id_usuario").val();
-    $("#pc_fecha_final_f").val();
-
-  }
-
-  // Mostrar modal, Rechazar carpeta.
-  $(document).on("click", ".btnRechazar", function () {
-
-    $(".modal-header").css("background-color", "orange");
-    
-    $(".modal-title").text("Rechazar carpeta");
-   
-    $("#rechazar_carpeta").trigger("reset");
-
-    $("#rechazar_carpeta").modal("show");
-
-  });
-
-  // Enviar datos, rechazar carpeta.
-  $("#rechazar_prestamo_carpeta").submit(function (f){
-
-    f.preventDefault();
-
-    usu_email = $.trim($("#usu_email").val());
-    asunto = $.trim($("#asunto").val());
-    mensaje = $.trim($("#mensaje").val());
-    ID = $.trim($("#ID").val());
-
-    console.log(ID);
-
-    $.ajax({
-      url: "backend/envio_rechazar_carpeta.php",
-      method: "POST",
-      datatype: "json",
-      data: {
-        usu_email: usu_email,
-        asunto: asunto,
-        mensaje: mensaje,
-        ID: ID,
-      },
-      success: function (f) {
-        console.log(f);
-
-        if (f != "") {
-          alert(f);
+          solicitudes
+            .row(fila5)
+            .data([
+              IDEdit,
+              id_usuarioEdit,
+              codigo_carpetaEdit,
+              fecha_inicioEdit,
+              fecha_finalEdit,
+            ]);
         } else {
           alert("error");
         }
+
       },
     });
 
-
-
+    $("#EditPrestamo").modal("hide");
 
   });
 
+  $(document).on("click", "#btnElmsol", function () {
+
+    fila5 = $(this);
+    IDeliminar = parseInt($(this).closest("tr").find("td:eq(0)").text());
+    Codigoeliminar = parseInt($(this).closest("tr").find("td:eq(2)").text());
+    
+    console.log(IDeliminar);
+    console.log(Codigoeliminar);
+
+    var respuesta = confirm("¿Estas seguro que deseas eliminar este prestamo?. Si se elimina el prestamo, el estado de la carpeta pasa estar DISPONIBLE");
+
+    if (respuesta) {
+      
+      $.ajax({
+        url: "backend/eliminar_prestamo.php",
+        method: "POST",
+        datatype: "json",
+        data: { IDeliminar: IDeliminar, Codigoeliminar: Codigoeliminar },
+        success: function (data) {
+           console.log(data);
+           solicitudes.row(fila5.parents("tr")).remove().draw();
+        },
+      });
+
+    }
+
+  });
+
+
+
+});
+
+
+
+ 
 
