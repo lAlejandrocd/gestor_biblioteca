@@ -10,38 +10,20 @@ if (empty($_SESSION['ID_Ad'])) {
 
 <?php
 
-    $edit_ca_codigo_carpeta = $_POST['edit_ca_codigo_carpeta'];
+    $edit_ca_numero_item = $_POST['edit_ca_numero_item'];
     $edit_ca_nombre_carpeta = $_POST['edit_ca_nombre_carpeta'];
+    $edit_ca_fecha_final = $_POST['edit_ca_fecha_final'];
     $edit_ca_numero_folios = $_POST['edit_ca_numero_folios'];
-    $edit_ca_estado_carpeta = $_POST['edit_ca_estado_carpeta'];
-    $edit_ca_tipo_carpeta = $_POST['edit_ca_tipo_carpeta'];
 
-    $query = mysqli_query($con, "SELECT * FROM carpetas WHERE ca_codigo_carpeta = '$edit_ca_codigo_carpeta'");
+    $sql = mysqli_query($con, "UPDATE carpetas SET ca_nombre_carpeta = '$edit_ca_nombre_carpeta', ca_fecha_final = '$edit_ca_fecha_final', ca_numero_folios = '$edit_ca_numero_folios' WHERE ca_numero_item = '$edit_ca_numero_item'");
 
-    if (mysqli_num_rows($query) > 0) {
+    $select = mysqli_query($con, "SELECT * FROM carpetas WHERE ca_numero_item = '$edit_ca_numero_item'");
 
-        $data = 1;
+    $data = mysqli_fetch_assoc($select);
 
-        print json_encode($data, JSON_UNESCAPED_UNICODE);
+    print json_encode($data, JSON_UNESCAPED_UNICODE);
 
-        mysqli_close($con);
-        
-    }else{
-
-
-        $sql = mysqli_query($con, "UPDATE carpetas SET ca_nombre_carpeta = '$edit_ca_nombre_carpeta', ca_numero_folios = '$edit_ca_numero_folios', ca_estado_carpeta = '$edit_ca_estado_carpeta', ca_tipo_carpeta = '$edit_ca_tipo_carpeta' WHERE  ca_codigo_carpeta = '$edit_ca_codigo_carpeta'");
-
-        $select = mysqli_query($con, "SELECT * FROM carpetas WHERE ca_codigo_carpeta = '$edit_ca_codigo_carpeta'");
-
-        $data = mysqli_fetch_assoc($select);
-
-        print json_encode($data, JSON_UNESCAPED_UNICODE);
-
-        mysqli_close($con);
-
-
-    }
-
+    mysqli_close($con);
 
 
 ?>

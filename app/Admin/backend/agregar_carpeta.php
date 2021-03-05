@@ -12,64 +12,22 @@ if (empty($_SESSION['ID_Ad'])) {
 
 <?php
 
-    if (isset($_POST['ca_codigo_carpeta'])) {
-
-        $ca_codigo_carpeta = $_POST['ca_codigo_carpeta'];
-    } else {
-
-        $ca_codigo_carpeta = "";
-    }
-
-    if (isset($_POST['ca_nombre_carpeta'])) {
-
-        $ca_nombre_carpeta = $_POST['ca_nombre_carpeta'];
-    }else{
-
-        $ca_nombre_carpeta = $_POST['ca_nombre_carpeta'];
-
-    }
-
-    if (isset($_POST['ca_numero_folios'])) {
-        
-
-        $ca_numero_folios = $_POST['ca_numero_folios'];
-    }else{
-
-        $ca_numero_folios = "";
-
-    }
-
-    if (isset($_POST['ca_estado_carpeta'])) {
-
-        $ca_estado_carpeta = $_POST['ca_estado_carpeta'];
-    }else{
-
-       $ca_estado_carpeta = "";
-
-    }
-
-    if (isset($_POST['ca_tipo_carpeta'])) {
-       
-        $ca_tipo_carpeta = $_POST['ca_tipo_carpeta'];
-    }else{
-
-        $ca_tipo_carpeta = "";
-    }
+    $ca_codigo_carpeta = $_POST['ca_codigo_carpeta'];
+    $ca_nombre_carpeta = $_POST['ca_nombre_carpeta'];
+    $ca_fecha_inicial = $_POST['ca_fecha_inicial'];
+    $ca_fecha_final = $_POST['ca_fecha_final'];
+    $ca_caja = $_POST['ca_caja'];
+    $ca_carpeta = $_POST['ca_carpeta'];
+    $ca_tomo = $_POST['ca_tomo'];
+    $ca_otro = $_POST['ca_otro'];
+    $ca_numero_folios = $_POST['ca_numero_folios'];
+    $ca_soporte = $_POST['ca_soporte'];
+    $ca_frecuencia_consulta = $_POST['ca_frecuencia_consulta'];
+    $ca_notas = $_POST['ca_notas'];
 
     $query = mysqli_query($con, "SELECT * FROM carpetas WHERE ca_codigo_carpeta = '$ca_codigo_carpeta'");
 
-    
-    if (mysqli_num_rows($query) > 0) {
-
-        $data = 1;
-
-        print json_encode($data, JSON_UNESCAPED_UNICODE);
-
-        mysqli_close($con);
-        
-    }else{
-
-        $sql = mysqli_query($con, "INSERT INTO carpetas(ca_codigo_carpeta, ca_nombre_carpeta, ca_numero_folios, ca_estado_carpeta, ca_tipo_carpeta)VALUES ('$ca_codigo_carpeta', '$ca_nombre_carpeta', '$ca_numero_folios', '$ca_estado_carpeta', '$ca_tipo_carpeta')");
+        $sql = mysqli_query($con, "INSERT INTO carpetas(ca_numero_item,ca_codigo_carpeta, ca_nombre_carpeta,ca_fecha_inicial,ca_fecha_final ,ca_caja,ca_carpeta,ca_tomo,ca_otro,ca_numero_folios,ca_soporte ,ca_frecuencia_consulta,ca_notas)VALUES (NULL,'$ca_codigo_carpeta' ,'$ca_nombre_carpeta','$ca_fecha_inicial','$ca_fecha_final','$ca_caja','$ca_carpeta','$ca_tomo','$ca_otro','$ca_numero_folios', '$ca_soporte', '$ca_frecuencia_consulta', '$ca_notas')");
 
         $select = mysqli_query($con, "SELECT * FROM carpetas ORDER BY ca_codigo_carpeta DESC LIMIT 1");
 
@@ -79,7 +37,7 @@ if (empty($_SESSION['ID_Ad'])) {
 
         mysqli_close($con);
 
-    }
+    
 
 
 ?>

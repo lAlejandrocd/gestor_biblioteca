@@ -1,11 +1,18 @@
 // DataTables Index.php
 $(document).ready(function () {
   carpetas = $("#carpetas").DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: {
+      url: "backend/serverside_vista_carpeta.php",
+      type: "post",
+    },
+
     columnDefs: [
       {
         targets: -1,
         data: null,
-        //COntenido del botón
+        // contenido del botón
         defaultContent:
           "<div class='text-center'><div class='btn-group' role='group' aria-label='Button group'><button id='btnEditar' class='btn btn-primary btnEditar' type='button' ><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil-square' viewBox='0 0 16 16'><path d='M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z'/><path fill-rule='evenodd' d='M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z'/></svg>Editar</button><button id='btnEliminar' class='btn btn-info btnEliminar ' type='button' ><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'><path d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z'/></svg>Eliminar</button></div></div>",
       },
@@ -29,9 +36,16 @@ $(document).ready(function () {
 
     ca_codigo_carpeta = $.trim($("#ca_codigo_carpeta").val());
     ca_nombre_carpeta = $.trim($("#ca_nombre_carpeta").val());
+    ca_fecha_inicial = $.trim($("#ca_fecha_inicial").val());
+    ca_fecha_final = $.trim($("#ca_fecha_final").val());
+    ca_caja = $.trim($("#ca_caja").val());
+    ca_carpeta = $.trim($("#ca_carpeta").val());
+    ca_tomo = $.trim($("#ca_tomo").val());
+    ca_otro = $.trim($("#ca_otro").val());
     ca_numero_folios = $.trim($("#ca_numero_folios").val());
-    ca_estado_carpeta = $.trim($("#ca_estado_carpeta").val());
-    ca_tipo_carpeta = $.trim($("#ca_tipo_carpeta").val());
+    ca_soporte = $.trim($("#ca_soporte").val());
+    ca_frecuencia_consulta = $.trim($("#ca_frecuencia_consulta").val());
+    ca_notas = $.trim($("#ca_notas").val());
 
     $.ajax({
       url: "backend/agregar_carpeta.php",
@@ -40,29 +54,26 @@ $(document).ready(function () {
       data: {
         ca_codigo_carpeta: ca_codigo_carpeta,
         ca_nombre_carpeta: ca_nombre_carpeta,
+        ca_fecha_inicial: ca_fecha_inicial,
+        ca_fecha_final: ca_fecha_final,
+        ca_caja: ca_caja,
+        ca_carpeta: ca_carpeta,
+        ca_tomo: ca_tomo,
+        ca_otro: ca_otro,
         ca_numero_folios: ca_numero_folios,
-        ca_estado_carpeta: ca_estado_carpeta,
-        ca_tipo_carpeta: ca_tipo_carpeta,
+        ca_soporte: ca_soporte,
+        ca_frecuencia_consulta: ca_frecuencia_consulta,
+        ca_notas: ca_notas,
       },
       success: function (data) {
-        if (data == 1) {
-          Swal.fire({
-            type: "error",
-            title: "Hay una existencia a esta carpeta.",
-          });
-        } else {
           carpetas.row
             .add([
-              ca_codigo_carpeta,
+              "",
               ca_nombre_carpeta,
+              ca_fecha_final,
               ca_numero_folios,
-              ca_estado_carpeta,
-              ca_tipo_carpeta,
             ])
-            .draw();
-
-          console.log(data);
-        }
+            .draw();        
       },
     });
 
@@ -81,56 +92,46 @@ $(document).ready(function () {
 
     fila = $(this).closest("tr");
 
-    edit_ca_codigo_carpeta = parseInt(fila.find("td:eq(0)").text());
+    edit_ca_numero_item = parseInt(fila.find("td:eq(0)").text());
     edit_ca_nombre_carpeta = fila.find("td:eq(1)").text();
-    edit_ca_numero_folios = parseInt(fila.find("td:eq(02)").text());
-    edit_ca_estado_carpeta = fila.find("td:eq(3)").text();
-    edit_ca_tipo_carpeta = fila.find("td:eq(4)").text();
+    edit_ca_fecha_final = fila.find("td:eq(2)").text();
+    edit_ca_numero_folios = fila.find("td:eq(3)").text();
 
-    $("#edit_ca_codigo_carpeta").val(edit_ca_codigo_carpeta);
+    $("#edit_ca_numero_item").val(edit_ca_numero_item);
     $("#edit_ca_nombre_carpeta").val(edit_ca_nombre_carpeta);
+    $("#edit_ca_fecha_final").val(edit_ca_fecha_final);
     $("#edit_ca_numero_folios").val(edit_ca_numero_folios);
-    $("#edit_ca_estado_carpeta").val(edit_ca_estado_carpeta);
-    $("#edit_ca_tipo_carpeta").val(edit_ca_tipo_carpeta);
   });
 
   // Editar carpeta
   $("#FormCarpetaEdit").submit(function (f) {
     f.preventDefault();
-    edit_ca_codigo_carpeta = $.trim($("#edit_ca_codigo_carpeta").val());
+    edit_ca_numero_item = $.trim($("#edit_ca_numero_item").val());
     edit_ca_nombre_carpeta = $.trim($("#edit_ca_nombre_carpeta").val());
+    edit_ca_fecha_final = $.trim($("#edit_ca_fecha_final").val());
     edit_ca_numero_folios = $.trim($("#edit_ca_numero_folios").val());
-    edit_ca_estado_carpeta = $.trim($("#edit_ca_estado_carpeta").val());
-    edit_ca_tipo_carpeta = $.trim($("#edit_ca_tipo_carpeta").val());
 
     $.ajax({
       url: "backend/actualizar_carpeta.php",
       type: "POST",
       datatype: "json",
       data: {
-        edit_ca_codigo_carpeta: edit_ca_codigo_carpeta,
+        edit_ca_numero_item: edit_ca_numero_item,
         edit_ca_nombre_carpeta: edit_ca_nombre_carpeta,
+        edit_ca_fecha_final: edit_ca_fecha_final,
         edit_ca_numero_folios: edit_ca_numero_folios,
-        edit_ca_estado_carpeta: edit_ca_estado_carpeta,
-        edit_ca_tipo_carpeta: edit_ca_tipo_carpeta,
       },
       success: function (data) {
-        if (data == 1) {
-          Swal.fire({
-            type: "error",
-            title: "Hay una existencia a esta carpeta.",
-          });
-        } else {
+        console.log(data);
           carpetas
             .row(fila)
             .data([
-              edit_ca_codigo_carpeta,
+              edit_ca_numero_item,
               edit_ca_nombre_carpeta,
+              edit_ca_fecha_final,
               edit_ca_numero_folios,
-              edit_ca_estado_carpeta,
-              edit_ca_tipo_carpeta,
             ]);
-        }
+        
       },
     });
 
@@ -140,10 +141,10 @@ $(document).ready(function () {
   // Borrar carpeta
   $(document).on("click", ".btnEliminar", function () {
     fila = $(this);
-    ca_codigo_carpeta = parseInt($(this).closest("tr").find("td:eq(0)").text());
+    ca_numero_item = parseInt($(this).closest("tr").find("td:eq(0)").text());
 
     var respuesta = confirm(
-      "¿Estas seguro de borrar esta carpeta? " + ca_codigo_carpeta
+      "¿Estas seguro de borrar esta carpeta? " + ca_numero_item
     );
 
     if (respuesta) {
@@ -151,7 +152,7 @@ $(document).ready(function () {
         url: "backend/eliminar_carpeta.php",
         type: "POST",
         datatype: "json",
-        data: { ca_codigo_carpeta: ca_codigo_carpeta },
+        data: { ca_numero_item: ca_numero_item },
         success: function (data) {
           carpetas.row(fila.parents("tr")).remove().draw();
         },

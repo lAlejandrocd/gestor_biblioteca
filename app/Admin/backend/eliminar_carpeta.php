@@ -10,9 +10,9 @@ if (empty($_SESSION['ID_Ad'])) {
 
 <?php
 
-    $ca_codigo_carpeta = $_POST['ca_codigo_carpeta'];
+    $ca_numero_item = $_POST['ca_numero_item'];
 
-    $sql = mysqli_query($con, "DELETE FROM carpetas WHERE ca_codigo_carpeta = '$ca_codigo_carpeta'");
+    $sql = mysqli_query($con, "DELETE FROM carpetas WHERE ca_numero_item = '$ca_numero_item'");
 
     mysqli_close($con);
     
