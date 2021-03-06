@@ -16,9 +16,8 @@ if (empty($_SESSION['ID_Ad'])) {
     $edusu_id = $_POST['edusu_id'];
     $edusu_nombre_cmplt = $_POST['edusu_nombre_cmplt'];
     $edusu_email = $_POST['edusu_email'];
-    $edusu_clave = $_POST['edusu_clave'];
 
-    $sql = mysqli_query($con, "UPDATE usuarios SET usu_nombre_cmplt = '$edusu_nombre_cmplt', usu_email = '$edusu_email', usu_clave = '$edusu_clave' WHERE usu_id = '$edusu_id'");
+    $sql = mysqli_query($con, "UPDATE usuarios SET usu_nombre_cmplt = '$edusu_nombre_cmplt', usu_email = '$edusu_email' WHERE usu_id = '$edusu_id'");
 
     // $select = mysqli_query($con, "SELECT * FROM usuarios WHERE usu_id = '$edusu_id'");
 

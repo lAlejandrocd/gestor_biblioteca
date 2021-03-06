@@ -30,7 +30,7 @@ if (empty($_SESSION["ID_Ad"])) {
 
     }else{
 
-        $sql = mysqli_query($con, "INSERT INTO usuarios (usu_id, usu_nombre_cmplt, usu_email, usu_clave)VALUES('$usu_id', '$nombre_completo' , '$email', '$password')");
+        $sql = mysqli_query($con, "INSERT INTO usuarios (usu_id, usu_nombre_cmplt, usu_email)VALUES('$usu_id', '$nombre_completo' , '$email')");
 
         $select = mysqli_query($con, "SELECT * FROM usuarios ORDER BY usu_id DESC LIMIT 1");
         

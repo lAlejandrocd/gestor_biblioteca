@@ -11,7 +11,7 @@
         
     );  //create column like table in database
 
-    $sql = "SELECT * FROM vista_carpeta";
+    $sql = "SELECT * FROM vista_carpetas";
     $query = mysqli_query($con, $sql);
 
     $totalData = mysqli_num_rows($query);
@@ -19,7 +19,7 @@
     $totalFilter = $totalData;
 
     //Search
-    $sql = "SELECT * FROM vista_carpeta WHERE 1=1";
+    $sql = "SELECT * FROM vista_carpetas WHERE 1=1";
     if (!empty($request['search']['value'])) {
         $sql .= " AND (ca_numero_item Like '" . $request['search']['value'] . "%' ";
         $sql .= " OR ca_nombre_carpeta Like '" . $request['search']['value'] . "%' ";

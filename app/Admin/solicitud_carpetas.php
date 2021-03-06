@@ -39,11 +39,10 @@ if (empty($_SESSION['ID_Ad'])) {
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Id usuario</th>
-                                    <th scope="col">Código de carpeta</th>
+                                    <th scope="col">Número de item</th>
                                     <th scope="col">Fecha inicio</th>
                                     <th scope="col">Fecha final</th>
                                     <th scope="col">Opciones</th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,7 +55,7 @@ if (empty($_SESSION['ID_Ad'])) {
                                     <tr>
                                         <td><?php echo $row_f['ID']; ?></td>
                                         <td><?php echo $row_f['id_usuario']; ?></td>
-                                        <td><?php echo $row_f['codigo_carpeta']; ?></td>
+                                        <td><?php echo $row_f['numero_item']; ?></td>
                                         <td><?php echo $row_f['fecha_inicio']; ?></td>
                                         <td><?php echo $row_f['fecha_final']; ?></td>
                                         <td>
@@ -101,15 +100,9 @@ if (empty($_SESSION['ID_Ad'])) {
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="codigo_carpeta">Código de carpeta: </label>
-                                <select class="form-control" id="codigo_carpeta">
-                                    <?php
-
-                                    while ($sql_row1 = mysqli_fetch_assoc($sqldv_c1)) {  ?>
-                                        <option value="<?php echo $sql_row1['ca_codigo_carpeta']; ?>"><?php echo $sql_row1['ca_codigo_carpeta'] . " - " . $sql_row1['ca_nombre_carpeta']; ?></option>
-
-                                    <?php   } ?>
-                                </select>
+                                <label for=""></label>
+                                <input type="text" class="form-control" name="" id="numero_item" aria-describedby="helpId" placeholder="">
+                                <small id="helpId" class="form-text text-muted">Número de item de la carpeta: </small>
                             </div>
                             <div class="form-group">
                                 <label for="fecha_inicio">Fecha inicio: </label>
@@ -128,7 +121,7 @@ if (empty($_SESSION['ID_Ad'])) {
             </div>
         </div>
 
-        <!-- Rechazar carpeta -->
+        <!-- Editar prestamo -->
         <div id="EditPrestamo" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -160,16 +153,11 @@ if (empty($_SESSION['ID_Ad'])) {
                                     <?php  } ?>
                                 </select>
                             </div>
+                            
                             <div class="form-group">
-                                <label for="codigo_carpetaEdit">Código de carpeta: </label>
-                                <select class="form-control" id="codigo_carpetaEdit">
-                                    <?php
-
-                                    while ($sql_row_edit1 = mysqli_fetch_assoc($sqldv_edit1)) {  ?>
-                                        <option value="<?php echo $sql_row_edit1['ca_codigo_carpeta']; ?>"><?php echo $sql_row_edit1['ca_codigo_carpeta'] . " - " . $sql_row_edit1['ca_nombre_carpeta']; ?></option>
-
-                                    <?php   } ?>
-                                </select>
+                                <label for=""></label>
+                                <input type="text" class="form-control" name="" id="numero_itemEdit" aria-describedby="helpId" placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
                             </div>
                             <div class="form-group">
                                 <label for="fecha_inicio">Fecha inicio: </label>

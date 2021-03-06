@@ -14,11 +14,11 @@ if (empty($_SESSION['ID_Ad'])) {
     <?php
 
     $IDEditDev = $_POST['IDEditDev'];
-    $ca_codigo_carpetaEditdev = $_POST['ca_codigo_carpetaEditdev'];
+    $dc_numero_item_Editdev = $_POST['dc_numero_item_Editdev'];
     $usu_idEditdev = $_POST['usu_idEditdev'];
     $fechaEditdev = $_POST['fechaEditdev'];
 
-    $query = mysqli_query($con, "UPDATE devolucion_carpeta SET dc_codigo_carpeta = '$ca_codigo_carpetaEditdev' , dc_id_usuario = '$usu_idEditdev', dc_fecha_devolucion = '$fechaEditdev' WHERE ID = '$IDEditDev'");
+    $query = mysqli_query($con, "UPDATE devolucion_carpeta SET dc_numero_item = '$dc_numero_item_Editdev' , dc_usuario = '$usu_idEditdev', dc_date = '$fechaEditdev' WHERE ID = '$IDEditDev'");
 
     // $select = mysqli_query($con, "SELECT * FROM devolucion_carpeta WHERE ID = '$IDEditDev'");
 

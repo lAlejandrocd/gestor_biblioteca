@@ -14,11 +14,11 @@ if (empty($_SESSION['ID_Ad'])) {
 
     $IDEdit = $_POST['IDEdit'];
     $id_usuarioEdit = $_POST['id_usuarioEdit'];
-    $codigo_carpetaEdit = $_POST['codigo_carpetaEdit'];
+    $numero_itemEdit = $_POST['numero_itemEdit'];
     $fecha_inicioEdit = $_POST['fecha_inicioEdit'];
     $fecha_finalEdit = $_POST['fecha_finalEdit'];
 
-    $sql = mysqli_query($con, "UPDATE carpetas_prestadas SET id_usuario ='$id_usuarioEdit', codigo_carpeta = '$codigo_carpetaEdit', fecha_inicio ='$fecha_inicioEdit' , fecha_final = '$fecha_finalEdit' WHERE ID = '$IDEdit'");
+    $sql = mysqli_query($con, "UPDATE carpetas_prestadas SET id_usuario ='$id_usuarioEdit', numero_item = '$numero_itemEdit', fecha_inicio ='$fecha_inicioEdit' , fecha_final = '$fecha_finalEdit' WHERE ID = '$IDEdit'");
 
     $data= 1;
 

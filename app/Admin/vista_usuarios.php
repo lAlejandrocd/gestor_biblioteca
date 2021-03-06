@@ -40,7 +40,6 @@ if (empty($_SESSION['ID_Ad'])) {
                                     <th>Cédula</th>
                                     <th>Nombre completo</th>
                                     <th>Correo electrónico</th>
-                                    <th>Contraseña</th>
                                     <th>Acciones</th>
 
                                 </tr>
@@ -58,7 +57,6 @@ if (empty($_SESSION['ID_Ad'])) {
                                         <td><?php echo $row['usu_id']; ?></td>
                                         <td><?php echo $row['usu_nombre_cmplt']; ?></td>
                                         <td><?php echo $row['usu_email']; ?></td>
-                                        <td><?php echo $row['usu_clave']; ?></td>
                                         <td></td>
 
                                     </tr>
@@ -85,7 +83,7 @@ if (empty($_SESSION['ID_Ad'])) {
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="usu_id">C.C:</label>
-                                <input class="form-control" type="number" name="usu_id" id="usu_id" required>
+                                <input class="form-control" type="text" name="usu_id" id="usu_id" required>
                             </div>
                             <div class="form-group">
                                 <label for="usu_nombre_cmplt">Nombre completo</label>
@@ -94,10 +92,6 @@ if (empty($_SESSION['ID_Ad'])) {
                             <div class="form-group">
                                 <label for="usu_email">Email</label>
                                 <input class="form-control" type="email" name="usu_email" id="usu_email">
-                            </div>
-                            <div class="form-group">
-                                <label for="usu_clave">Contraseña</label>
-                                <input class="form-control" type="password" name="usu_clave" id="usu_clave">
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit" name="btnGuardar" id="btnGuardar"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-person-check-fill" viewBox="0 0 16 16">
@@ -123,7 +117,7 @@ if (empty($_SESSION['ID_Ad'])) {
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="edusu_id">C.C:</label>
-                                <input class="form-control" type="number" name="edusu_id" id="edusu_id" required>
+                                <input class="form-control" type="text" name="edusu_id" id="edusu_id" required>
                             </div>
                             <div class="form-group">
                                 <label for="edusu_nombre_cmplt">Nombre completo</label>
@@ -132,10 +126,6 @@ if (empty($_SESSION['ID_Ad'])) {
                             <div class="form-group">
                                 <label for="edusu_email">Email</label>
                                 <input class="form-control" type="email" name="edusu_email" id="edusu_email">
-                            </div>
-                            <div class="form-group">
-                                <label for="edusu_clave">Contraseña</label>
-                                <input class="form-control" type="text" name="edusu_clave" id="edusu_clave">
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit" name="UsuBtnEnviar" id="UsuBtnEnviar">Actualizar</button>

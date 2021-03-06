@@ -58,7 +58,7 @@ if (empty($_SESSION['ID_Ad'])) {
                                 while ($row = mysqli_fetch_assoc($query)) { ?>
                                     <tr>
                                         <td><?php echo $row['ID']; ?></td>
-                                        <td><?php echo $row['cm_codigo_carpeta']; ?></td>
+                                        <td><?php echo $row['cm_numero_item']; ?></td>
                                         <td><?php echo $row['cm_folios_agregados']; ?></td>
                                         <td><?php echo $row['cm_fecha']; ?></td>
                                         <td><?php echo $row['cm_id_usuario']; ?></td>
@@ -94,22 +94,12 @@ if (empty($_SESSION['ID_Ad'])) {
 
                             ?>
                             <div class="form-group">
-                                <label for="cm_codigo_carpeta">Código carpeta</label>
-                                <select class="form-control" name="" id="cm_codigo_carpeta">
-                                    <?php
-
-                                    while ($row1 = mysqli_fetch_assoc($consulta1)) {
-
-                                        $codigo = $row1['ca_codigo_carpeta'];
-                                        $nombre = $row1['ca_nombre_carpeta'];
-
-
-                                    ?>
-                                        <option value="<?php echo $codigo; ?>"><?php echo $codigo . " - " . $nombre; ?></option>
-
-                                    <?php }  ?>
-                                </select>
+                                <label for="cm_numero_item"></label>
+                                <input type="text" class="form-control" name="" id="cm_numero_item" aria-describedby="helpId" placeholder="">
+                                <small id="helpId" class="form-text text-muted">Número de item.</small>
                             </div>
+
+
                             <div class="form-group">
                                 <label for="cm_id_usuario">Usuario: </label>
                                 <select class="form-control" name="" id="cm_id_usuario">
@@ -130,7 +120,7 @@ if (empty($_SESSION['ID_Ad'])) {
                             </div>
                             <div class="form-group">
                                 <label for="cm_folios_agregados">Folios agregados: </label>
-                                <input type="number" class="form-control" name="" id="cm_folios_agregados" aria-describedby="helpId" placeholder="">
+                                <input type="text" class="form-control" name="" id="cm_folios_agregados" aria-describedby="helpId" placeholder="">
                             </div>
                             <div class="form-group">
                                 <label for="cm_fecha">Fecha modificación: </label>
@@ -169,14 +159,14 @@ if (empty($_SESSION['ID_Ad'])) {
                                 <input type="hidden" name="" id="ID" class="form-control" placeholder="" aria-describedby="helpId">
                             </div>
                             <div class="form-group">
-                                <label for="ca_codigo_carpeta">Carpeta: </label>
-                                <select id="ca_codigo_carpetaEditMd" class="custom-select custom-select-lg mb-3" name="">
-                                    <?php
-                                    while ($option = mysqli_fetch_assoc($consula)) {
-                                    ?>
-                                        <option value="<?php echo $option['ca_codigo_carpeta']; ?>"><?php echo $option['ca_codigo_carpeta']; ?></option>
-                                    <?php } ?>
-                                </select>
+                                <label for=""></label>
+                                <input type="text" class="form-control" name="" id="cm_numero_itemEditMd" aria-describedby="helpId" placeholder="">
+                                <small id="helpId" class="form-text text-muted">Número de item a cambiar.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for=""></label>
+                                <input type="text" class="form-control" name="" id="cm_numero_foliosEditMd" aria-describedby="helpId" placeholder="">
+                                <small id="helpId" class="form-text text-muted">Cambiar folios - Este cambio se verá reflejado en el listado de carpetas principales.</small>
                             </div>
                             <div class="form-group">
                                 <label for="usu_nombre_cmplt">Usuario: </label>
@@ -185,7 +175,7 @@ if (empty($_SESSION['ID_Ad'])) {
                                     while ($option2 = mysqli_fetch_assoc($consulta2)) {
                                     ?>
 
-                                        <option value="<?php echo $option2['usu_id']; ?>"><?php echo $option2['usu_nombre_cmplt'] . " - ". $option2['usu_id']; ?></option>
+                                        <option value="<?php echo $option2['usu_id']; ?>"><?php echo $option2['usu_nombre_cmplt'] . " - " . $option2['usu_id']; ?></option>
 
                                     <?php } ?>
                                 </select>

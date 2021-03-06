@@ -37,16 +37,16 @@ if (empty($_SESSION["ID_Ad"])) {
                                     <th escope="col">Nombre de usuario</th>
                                     <th escope="col">Código carpeta</th>
                                     <th escope="col">Nombre carpeta</th>
-                                    <th escope="col">Tipo carpeta</th>
                                     <th escope="col">Fecha solicitud devolución</th>
                                     <th escope="col">Acción</th>
-
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
 
-                                $sql = mysqli_query($con, "SELECT usu.usu_id, usu.usu_nombre_cmplt, dc.`dc_codigo_carpeta`, dc.`ID`, ca.`ca_nombre_carpeta` ,ca.`ca_tipo_carpeta`, dc.`dc_fecha_devolucion` FROM usuarios usu INNER JOIN devolucion_carpeta dc ON dc.`dc_id_usuario` = usu.`usu_id` INNER JOIN carpetas ca ON ca.`ca_codigo_carpeta` = dc.`dc_codigo_carpeta`");
+                                // $sql = mysqli_query($con, "SELECT usu.usu_id, usu.usu_nombre_cmplt, dc.`dc_codigo_carpeta`, dc.`ID`, ca.`ca_nombre_carpeta`, dc.`dc_fecha_devolucion` FROM usuarios usu INNER JOIN devolucion_carpeta dc ON dc.`dc_usuario` = usu.`usu_id` INNER JOIN carpetas ca ON ca.`ca_numero_item` = dc.`dc_numero_item`");
+
+                                $sql = mysqli_query($con, "SELECT dc.ID,dc.dc_numero_item,dc.dc_usuario,dc.dc_date,usu.usu_id ,usu.usu_nombre_cmplt, ca.`ca_numero_item`ca_numero_item, ca.`ca_nombre_carpeta` FROM devolucion_carpeta dc INNER JOIN usuarios usu ON usu.`usu_id` = dc.`dc_usuario` INNER JOIN carpetas ca ON ca.`ca_numero_item` = dc.`dc_numero_item`");
 
                                 $row_f = mysqli_num_rows($sql);
 
@@ -55,10 +55,10 @@ if (empty($_SESSION["ID_Ad"])) {
                                     <tr>
                                         <td><?php echo $row['ID']; ?></td>
                                         <td><?php echo $row['usu_nombre_cmplt']; ?></td>
-                                        <td><?php echo $row['dc_codigo_carpeta']; ?></td>
+                                        <td><?php echo $row['dc_numero_item']; ?></td>
                                         <td><?php echo $row['ca_nombre_carpeta']; ?></td>
-                                        <td><?php echo $row['ca_tipo_carpeta']; ?></td>
-                                        <td><?php echo $row['dc_fecha_devolucion']; ?></td>
+
+                                        <td><?php echo $row['dc_date']; ?></td>
                                         <td></td>
                                     </tr>
                                 <?php  } ?>
@@ -84,21 +84,14 @@ if (empty($_SESSION["ID_Ad"])) {
 
                             <?php
 
-                            $consula = mysqli_query($con, "SELECT ca_codigo_carpeta FROM carpetas");
-
                             $consulta2 = mysqli_query($con, "SELECT usu_id, usu_nombre_cmplt FROM usuarios");
 
-
                             ?>
+
                             <div class="form-group">
-                                <label for="ca_codigo_carpeta">Carpeta: </label>
-                                <select id="ca_codigo_carpetadev" class="custom-select custom-select-lg mb-3" name="">
-                                    <?php
-                                    while ($option = mysqli_fetch_assoc($consula)) {
-                                    ?>
-                                        <option value="<?php echo $option['ca_codigo_carpeta']; ?>"><?php echo $option['ca_codigo_carpeta']; ?></option>
-                                    <?php } ?>
-                                </select>
+                                <label for=""></label>
+                                <input type="text" class="form-control form-control-sm" name="ca_codigo_carpetadev" id="ca_codigo_carpetadev" aria-describedby="helpId" placeholder="">
+                                <small id="helpId" class="form-text text-muted">Código de carpeta.</small>
                             </div>
                             <div class="form-group">
                                 <label for="usu_nombre_cmplt">Usuario: </label>
@@ -114,7 +107,7 @@ if (empty($_SESSION["ID_Ad"])) {
                             </div>
                             <div class="form-group">
                                 <label for="fecha">Fecha devolución: </label>
-                                <input type="date" id="fechadev" name="fechadev" class="custom-select custom-select-lg mb-3">
+                                <input type="date" id="dc_date" name="dc_date" class="custom-select custom-select-lg mb-3">
                             </div>
 
                             <div class="form-group">
@@ -152,16 +145,15 @@ if (empty($_SESSION["ID_Ad"])) {
                             <div class="form-group">
                                 <input id="IDEditDev" class="form-control" type="hidden" name="">
                             </div>
+
                             <div class="form-group">
-                                <label for="ca_codigo_carpeta">Carpeta: </label>
-                                <select id="ca_codigo_carpetaEditdev" class="custom-select custom-select-lg mb-3" name="">
-                                    <?php
-                                    while ($option = mysqli_fetch_assoc($consula)) {
-                                    ?>
-                                        <option value="<?php echo $option['ca_codigo_carpeta']; ?>"><?php echo $option['ca_codigo_carpeta']; ?></option>
-                                    <?php } ?>
-                                </select>
+                                <label for="">Número de item:</label>
+                                <input type="text" class="form-control" name="dc_numero_item_Editdev" id="dc_numero_item_Editdev" aria-describedby="" placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
                             </div>
+
+
+
                             <div class="form-group">
                                 <label for="usu_nombre_cmplt">Usuario: </label>
                                 <select id="usu_idEditdev" class="custom-select custom-select-lg mb-3" name="usu_id">
