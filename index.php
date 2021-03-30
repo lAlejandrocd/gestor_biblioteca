@@ -22,108 +22,34 @@
 
 <body>
 
-    <br>
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-light">
-                    <tbody>
-                        <tr>
-
-                            <td>
-
-                                <h5 class="card-title">Usuario Administrador</h5>
-
-                                <a href="#" id="Admin"> <img src="img/Admin.png" width="350" height="300">
-                                </a>
-
-                            </td>
-
-                            <td>
-
-                                <h5 class="card-title">Usuario estandar</h5>
-
-                                <a href="#" id="User"><img src="img/User.png" alt="" width="350" height="300"></a>
-
-                            </td>
-
-
-                        </tr>
-                        <tr>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL USUARIO ADMINISTRADOR -->
-    <div id="modal_admin" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p>Usuario Administrador</p>
-                    <div class="container">
-                        <div class="card">
-                            <div class="card-body">
-                                <h1>Inicio de sesión</h1>
-                                <form id="form_admin" class="form" action="#" method="POST">
-                                    <div class="row">
-                                        <div class="form-group col">
-                                            <label for="id_admin">Documento identidad</label>
-                                            <input class="form-control" type="text" name="id_admin" id="id_admin">
-                                        </div>
-                                        <div class="form-group col">
-                                            <label for="admin_password">Contraseña</label>
-                                            <input class="form-control" type="password" name="admin_password" id="admin_password">
-                                        </div>
-                                    </div>
-
-                                    <button class="btn btn-success" type="submit" name="btn-login">Ingresar</button>
-
-                                </form>
+    <div class="" id="login">
+        <h3 class="text-center display-4">Gestor biblioteca</h3>
+        <div class="container">
+            <div class="row justify-content-center align-items-center" id="login-row">
+                <div class="col-md-6" id="login-column">
+                    <div class="col-md-12 bg-light text-dark" id="login-box">
+                        <form id="form_admin" class="form" action="#" method="POST">
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label for="id_admin">Documento identidad</label>
+                                    <input class="form-control" type="text" name="id_admin" id="id_admin">
+                                </div>
+                                <div class="form-group col">
+                                    <label for="admin_password">Contraseña</label>
+                                    <input class="form-control" type="password" name="admin_password" id="admin_password">
+                                </div>
                             </div>
-                        </div>
+
+                            <button class="form-group text-center btn btn-success" type="submit" name="btn-login">Ingresar</button>
+
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL USUARIO ESTANDAR -->
-    <div id="modal_user" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p>Usuario Estandar</p>
-                    <div class="container">
-                        <div class="card">
-                            <div class="card-body">
 
-                                <h1>Inicio de sesión</h1>
-                                <form id="form_user" class="form" action="#" method="POST">
-                                    <div class="row">
-                                        <div class="form-group col">
-                                            <label for="usu_id">Documento identidad</label>
-                                            <input class="form-control" type="text" name="usu_id" id="usu_id">
-                                        </div>
-                                        <div class="form-group col">
-                                            <label for="usu_clave">Contraseña</label>
-                                            <input class="form-control" type="password" name="usu_clave" id="usu_clave">
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-success" type="submit" name="btn-login">Ingresar</button>
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="plugins/Sweetalert2/sweetalert2.all.min.js"></script>
 

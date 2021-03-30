@@ -12,10 +12,16 @@
 <!-- JS Bootstrap Folder -->
 <script src="../../plugins/Bootstrap/js/bootstrap.js"></script>
 
+<!-- Datatable -->
+<script src="../../plugins/DataTables/datatables.min.js"></script>
+
+<script src="../../plugins/DataTables/dataTables.responsive.min.js"></script>
+
 <!-- Popper -->
 <script src="../../plugins/Popper/popper.min.js"></script>
 <!-- Archivo JS -->
 <script src="js/admin.js"></script>
+
 </body>
 
 </html>

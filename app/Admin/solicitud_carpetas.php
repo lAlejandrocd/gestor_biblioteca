@@ -13,68 +13,173 @@ if (empty($_SESSION['ID_Ad'])) {
 
     <?php include("templates/header_admin.php"); ?>
 
-    <div class="container">
-        <div class="jumbotron">
-            <div class="card">
-                <div class="card card-body">
-                    <div class="table responsive">
-                        <table class="table table-dark">
+
+
+    <div class="" id="content">
+        <section class="py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <h1 class="font-weight-bold mb-0">Gestor de carpetas - Listado de prestamos</h1>
+                    </div>
+                    <div class="col-lg-3">
+                        <button type="button" name="" id="btnaddPrestamo" class="btn btn-primary" btn-lg btn-block">Registrar prestamo</button>
+                    </div>
+                </div>
+        </section>
+
+
+        <!-- Section de tabla  -->
+        <section class="py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="display" id="solicitudes">
                             <thead>
                                 <tr>
-                                    <th scope="col">Persona solicitante</th>
-                                    <th scope="col">Codigo carpeta</th>
-                                    <th scope="col">Fecha de inicio</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Id usuario</th>
+                                    <th scope="col">Número de item</th>
+                                    <th scope="col">Fecha inicio</th>
                                     <th scope="col">Fecha final</th>
-                                    <th scope="col">Autorizar</th>
-                                    <th scope="col">Rechazar</th>
+                                    <th scope="col">Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
+                                $query = mysqli_query($con, "SELECT * FROM carpetas_prestadas");
 
-                                $query = mysqli_query($con, "SELECT * FROM solicitud_prestamo");
+                                while ($row_f = mysqli_fetch_assoc($query)) {   ?>
 
-
-
-                                while ($row = mysqli_fetch_assoc($query)) { ?>
 
                                     <tr>
-                                        <td><?php echo $row['pc_id_usuario']; ?></td>
-                                        <td><?php echo $row['pc_codigo_carpt']; ?></td>
-                                        <td><?php echo $row['pc_fecha_inicio']; ?></td>
-                                        <td><?php echo $row['pc_fecha_final']; ?></td>
+                                        <td><?php echo $row_f['ID']; ?></td>
+                                        <td><?php echo $row_f['id_usuario']; ?></td>
+                                        <td><?php echo $row_f['numero_item']; ?></td>
+                                        <td><?php echo $row_f['fecha_inicio']; ?></td>
+                                        <td><?php echo $row_f['fecha_final']; ?></td>
                                         <td>
-                                            <form action="autorizar_carpeta.php" method="post">
-                                                <input type="hidden" name="ID" value="<?php echo $row['ID']; ?>">
-                                                <input type="hidden" name="pc_id_usuario" value="<?php echo $row['pc_id_usuario']; ?>">
-                                                <input type="hidden" name="pc_codigo_carpt" value="<?php echo $row['pc_codigo_carpt']; ?>">
-                                                <input type="hidden" name="pc_fecha_final" value="<?php echo $row['pc_fecha_final']; ?>">
-                                                <button class="btn btn-success" type="submit" name="btn-autorizar">Autorizar Prestamo</button>
-                                            </form>
-
-                                        </td>
-                                        <td>
-                                            <form action="rechazar_carpeta.php" method="post">
-                                                <input type="hidden" name="ID" value="<?php echo $row['ID']; ?>">
-                                                <input type="hidden" name="pc_id_usuario" value="<?php echo $row['pc_id_usuario']; ?>">
-                                                <input type="hidden" name="pc_codigo_carpt" value="<?php echo $row['pc_codigo_carpt']; ?>">
-                                                <input type="hidden" name="pc_fecha_final" value="<?php echo $row['pc_fecha_final']; ?>">
-
-                                                <button class="btn btn-danger" type="submit" name="btn-rechazar">Rechazar Prestamo</button>
-
-                                            </form>
                                         </td>
                                     </tr>
+                                <?php  } ?>
                             </tbody>
-                        <?php } ?>
                         </table>
-
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Autorizar carpeta -->
+        <div id="addPrestamo" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" id="modal-header_prs">
+                        <h5 class="modal-title" id="modal-title_prs"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                    </div>
+                    <?php
+
+                    $sqldv_c1 = mysqli_query($con, "SELECT * FROM carpetas");
+
+                    $sqldv_c2 = mysqli_query($con, "SELECT * FROM usuarios");
+
+                    ?>
+
+                    <form id="FormAddPrestamo">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="id_usuario">Documento de identidad : </label>
+                                <select class="form-control" id="id_usuario">
+                                    <?php
+
+                                    while ($sql_row2 = mysqli_fetch_assoc($sqldv_c2)) {  ?>
+                                        <option value="<?php echo $sql_row2['usu_id']; ?>"><?php echo $sql_row2['usu_id'] . " - " . $sql_row2['usu_nombre_cmplt']; ?></option>
+                                        <small class="form-text text-muted">Este corresponde a la persona que tendrá la carpeta. </small>
+
+                                    <?php  } ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for=""></label>
+                                <input type="text" class="form-control" name="" id="numero_item" aria-describedby="helpId" placeholder="">
+                                <small id="helpId" class="form-text text-muted">Número de item de la carpeta: </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha_inicio">Fecha inicio: </label>
+                                <input type="date" id="fecha_inicio" name="" class="custom-select custom-select-lg mb-3">
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha_final">Fecha final: </label>
+                                <input type="date" id="fecha_final" name="" class="custom-select custom-select-lg mb-3">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit" id="btnPrestamo"></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editar prestamo -->
+        <div id="EditPrestamo" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" id="modalheader-EditPrstm">
+                        <h5 class="modal-title" id="modal-title_Prstm"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                    </div>
+                    <?php
+
+                    $sqldv_edit1 = mysqli_query($con, "SELECT * FROM carpetas");
+
+                    $sqldv_edit2 = mysqli_query($con, "SELECT * FROM usuarios");
+
+                    ?>
+                    <form id="FormEditPrestamo">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control form-control-sm" name="" id="IDEdit" aria-describedby="helpId" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="id_usuarioEdit">Documento de identidad : </label>
+                                <select class="form-control" id="id_usuarioEdit">
+                                    <?php
+
+                                    while ($sql_row_edit2 = mysqli_fetch_assoc($sqldv_edit2)) {  ?>
+                                        <option value="<?php echo $sql_row_edit2['usu_id']; ?>"><?php echo $sql_row_edit2['usu_id'] . " - " . $sql_row_edit2['usu_nombre_cmplt']; ?></option>
+                                        <small class="form-text text-muted">Este corresponde a la persona que tendrá la carpeta. </small>
+
+                                    <?php  } ?>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for=""></label>
+                                <input type="text" class="form-control" name="" id="numero_itemEdit" aria-describedby="helpId" placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha_inicio">Fecha inicio: </label>
+                                <input type="date" id="fecha_inicioEdit" name="" class="custom-select custom-select-lg mb-3">
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha_final">Fecha final: </label>
+                                <input type="date" id="fecha_finalEdit" name="" class="custom-select custom-select-lg mb-3">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit" id="btnEditPrestamo"></button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
     </div>
 
+
+    </div>
     <?php include("templates/footer_admin.php"); ?>
 
 <?php } ?>

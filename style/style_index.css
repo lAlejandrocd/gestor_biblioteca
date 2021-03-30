@@ -7,3 +7,11 @@ body{
 
 }
 
+#login .container #login-row #login-column #login-box{
+    margin-top: 70px;
+    max-height: 600px;
+    height: 150px;
+    box-shadow: 2px 2px 2px 2px #343a40 ;
+    border-radius: 3px;
+}
+
